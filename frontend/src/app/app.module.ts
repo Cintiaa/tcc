@@ -10,24 +10,17 @@ import { MatListModule } from '@angular/material/list';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AlunoComponent } from './aluno/aluno.component';
-import { RouterModule, Routes } from '@angular/router';
+import { routing } from './app.routing';
+import { HomeComponent } from './home/home.component';
 
-const appRoutes: Routes = [
-  {
-    path: 'aluno',
-    component: AlunoComponent,
-    data: {
-      title: 'Aluno'
-    }
-  },
-]
 
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
-    AlunoComponent
+    AlunoComponent,
+    HomeComponent
 
   ],
   imports: [
@@ -39,10 +32,7 @@ const appRoutes: Routes = [
     MatIconModule,
     MatListModule,
     BrowserAnimationsModule,
-    RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purpose only
-    ),
+    routing
   ],
   providers: [],
   bootstrap: [AppComponent]

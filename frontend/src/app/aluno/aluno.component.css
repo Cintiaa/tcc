@@ -1,0 +1,22 @@
+
+.header{
+    text-align: center;
+}
+
+.form-control {
+    width: 50%;
+}
+
+.form-control .form-label {
+    text-align: center;
+}
+
+.form-control-file, .form-control-range {
+    display: block;
+    width: 33%;
+    padding-top: 12px;
+}
+
+.custom-file {
+    margin-left: 299px;
+}

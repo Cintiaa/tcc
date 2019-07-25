@@ -1,32 +1,56 @@
+<div class="header">
+    <h3>Aluno</h3>
+</div>
+
 <div class=" row container">
-    <div class="col-sm-8">
+    <div class="col-10 align-self-center ">
         <form>
             <div class="form-group">
-                <label for="ra">RA:</label>
-                <input type="number" class="form-control" id="ra">
+                <div class="d-flex justify-content-center">
+                    <label class="col-sm-2 col-form-label" for="ra">RA: </label>
+                    <input type="number" class="form-control" id="ra">
+                </div>
             </div>
             <div class="form-group">
-                <label for="nome">Nome Completo:</label>
-                <input type="text" class="form-control">
+                <div class="d-flex justify-content-center">
+                    <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
+                    <input type="text" class="form-control" id="nome">
+                </div>
             </div>
             <div class="form-group">
-                <label for="curso">Curso</label>
-                <select class="form-control" id="curso">
-                    <option>Bacharelado em Engenharia de Software</option>
-                    <option>Engenharia da Computação</option>
-                    <option>Engenharia de Controle e Automação</option>
-                    <option>Engenharia Elétrica</option>
-                    <option>Engenharia Eletrônica</option>
-                    <option>Engenharia Mecânica</option>
-                    <option>Licenciatura em Matemática</option>
-                    <option>Tecnologia em Análise e Desenvolvimento de Sistemas</option>
-                </select>
+                <div class="d-flex justify-content-center">
+                    <label class="col-sm-2 col-form-label" for="sobrenome">Sobrenome: </label>
+                    <input type="text" class="form-control" id="sobrenome">
+                </div>
             </div>
             <div class="form-group">
-                <label for="exampleFormControlFile1">Imagem Facial do Aluno</label>
-                <input type="file" class="form-control-file" id="exampleFormControlFile1">
+                <div class="d-flex justify-content-center">
+                    <label class="col-sm-2 col-form-label" for="curso">Curso: </label>
+                    <select class="form-control" id="curso">
+                        <option></option>
+                        <option>Bacharelado em Engenharia de Software</option>
+                        <option>Engenharia da Computação</option>
+                        <option>Engenharia de Controle e Automação</option>
+                        <option>Engenharia Elétrica</option>
+                        <option>Engenharia Eletrônica</option>
+                        <option>Engenharia Mecânica</option>
+                        <option>Licenciatura em Matemática</option>
+                        <option>Tecnologia em Análise e Desenvolvimento de Sistemas</option>
+                    </select>
+                </div>
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="input-group">
+                <div class="d-flex justify-content-center">
+                    <div class="input-group-prepend">
+                    </div>
+                    <div class="custom-file">
+                        <input type="file" class="custom-file-input" id="inputGroupFile01"
+                            aria-describedby="inputGroupFileAddon01">
+                        <label class="custom-file-label" for="inputGroupFile01">Imagem</label>
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary mb-2">Cadastrar</button>
         </form>
     </div>
 </div>
