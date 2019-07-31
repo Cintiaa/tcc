@@ -1,6 +1,6 @@
 
 .header{
-    text-align: center;
+    margin-top: 50px;
 }
 
 .form-control {
@@ -13,7 +13,7 @@
 
 .form-control-file, .form-control-range {
     display: block;
-    width: 33%;
+    width: 100%;
     padding-top: 12px;
 }
 

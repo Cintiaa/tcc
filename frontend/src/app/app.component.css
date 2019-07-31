@@ -1,6 +1,11 @@
+.mat-drawer-container {
+  background-color: #ffffff;
+}
+
 .mat-drawer-content {
     height: 960px;
 }
+
 .drawer-container {
     width: 400px;
     height: 200px;
