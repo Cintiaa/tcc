@@ -8,7 +8,7 @@
 }
 
 .form-control .form-label {
-    text-align: center;
+    text-align: left;
 }
 
 .form-control-file, .form-control-range {
@@ -18,5 +18,9 @@
 }
 
 .custom-file {
-    margin-left: 299px;
+    margin-left: 148px;
+}
+
+.mb-2{
+    margin-top: 25px;
 }

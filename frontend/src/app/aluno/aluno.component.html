@@ -1,56 +1,63 @@
-<div class="header">
+<div class="container">
     <h3>Aluno</h3>
+    <hr>
 </div>
 
-<div class=" row container">
-    <div class="col-10 align-self-center ">
-        <form>
-            <div class="form-group">
-                <div class="d-flex justify-content-center">
-                    <label class="col-sm-2 col-form-label" for="ra">RA: </label>
-                    <input type="number" class="form-control" id="ra">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="d-flex justify-content-center">
-                    <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
-                    <input type="text" class="form-control" id="nome">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="d-flex justify-content-center">
-                    <label class="col-sm-2 col-form-label" for="sobrenome">Sobrenome: </label>
-                    <input type="text" class="form-control" id="sobrenome">
-                </div>
-            </div>
-            <div class="form-group">
-                <div class="d-flex justify-content-center">
-                    <label class="col-sm-2 col-form-label" for="curso">Curso: </label>
-                    <select class="form-control" id="curso">
-                        <option></option>
-                        <option>Bacharelado em Engenharia de Software</option>
-                        <option>Engenharia da Computação</option>
-                        <option>Engenharia de Controle e Automação</option>
-                        <option>Engenharia Elétrica</option>
-                        <option>Engenharia Eletrônica</option>
-                        <option>Engenharia Mecânica</option>
-                        <option>Licenciatura em Matemática</option>
-                        <option>Tecnologia em Análise e Desenvolvimento de Sistemas</option>
-                    </select>
-                </div>
-            </div>
-            <div class="input-group">
-                <div class="d-flex justify-content-center">
-                    <div class="input-group-prepend">
+<div class="container">
+    <div class="card">
+        <div class="card-body row">
+            <div class="col-10 align-self-left ">
+                <form>
+                    <div class="form-group">
+                        <div class="d-flex justify-content-left">
+                            <label class="col-sm-2 col-form-label" for="ra">RA: </label>
+                            <input type="number" class="form-control" id="ra">
+                        </div>
                     </div>
-                    <div class="custom-file">
-                        <input type="file" class="custom-file-input" id="inputGroupFile01"
-                            aria-describedby="inputGroupFileAddon01">
-                        <label class="custom-file-label" for="inputGroupFile01">Imagem</label>
+                    <div class="form-group">
+                        <div class="d-flex justify-content-left">
+                            <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
+                            <input type="text" class="form-control" id="nome">
+                        </div>
                     </div>
-                </div>
+                    <div class="form-group">
+                        <div class="d-flex justify-content-left">
+                            <label class="col-sm-2 col-form-label" for="sobrenome">Sobrenome: </label>
+                            <input type="text" class="form-control" id="sobrenome">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex justify-content-left">
+                            <label class="col-sm-2 col-form-label" for="curso">Curso: </label>
+                            <select class="form-control" id="curso">
+                                <option></option>
+                                <option>Bacharelado em Engenharia de Software</option>
+                                <option>Engenharia da Computação</option>
+                                <option>Engenharia de Controle e Automação</option>
+                                <option>Engenharia Elétrica</option>
+                                <option>Engenharia Eletrônica</option>
+                                <option>Engenharia Mecânica</option>
+                                <option>Licenciatura em Matemática</option>
+                                <option>Tecnologia em Análise e Desenvolvimento de Sistemas</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="input-group">
+                        <div class="d-flex justify-content-left">
+                            <div class="input-group-prepend">
+                                <div class="custom-file">
+                                    <input type="file" class="custom-file-input" id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">Imagem</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
-            <button type="submit" class="btn btn-primary mb-2">Cadastrar</button>
-        </form>
+        </div>
+    </div>
+    <div class="d-flex justify-content-right">
+        <button type="submit" class="btn btn-primary mb-2">Cadastrar</button>
     </div>
 </div>

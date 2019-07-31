@@ -1,12 +1,13 @@
+import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component } from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 
 @Component({
-    // tslint:disable-next-line: component-selector
-    selector: 'aluno',
     templateUrl: 'aluno.component.html',
     styleUrls: ['aluno.component.css']
-})
+  })
 
-export class AlunoComponent {
-    constructor() { }
+export class AlunoComponent { 
+  title = 'Aluno';
+  constructor(){}
 }
