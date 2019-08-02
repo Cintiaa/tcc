@@ -12,6 +12,10 @@ import { BreakpointState, Breakpoints, BreakpointObserver } from '@angular/cdk/l
 export class AppComponent {
   title = 'Home';
 
+  constructor(){
+
+  }
+
   /* constructor(iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     iconRegistry.addSvgIcon(
         'hamIcon',
@@ -19,6 +23,6 @@ export class AppComponent {
   
       }
  */
-  isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
-  constructor(private breakpointObserver: BreakpointObserver) { }
+  /* isHandset: Observable<BreakpointState> = this.breakpointObserver.observe(Breakpoints.Handset);
+  constructor(private breakpointObserver: BreakpointObserver) { } */
 }

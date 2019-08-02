@@ -4,7 +4,7 @@ import { AlunoComponent } from './aluno/aluno.component';
 import { HomeComponent } from './home/home.component';
 
 
-const appRoutes: Routes = [
+export const routes: Routes = [
     {
         path: '',
         component: HomeComponent
@@ -16,6 +16,6 @@ const appRoutes: Routes = [
             title: 'Aluno'
         }
     },
-];
+]
 
-export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
+//export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);

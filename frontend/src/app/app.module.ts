@@ -16,14 +16,16 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
-import { routing } from './app.routing';
+import { MenuComponent } from './menu/menu.component';
+import { routes } from './app.routing';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlunoComponent,
     HomeComponent,
-    ProfessorComponent
+    ProfessorComponent,
+    MenuComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +37,7 @@ import { routing } from './app.routing';
     LayoutModule,
     MatButtonModule,
     HttpClientModule,
-    routing
+    RouterModule.forRoot(routes)
   ],
   providers: [],
   bootstrap: [AppComponent]
