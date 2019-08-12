@@ -18,6 +18,9 @@ import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 import { routes } from './app.routing';
+import { CursoCadastroComponent } from './curso/curso-cadastro.component';
+import { FormsModule } from '@angular/forms';
+import { CursoListaComponent } from './curso/curso-lista/curso-lista.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import { routes } from './app.routing';
     AlunoComponent,
     HomeComponent,
     ProfessorComponent,
-    MenuComponent
+    MenuComponent,
+    CursoCadastroComponent,
+    CursoListaComponent
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,8 @@ import { routes } from './app.routing';
     LayoutModule,
     MatButtonModule,
     HttpClientModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
