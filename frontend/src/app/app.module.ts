@@ -17,10 +17,13 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
-import { routes } from './app.routing';
+
 import { CursoCadastroComponent } from './curso/curso-cadastro.component';
 import { FormsModule } from '@angular/forms';
 import { CursoListaComponent } from './curso/curso-lista/curso-lista.component';
+import { AppRoutingModule } from './app.routing.module';
+import { AlunoModule } from './aluno/aluno.module';
+//import { AppRoutes } from './app.routing.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,7 @@ import { CursoListaComponent } from './curso/curso-lista/curso-lista.component';
     ProfessorComponent,
     MenuComponent,
     CursoCadastroComponent,
-    CursoListaComponent
+    CursoListaComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,8 +45,9 @@ import { CursoListaComponent } from './curso/curso-lista/curso-lista.component';
     LayoutModule,
     MatButtonModule,
     HttpClientModule,
-    RouterModule.forRoot(routes),
-    FormsModule
+    FormsModule,
+    AlunoModule,
+    AppRoutingModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

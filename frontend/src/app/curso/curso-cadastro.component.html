@@ -1,6 +1,6 @@
 <div class="container header">
-    <h3>Curso</h3>
-    <hr>
+  <h3>Curso</h3>
+  <hr>
 </div>
 
 <div class="container">
@@ -8,60 +8,35 @@
     <div class="card-body row">
       <div class="col-10 align-self-left ">
         <form (ngSubmit)="onSubmit()" #f="ngForm">
-          <div
-            ngModelGroup = "formData"
-            #formData="ngModelGroup"
-            class="form-group">
+          <div ngModelGroup="formData" #formData="ngModelGroup" class="form-group">
             <div class="d-flex justify-content-left">
-                <label class="col-sm-2 col-form-label" for="id">Código: </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="id"
-                  name="id"
-                  ngModel
-                  required
-                  #id="ngModel"
-                  >
-                  <div class="col-sm-3">
-                    <small
-                      *ngIf = "!id.valid && id.touched"
-                      class="text-danger">
-                      Esse item é obrigatório.
-                    </small>
-                  </div>
+              <label class="col-sm-2 col-form-label" for="id">Código: </label>
+              <input type="text" class="form-control" id="id" name="id" ngModel required #id="ngModel">
+              <div class="col-sm-3">
+                <small *ngIf="!id.valid && id.touched" class="text-danger">
+                  Esse item é obrigatório.
+                </small>
+              </div>
             </div>
           </div>
           <div class="form-group">
             <div class="d-flex justify-content-left">
-                <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="nome"
-                  name="nome"
-                  ngModel
-                  required
-                  #nome="ngModel">
-                <div class="col-sm-3">
-                  <small
-                    *ngIf = "!nome.valid && nome.touched"
-                    class="text-danger">
-                    Esse item é obrigatório.
-                  </small>
-                </div>
+              <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
+              <input type="text" class="form-control" id="nome" name="nome" ngModel required #nome="ngModel">
+              <div class="col-sm-3">
+                <small *ngIf="!nome.valid && nome.touched" class="text-danger">
+                  Esse item é obrigatório.
+                </small>
+              </div>
             </div>
           </div>
         </form>
       </div>
     </div>
   </div>
-    <div class="d-flex justify-content-end">
-        <button
-          type="submit"
-          class="btn btn-primary mb-2"
-          [disabled]="!f.valid">
-          Cadastrar
-        </button>
-    </div>
+  <div class="d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary mb-2" [disabled]="!f.valid">
+      Cadastrar
+    </button>
+  </div>
 </div>
