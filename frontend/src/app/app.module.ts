@@ -18,11 +18,10 @@ import { MatListModule } from '@angular/material/list';
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
 
-import { CursoCadastroComponent } from './curso/curso-cadastro.component';
 import { FormsModule } from '@angular/forms';
-import { CursoListaComponent } from './curso/curso-lista/curso-lista.component';
 import { AppRoutingModule } from './app.routing.module';
 import { AlunoModule } from './aluno/aluno.module';
+import { CursoModule } from './curso/curso.module';
 //import { AppRoutes } from './app.routing.module';
 
 @NgModule({
@@ -32,8 +31,6 @@ import { AlunoModule } from './aluno/aluno.module';
     HomeComponent,
     ProfessorComponent,
     MenuComponent,
-    CursoCadastroComponent,
-    CursoListaComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,6 +44,7 @@ import { AlunoModule } from './aluno/aluno.module';
     HttpClientModule,
     FormsModule,
     AlunoModule,
+    CursoModule,
     AppRoutingModule,
   ],
   providers: [],

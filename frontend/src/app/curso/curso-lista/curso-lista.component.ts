@@ -8,10 +8,20 @@ import { Curso } from '../curso.model';
 @Component({
   selector: 'app-curso-lista',
   templateUrl: './curso-lista.component.html',
-  styleUrls: ['./curso-lista.component.css']
+  styleUrls: ['../curso.css']
 })
 export class CursoListaComponent implements OnInit {
   cursosArray: Array<Curso> = [];
+  filteredCursos: Array<Curso> = [];
+
+  _inputBusca: string;
+  get inputBusca(): string {
+      return this._inputBusca;
+  }
+  set inputBusca(value: string) {
+      this._inputBusca = value;
+      this.filteredCursos = this.inputBusca ? this.performFilter(this.inputBusca) : this.cursosArray;
+  }
 
   constructor(private cursoService: CursoService,
               private router: Router,
@@ -19,10 +29,22 @@ export class CursoListaComponent implements OnInit {
 
   ngOnInit() {
     this.cursosArray = this.cursoService.fetchCursos();
+    this.filteredCursos = this.cursosArray;
   }
 
-  onNewCurso() {
-    this.router.navigate(['../newCurso'], {relativeTo: this.route});
+  performFilter(filterBy: string): Curso[] {
+        filterBy = filterBy.toLocaleLowerCase();
+        return this.cursosArray.filter((curso: Curso) =>
+              curso.id.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+              curso.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
+  }
+
+  onBuscar() {
+    this.performFilter(this.inputBusca);
+  }
+
+  onLimparInput() {
+    this.inputBusca = '';
   }
 
 }
