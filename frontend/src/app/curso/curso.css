@@ -1,9 +1,10 @@
+
 .header{
     margin-top: 50px;
 }
 
 .form-control {
-    width: 50%;
+    width: 40%;
 }
 
 .form-control .form-label {
@@ -22,4 +23,15 @@
 
 .mb-2{
     margin-top: 25px;
+    margin-right: 12px;
+}
+
+.bt-pesquisa{
+    margin-top: -25px;
+    padding-left: 30px;
+}
+
+.btn-primary{
+    background-color: #3d21d2eb;
+    border-color: #2700ff;
 }

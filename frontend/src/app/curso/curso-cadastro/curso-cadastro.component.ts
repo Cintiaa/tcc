@@ -4,7 +4,7 @@ import { ActivatedRoute, Params } from '@angular/router';
 @Component({
   selector: 'app-curso-cadastro',
   templateUrl: './curso-cadastro.component.html',
-  styleUrls: ['./curso-cadastro.component.css']
+  styleUrls: ['../curso.css']
 })
 export class CursoCadastroComponent implements OnInit {
   id: string;

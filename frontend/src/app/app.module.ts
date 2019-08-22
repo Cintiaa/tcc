@@ -18,10 +18,8 @@ import { AlunoModule } from './aluno/aluno.module';
 import { AlunoComponent } from './aluno/aluno.component';
 import { ProfessorModule } from './professor/professor.module';
 import { ProfessorComponent } from './professor/professor.component';
-import { CursoCadastroComponent } from './curso/curso-cadastro.component';
-import { CursoListaComponent } from './curso/curso-lista/curso-lista.component';
 import { AppRoutingModule } from './app.routing.module';
-
+import { CursoModule } from './curso/curso.module';
 //import { AppRoutes } from './app.routing.module';
 
 @NgModule({
@@ -32,8 +30,6 @@ import { AppRoutingModule } from './app.routing.module';
     HomeComponent,
     ProfessorComponent,
     MenuComponent,
-    CursoCadastroComponent,
-    CursoListaComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +44,7 @@ import { AppRoutingModule } from './app.routing.module';
     FormsModule,
     AlunoModule,
     ProfessorModule,
+    CursoModule,
     AppRoutingModule,
   ],
   providers: [],
