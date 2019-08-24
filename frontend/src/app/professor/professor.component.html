@@ -1,1 +1,40 @@
-<h1>Professor</h1>
+<div class="container header">
+    <div class="row">
+        <div class="col-6">
+            <h3>Professor</h3>
+        </div>
+        <div class="col-6">
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mb-2" (click)="AdicionarProfessor()">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+</div>
+
+<div class="container">
+    <div class="card">
+        <div class="card-body row">
+            <div class="col-10 align-self-left ">
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-2 col-form-label" for="ra">RA: </label>
+                        <input type="number" class="form-control" id="ra">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-2 col-form-label" for="nome">Nome: </label>
+                        <input type="text" class="form-control" id="nome">
+
+                        <div class="bt-pesquisa">
+                            <button type="submit" class="btn btn-primary mb-2" (click)="buscar()">Pesquisar</button>
+                            <button type="submit" class="btn btn-primary mb-2" (click)="limparInput()">Limpar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
