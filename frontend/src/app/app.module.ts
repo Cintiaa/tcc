@@ -22,6 +22,7 @@ import { FormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app.routing.module';
 import { AlunoModule } from './aluno/aluno.module';
 import { CursoModule } from './curso/curso.module';
+import { DisciplinaComponent } from './disciplina/disciplina.component';
 //import { AppRoutes } from './app.routing.module';
 
 @NgModule({
@@ -31,6 +32,7 @@ import { CursoModule } from './curso/curso.module';
     HomeComponent,
     ProfessorComponent,
     MenuComponent,
+    DisciplinaComponent,
   ],
   imports: [
     BrowserModule,

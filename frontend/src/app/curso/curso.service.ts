@@ -20,4 +20,20 @@ export class CursoService {
   fetchCursos() {
     return this.cursosArray.slice();
   }
+
+  getCurso(index: number) {
+    return this.cursosArray[index];
+  }
+
+  addCurso(curso: Curso) {
+    this.cursosArray.push(curso);
+  }
+
+  updateCurso(curso: Curso, index: number) {
+    this.cursosArray[index] = curso;
+  }
+
+  deleteCurso(index: number) {
+    this.cursosArray.splice(index, 1);
+  }
 }

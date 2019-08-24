@@ -20,7 +20,8 @@
           <a
             class="list-group-item"
             style="cursor: pointer"
-            *ngFor="let curso of filteredCursos">
+            *ngFor="let curso of filteredCursos; let i = index"
+            [routerLink]="['./', i]">
             {{ curso.id }}: {{ curso.name }}
           </a>
         </ul>

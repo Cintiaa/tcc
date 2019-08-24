@@ -6,17 +6,22 @@ import { CursoComponent } from './curso.component';
 
 export const CursoRoutes: Routes = [
   {
-      path: 'curso',
-      component: CursoComponent,
-      data: {
-          title: 'Curso'
-      },
+    path: 'curso',
+    component: CursoComponent,
+    data: {
+        title: 'Curso'
+    },
   },
   {
-    path: 'newCurso',
+    path: 'curso/new',
     component: CursoCadastroComponent
   },
+  {
+    path: 'curso/:index',
+    component: CursoCadastroComponent
+  }
 ];
+
 
 @NgModule({
     imports: [RouterModule.forChild(CursoRoutes)],
