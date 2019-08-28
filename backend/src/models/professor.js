@@ -1,6 +1,6 @@
 const db = require('../config/db');
 
-const Professor = db.sequelize.define('Professor', {
+const Professor = db.sequelize.define('Professores', {
     IdProfessor: {
         autoIncrement: true,
         type: db.Sequelize.INTEGER,
@@ -16,7 +16,6 @@ const Professor = db.sequelize.define('Professor', {
         type: db.Sequelize.BOOLEAN
     },
 });
-
 
 //Professor.sync({ force: true });
 module.exports = Professor;
