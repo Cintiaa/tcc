@@ -1,8 +1,9 @@
 const Sequelize = require('sequelize');
 
 //criação da conexão com o banco de dados SQL Server
+//database: reconhecimentoFacial, user: sa, password: teste123
 const sequelize = new Sequelize('reconhecimentoFacial', 'sa', 'teste123', {
-    host: 'DESKTOP-8LPOM0K',
+    host: 'localhost',
     dialect: 'mssql',
     dialectOptions: {
         encrypt: true

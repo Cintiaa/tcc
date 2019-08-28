@@ -1,8 +1,7 @@
 const db = require('../config/db');
-const Curso = require('./curso');
 
-const Aluno = db.sequelize.define('Alunos', {
-    IdAluno: {
+const Professor = db.sequelize.define('Professor', {
+    IdProfessor: {
         autoIncrement: true,
         type: db.Sequelize.INTEGER,
         primaryKey: true
@@ -18,11 +17,8 @@ const Aluno = db.sequelize.define('Alunos', {
     },
 });
 
-//Faz a associação de chave estrangeira na tabela de Aluno
-Curso.hasMany(Aluno, {as: 'Alunos'})
 
-
-//Aluno.sync({ force: true });
-module.exports = Aluno;
+//Professor.sync({ force: true });
+module.exports = Professor;
 
 
