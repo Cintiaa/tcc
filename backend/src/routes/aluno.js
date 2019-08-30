@@ -12,9 +12,9 @@ router.get('/', (req, res, next) => {
     res.render('home');
 });
 
-//Rota de busca
+//Busca somente os alunos que estão ativos (IsDeleted = 0)
 router.get('/busca', (req, res, next) => {
-    alunoModel.findAll().then((alunos) => {
+    alunoModel.findAll({where:{ IsDeleted: 0}}).then((alunos) => {
         res.status(200).json({ alunos })
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
@@ -36,4 +36,27 @@ router.post('/newAluno', (req, res, next) => {
     })
 });
 
+//Remove Aluno da listagem ao setar o IsDeleted com 1 
+router.put('/remove', (req, res, next) => {
+    alunoModel.update(
+        { IsDeleted: 1 },
+        { where: { IdAluno: req.body.IdAluno } }
+    ).then(() => {
+        res.status(200).json({ sucess: 'Aluno excluído com sucesso!' })
+    }).catch((err) => {
+        res.status(400).json({ error: 'Houve um erro na exclusão. Por favor tente mais tarde!', err });
+    });
+});
+
+//Edita Nome Aluno
+router.put('/edit', (req, res, next) => {
+    alunoModel.update(
+        { Nome: req.body.Nome },
+        { where: { IdAluno: req.body.IdAluno } }
+    ).then(() => {
+        res.status(200).json({ sucess: 'Aluno atualizado com sucesso!' })
+    }).catch((err) => {
+        res.status(400).json({ error: 'Houve um erro na atualização. Por favor tente mais tarde!', err });
+    });
+});
 module.exports = router;

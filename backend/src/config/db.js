@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const secret = require('./secret');
 
 //criação da conexão com o banco de dados SQL Server
-//Criar um arquivo secret para receber a senha do banco de dados 
+//Criar um arquivo secret para receber a senha do usuário
 const sequelize = new Sequelize('reconhecimentoFacial', 'sa', secret.DATABASE_PASSWORD, {
     host: 'localhost',
     dialect: 'mssql',

@@ -7,10 +7,10 @@ const ImagemFace = db.sequelize.define('ImagemFaces', {
         type: db.Sequelize.INTEGER,
         primaryKey: true
     },
-    type: {
+    Tipo: {
         type: db.Sequelize.STRING
     },
-    TxImagem: {
+    Descricao: {
         type: db.Sequelize.STRING
     },
     Data: {
@@ -19,6 +19,14 @@ const ImagemFace = db.sequelize.define('ImagemFaces', {
     IsDeleted: {
         type: db.Sequelize.BOOLEAN
     },
+    createdAt: {
+        allowNull: false,
+        type: db.Sequelize.DATE
+    },
+    updatedAt: {
+        allowNull: false,
+        type: db.Sequelize.DATE
+    }
 });
 
 //Faz a associação de chave estrangeira na tabela de ImagemFace
