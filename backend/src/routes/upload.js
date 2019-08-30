@@ -1,22 +1,25 @@
 const express = require('express');
-const fs = require('fs');
-const db = require('../config/db');
-const Image = require('../models/imagemFace');
 const upload = require('../config/upload');
+const fs = require('fs');
+const Image = require('../models/imagemFace');
 
 const router = express.Router();
 
-router.post('/uploadfile', upload.single("uploadfile"), (req, res, next) =>{
+router.post('/uploadfile', upload.single("file"), (req, res) => {
     Image.create({
-       type: req.file.mimetype,
-       TxImagem: req.file.originalname,
-       Data: fs.readFileSync(__basedir + 'src/backend/public/uploads' + req.file.filename)
-    }).then(imagens =>{
-        fs.writeFileSync(__basedir + 'src/backend/public/images/' + imagens.TxImagem, imagens.Data);
-        res.status(200).json({'message': 'Upload de imagem realizado com sucesso!', 'file': req.file});
+        type: req.file.mimetype,
+        TxImagem: req.file.originalname,
+        Data: fs.readFileSync(__basedir + '/resources/static/assets/uploads/' + req.file.filename),
+        IsDeleted: 0,
+        AlunoIdAluno: req.body.AlunoIdAluno,
+    }).then(image => {
+        fs.writeFileSync(__basedir + '/resources/static/assets/tmp/' + image.TxImagem, image.Data);
+        res.status(200).json({ 'message': 'Upload de imagem realizado com sucesso!', 'file': req.file });
     }).catch((err) => {
-        res.status(400).json({'error': 'Falha ao carregar imagem', err});
+        console.log(err);
+        res.status(400).json({ 'error': 'Falha ao carregar imagem', err });
     })
-    
 });
+
+
 module.exports = router;
