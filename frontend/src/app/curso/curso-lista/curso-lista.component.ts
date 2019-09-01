@@ -35,8 +35,8 @@ export class CursoListaComponent implements OnInit {
   performFilter(filterBy: string): Curso[] {
         filterBy = filterBy.toLocaleLowerCase();
         return this.cursosArray.filter((curso: Curso) =>
-              curso.id.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
-              curso.name.toLocaleLowerCase().indexOf(filterBy) !== -1);
+              curso.sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+              curso.nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   onBuscar() {
@@ -46,5 +46,4 @@ export class CursoListaComponent implements OnInit {
   onLimparInput() {
     this.inputBusca = '';
   }
-
 }

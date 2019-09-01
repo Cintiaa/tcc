@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CursoCadastroComponent } from './curso-cadastro/curso-cadastro.component';
 import { CursoComponent } from './curso.component';
+import { AssociarCursoDisciplinaComponent } from './associar-curso-disciplina/associar-curso-disciplina.component';
 
 export const CursoRoutes: Routes = [
   {
@@ -19,6 +20,10 @@ export const CursoRoutes: Routes = [
   {
     path: 'curso/:index',
     component: CursoCadastroComponent
+  },
+  {
+    path: 'curso/addDisciplina/:index',
+    component: AssociarCursoDisciplinaComponent
   }
 ];
 

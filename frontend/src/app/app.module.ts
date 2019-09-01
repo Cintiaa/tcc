@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
+
 
 import { HomeComponent } from './home/home.component';
 import { MenuComponent } from './menu/menu.component';
@@ -20,7 +22,7 @@ import { ProfessorModule } from './professor/professor.module';
 import { ProfessorComponent } from './professor/professor.component';
 import { AppRoutingModule } from './app.routing.module';
 import { CursoModule } from './curso/curso.module';
-import { DisciplinaComponent } from './disciplina/disciplina.component';
+import { DisciplinaModule } from './disciplina/disciplina.module';
 //import { AppRoutes } from './app.routing.module';
 
 @NgModule({
@@ -31,7 +33,6 @@ import { DisciplinaComponent } from './disciplina/disciplina.component';
     HomeComponent,
     ProfessorComponent,
     MenuComponent,
-    DisciplinaComponent,
   ],
   imports: [
     BrowserModule,
@@ -40,6 +41,7 @@ import { DisciplinaComponent } from './disciplina/disciplina.component';
     MatSidenavModule,
     MatIconModule,
     MatListModule,
+    AngularFontAwesomeModule,
     LayoutModule,
     MatButtonModule,
     HttpClientModule,
@@ -47,6 +49,7 @@ import { DisciplinaComponent } from './disciplina/disciplina.component';
     AlunoModule,
     ProfessorModule,
     CursoModule,
+    DisciplinaModule,
     AppRoutingModule,
   ],
   providers: [],

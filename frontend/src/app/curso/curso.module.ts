@@ -7,6 +7,7 @@ import { CursoRoutingModule } from './curso.routing.module';
 import { CursoComponent } from './curso.component';
 import { CursoCadastroComponent } from './curso-cadastro/curso-cadastro.component';
 import { CursoListaComponent } from './curso-lista/curso-lista.component';
+import { AssociarCursoDisciplinaComponent } from './associar-curso-disciplina/associar-curso-disciplina.component';
 
 @NgModule({
     imports: [
@@ -19,7 +20,8 @@ import { CursoListaComponent } from './curso-lista/curso-lista.component';
     declarations: [
       CursoCadastroComponent,
       CursoListaComponent,
-      CursoComponent
+      CursoComponent,
+      AssociarCursoDisciplinaComponent
     ],
     providers: []
 })
