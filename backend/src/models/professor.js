@@ -16,7 +16,8 @@ const Professor = db.sequelize.define('Professores', {
         type: db.Sequelize.STRING
     },
     IsDeleted: {
-        type: db.Sequelize.BOOLEAN
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false,
     },
     createdAt: {
         allowNull: false,

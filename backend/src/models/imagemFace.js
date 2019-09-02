@@ -17,7 +17,17 @@ const ImagemFace = db.sequelize.define('ImagemFaces', {
         type: db.Sequelize.BLOB('long')
     },
     IsDeleted: {
-        type: db.Sequelize.BOOLEAN
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false,
+    },
+
+    IdAluno: {
+        type: db.Sequelize.INTEGER,
+        references: {
+            model: 'Alunos',
+            key: 'IdAluno'
+        },
+        allowNull: false
     },
     createdAt: {
         allowNull: false,
@@ -28,9 +38,6 @@ const ImagemFace = db.sequelize.define('ImagemFaces', {
         type: db.Sequelize.DATE
     }
 });
-
-//Faz a associação de chave estrangeira na tabela de ImagemFace
-Aluno.hasMany(ImagemFace, {as: 'ImagemFaces'})
 
 
 //ImagemFace.sync({ force: true });

@@ -1,5 +1,5 @@
 const db = require('../config/db');
-const Curso = require('./curso');
+const ImagemFace = require('./imagemFace');
 
 const Aluno = db.sequelize.define('Alunos', {
     IdAluno: {
@@ -16,8 +16,17 @@ const Aluno = db.sequelize.define('Alunos', {
     Nome: {
         type: db.Sequelize.STRING
     },
+    IdCurso: {
+        type: db.Sequelize.INTEGER,
+        references: {
+            model: 'Cursos',
+            key: 'IdCurso'
+        },
+        allowNull: false
+    },
     IsDeleted: {
-        type: db.Sequelize.BOOLEAN
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false,
     },
     createdAt: {
         allowNull: false,
@@ -29,8 +38,10 @@ const Aluno = db.sequelize.define('Alunos', {
     }
 });
 
-//Faz a associação de chave estrangeira na tabela de Aluno
-Curso.hasMany(Aluno, { as: 'Alunos' })
+//Faz a associação de chave estrangeira na tabela de ImagemFace
+Aluno.associate = (ImagemFaces) => {
+    Aluno.hasMany(ImagemFace, { as: 'ImagemFaces' });
+}
 
 
 //Força a criação da tabela

@@ -1,5 +1,6 @@
 const db = require('../config/db');
 const Curso = require('./curso');
+const CursoDisciplina = require('./cursoDisciplina');
 
 const Disciplina = db.sequelize.define('Disciplina', {
     IdDisciplina: {
@@ -17,7 +18,8 @@ const Disciplina = db.sequelize.define('Disciplina', {
         type: db.Sequelize.STRING
     },
     IsDeleted: {
-        type: db.Sequelize.BOOLEAN
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false,
     },
     createdAt: {
         allowNull: false,
@@ -28,6 +30,18 @@ const Disciplina = db.sequelize.define('Disciplina', {
         type: db.Sequelize.DATE
     }
 });
+
+Disciplina.associate = (Curso) => {
+    Disciplina.belongsToMany(Curso, {
+        through: {
+            model: CursoDisciplina,
+            unique: false
+        },
+        as: 'disciplinas',
+        foreignKey: 'IdDisciplina'
+    });
+}
+
 
 //Faz a associação de chave estrangeira na tabela de Disciplina
 //Curso.hasMany(Disciplina, {as: 'Disciplinas'})

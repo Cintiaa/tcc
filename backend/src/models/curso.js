@@ -1,4 +1,6 @@
 const db = require('../config/db');
+const CursoDisciplina = require('./cursoDisciplina');
+const Disciplina = require('./disciplina');
 
 const Curso = db.sequelize.define('Cursos', {
     IdCurso: {
@@ -16,7 +18,8 @@ const Curso = db.sequelize.define('Cursos', {
         type: db.Sequelize.STRING
     },
     IsDeleted: {
-        type: db.Sequelize.BOOLEAN
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false,
     },
     createdAt: {
         allowNull: false,
@@ -27,6 +30,26 @@ const Curso = db.sequelize.define('Cursos', {
         type: db.Sequelize.DATE
     }
 });
+
+//Faz uma associação 1:n entre Curso e Aluno
+Curso.associate = (Aluno) => {
+    Curso.hasMany(Aluno, {
+        as: 'alunos'
+    })
+}
+
+
+//Faz a associação n:m entre Curso e Disciplina
+Curso.associate = (Disciplina) => {
+    Curso.belongsToMany(Disciplina, {
+        through: {
+            model: CursoDisciplina,
+            unique: false
+        },
+        as: 'cursos',
+        foreignKey: 'IdCurso'
+    });
+}
 
 
 //Curso.sync({force: true});

@@ -1,6 +1,8 @@
 const express = require('express');
 const disciplinaModel = require('../models/Disciplina');
 
+
+
 const router = express.Router();
 
 /* GET Disciplina page. */
@@ -14,7 +16,7 @@ router.get('/', (req, res, next) => {
 
 //Retorna somente as disciplinas que possuem IsDeleted = 0
 router.get('/busca', (req, res, next) => {
-    disciplinaModel.findAll({where:{ IsDeleted: 0}}).then((disciplinas) => {
+    disciplinaModel.findAll({ where: { IsDeleted: 0 } }).then((disciplinas) => {
         res.status(200).json({ disciplinas })
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
@@ -22,18 +24,19 @@ router.get('/busca', (req, res, next) => {
 });
 
 /* POST Disciplina */
-router.post('/newDisciplina', (req, res, next) => {
-    disciplinaModel.create({
-        Sigla: req.body.Sigla,
-        Nome: req.body.Nome,
-        IsDeleted: 0,
-        CursoIdCurso: req.body.CursoIdCurso
-        }).then(() => {
-            res.status(200).json({ sucess: 'Disciplina cadastrada com sucesso!' });
-            /* res.redirect('/'); */
-        }).catch((err) => {
-            res.status(400).json({ error: 'Houve um erro. Por favor tente mais tarde!', err });
-        })
+router.post('/newDisciplina', async (req, res) => {
+    try {
+        const { cursos, ... data} = req.body;
+        const disciplinas = await disciplinaModel.create(data);
+    
+        if(cursos && cursos.length > 0 ){
+            disciplinas.setCurso(cursos);
+            console.log(cursos);
+        }
+        return res.status(200).json({ sucess: 'Disciplina cadastrada com sucesso!' });
+    } catch (err) {
+        return res.status(400).json({ error: 'Houve um erro. Por favor tente mais tarde!', err });
+    }
 });
 
 //Remove Disciplina da listagem ao setar o IsDeleted com 1 
