@@ -1,0 +1,80 @@
+<div class="container header">
+  <h3>Disciplina: {{ disciplina.sigla }} - {{ disciplina.nome }}</h3>
+  <hr>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="card-body row">
+      <div class="col-8 align-self-left ">
+        <h5>Lista de Disciplinas:</h5>
+        <ul class="list-group">
+          <div
+            class ="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let curso of cursosDisciplinaArray; let i = index">
+            <a
+              style="cursor: pointer"
+              [routerLink]="['/curso', i]">
+              {{ curso.sigla }}: {{ curso.nome }}
+            </a>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="onDeleteCurso(i)">
+                <span class="fa fa-minus"></span>
+            </button>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="card">
+    <div class="card-body row">
+      <div class="col-10 align-self-left ">
+        <h5>Adicionar a novos Cursos:</h5>
+        <div class="form-group">
+            <div class="d-flex justify-content-left">
+                <label class="col-2 col-form-label" for="busca">Busca: </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  [(ngModel)]="inputBusca">
+                <div class="bt-pesquisa">
+                    <button class="btn btn-primary mb-2" (click)="onBuscar()">Pesquisar</button>
+                    <button class="btn btn-primary mb-2" (click)="onLimparInput()">Limpar</button>
+                </div>
+            </div>
+        </div>
+        <ul class="list-group">
+          <div
+            class ="list-group-item d-flex justify-content-between align-items-center"
+            *ngFor="let curso of filteredCursos; let i = index">
+            <a
+              style="cursor: pointer"
+              [routerLink]="['/curso', i]">
+              {{ curso.sigla }}: {{ curso.nome }}
+            </a>
+            <button
+              type="button"
+              class="btn btn-primary btn-sm"
+              (click)="onAddCurso(i)"
+              *ngIf="checkCursoOnList(curso)">
+                <span class="fa fa-plus"></span>
+            </button>
+          </div>
+        </ul>
+      </div>
+      <div class="col-10 align-self-left">
+          <div class="d-flex justify-content-end">
+              <button
+                type="submit"
+                class="btn btn-primary mb-2"
+                [routerLink]="['/curso/new']">Adicionar Novo Curso</button>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>

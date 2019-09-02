@@ -3,22 +3,22 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 
-import { CursoService } from '../curso.service';
-import { Curso } from '../curso.model';
+import { DisciplinaService } from '../disciplina.service';
+import { Disciplina } from '../disciplina.model';
 
 @Component({
-  selector: 'app-curso-cadastro',
-  templateUrl: './curso-cadastro.component.html',
-  styleUrls: ['../curso.css']
+  selector: 'app-disciplina-cadastro',
+  templateUrl: './disciplina-cadastro.component.html',
+  styleUrls: ['../disciplina.css']
 })
-export class CursoCadastroComponent implements OnInit {
+export class DisciplinaCadastroComponent implements OnInit {
   // @ViewChild('f', { static: false }) form: NgForm;
   form: FormGroup;
   index: number;
   editMode = false;
-  cursoItem: Curso;
+  disciplinaItem: Disciplina;
 
-  constructor(private cursoService: CursoService,
+  constructor(private disciplinaService: DisciplinaService,
               private router: Router,
               private route: ActivatedRoute) { }
 
@@ -30,7 +30,7 @@ export class CursoCadastroComponent implements OnInit {
           this.index = params['index'];
           this.editMode = params['index'] != null;
           if (this.editMode) {
-            this.cursoItem = this.cursoService.getCurso(this.index);
+            this.disciplinaItem = this.disciplinaService.getDisciplina(this.index);
           }
           this.initForm();
         }
@@ -41,8 +41,8 @@ export class CursoCadastroComponent implements OnInit {
     let siglaItem = '';
     let nomeItem = '';
     if (this.editMode) {
-      siglaItem = this.cursoItem.sigla;
-      nomeItem = this.cursoItem.nome;
+      siglaItem = this.disciplinaItem.sigla;
+      nomeItem = this.disciplinaItem.nome;
     }
     this.form = new FormGroup({
       'sigla': new FormControl(siglaItem, Validators.required),
@@ -59,18 +59,18 @@ export class CursoCadastroComponent implements OnInit {
   }
 
   onSubmit() {
-    const newCurso = new Curso(this.form.value.sigla, this.form.value.nome);
+    const newDisciplina = new Disciplina(this.form.value.sigla, this.form.value.nome);
     if (this.editMode) {
-      this.cursoService.updateCurso(newCurso, this.index);
+      this.disciplinaService.updateDisciplina(newDisciplina, this.index);
     } else {
-      this.cursoService.addCurso(newCurso);
+      this.disciplinaService.addDisciplina(newDisciplina);
     }
-    this.router.navigate(['curso']);
+    this.router.navigate(['disciplina']);
   }
 
   onDelete() {
-    this.cursoService.deleteCurso(this.index);
-    this.router.navigate(['curso']);
+    this.disciplinaService.deleteDisciplina(this.index);
+    this.router.navigate(['disciplina']);
   }
 
   onClear() {

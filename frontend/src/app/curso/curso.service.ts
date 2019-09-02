@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Curso } from './curso.model';
+import { Disciplina } from '../disciplina/disciplina.model';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,18 @@ export class CursoService {
                                 new Curso('EM', 'Engenharia Mecânica'),
                                 new Curso('LM', 'Licenciatura em Matemática'),
                                 new Curso('AS', 'Tecnologia em Análise e Desenvolvimento de Sistemas')];
+
+  // Primeiro índice diz respeito a cursos, que contem disciplinas
+  cursosDisciplinasArray = [[new Disciplina('ES31A', 'Introdução A Engenharia De Software'),
+                             new Disciplina('ES31B', 'Matemática Discreta'),
+                             new Disciplina('ES31C', 'Laboratório De Informática')],
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            [],
+                            []];
   constructor() { }
 
   fetchCursos() {
@@ -35,5 +48,17 @@ export class CursoService {
 
   deleteCurso(index: number) {
     this.cursosArray.splice(index, 1);
+  }
+
+  fetchCursoDisciplina(indexCurso: number) {
+    return this.cursosDisciplinasArray[indexCurso].slice();
+  }
+
+  deleteCursoDisciplina(indexCurso: number, indexDisciplina: number) {
+    this.cursosDisciplinasArray[indexCurso].splice(indexDisciplina, 1);
+  }
+
+  addCursoDisciplina(indexCurso: number, disciplina: Disciplina) {
+    this.cursosDisciplinasArray[indexCurso].push(disciplina);
   }
 }
