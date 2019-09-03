@@ -31,8 +31,8 @@ const Disciplina = db.sequelize.define('Disciplina', {
     }
 });
 
-Disciplina.associate = (Curso) => {
-    Disciplina.belongsToMany(Curso, {
+Disciplina.associate = (models) => {
+    Disciplina.belongsToMany(models.Cursos, {
         through: {
             model: CursoDisciplina,
             unique: false

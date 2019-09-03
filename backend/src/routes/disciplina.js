@@ -1,6 +1,6 @@
 const express = require('express');
 const disciplinaModel = require('../models/Disciplina');
-
+const cursoDisciplina = require('../models/cursoDisciplina');
 
 
 const router = express.Router();
@@ -26,16 +26,21 @@ router.get('/busca', (req, res, next) => {
 /* POST Disciplina */
 router.post('/newDisciplina', async (req, res) => {
     try {
-        const { cursos, ... data} = req.body;
+        const { cursos, ...data } = req.body;
         const disciplinas = await disciplinaModel.create(data);
-    
-        if(cursos && cursos.length > 0 ){
-            disciplinas.setCurso(cursos);
+
+        if (cursos && cursos.length > 0) {
+            for (let i = 0; i < cursos.length; i++) {
+                cursoDisciplina.create({
+                    IdDisciplina: disciplinas.IdDisciplina,
+                    IdCurso: cursos[i]
+                });
+            }
             console.log(cursos);
         }
-        return res.status(200).json({ sucess: 'Disciplina cadastrada com sucesso!' });
+        return res.status(200).json(disciplinas);
     } catch (err) {
-        return res.status(400).json({ error: 'Houve um erro. Por favor tente mais tarde!', err });
+        return res.status(400).json({ err });
     }
 });
 

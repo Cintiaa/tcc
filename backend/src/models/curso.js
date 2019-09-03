@@ -40,8 +40,8 @@ Curso.associate = (Aluno) => {
 
 
 //Faz a associação n:m entre Curso e Disciplina
-Curso.associate = (Disciplina) => {
-    Curso.belongsToMany(Disciplina, {
+Curso.associate = (models) => {
+    Curso.belongsToMany(models.Disciplinas, {
         through: {
             model: CursoDisciplina,
             unique: false
