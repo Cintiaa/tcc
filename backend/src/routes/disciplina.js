@@ -1,6 +1,7 @@
 const express = require('express');
 const disciplinaModel = require('../models/Disciplina');
 const cursoDisciplina = require('../models/cursoDisciplina');
+const curso = require('../models/curso');
 
 
 const router = express.Router();
