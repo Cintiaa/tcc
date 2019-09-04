@@ -43,6 +43,15 @@ Disciplina.associate = (models) => {
 }
 
 
+Disciplina.associate = (models) => {
+    Disciplina.belongsToMany(models.Professores, {
+        through: ProfessorDisciplina,
+        as: 'disciplinaProfessor',
+        foreignKey: 'IdDisciplina'
+    });
+}
+
+
 //Faz a associação de chave estrangeira na tabela de Disciplina
 //Curso.hasMany(Disciplina, {as: 'Disciplinas'})
 

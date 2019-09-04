@@ -29,6 +29,17 @@ const Professor = db.sequelize.define('Professores', {
     }
 });
 
+
+//Faz a associação n:m entre Professor e Disciplina
+Professor.associate = (models) => {
+    Professor.belongsToMany(models.Disciplinas, {
+        through: ProfessorDisciplina,
+        as: 'professores',
+        foreignKey: 'IdProfessor'
+    });
+}
+
+
 //Professor.sync({ force: true });
 module.exports = Professor;
 
