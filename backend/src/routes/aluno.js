@@ -27,7 +27,7 @@ router.post('/newAluno', (req, res, next) => {
         RA: req.body.RA,
         Nome: req.body.Nome,
         IsDeleted: 0,
-        CursoIdCurso: req.body.CursoIdCurso,
+        IdCurso: req.body.IdCurso,
     }).then(() => {
         res.status(200).json({ sucess: 'Aluno cadastrado com sucesso!' });
         /* res.redirect('/'); */

@@ -1,26 +1,24 @@
 const db = require('../config/db');
-const ImagemFace = require('./imagemFace');
+const Disciplina = require('./disciplina');
 
-const Aluno = db.sequelize.define('Alunos', {
-    IdAluno: {
+
+const Turma = db.sequelize.define('Turma', {
+    IdTurma: {
         autoIncrement: true,
         allowNull: false,
         type: db.Sequelize.INTEGER,
         primaryKey: true
     },
-    RA: {
+    Sigla: {
         type: db.Sequelize.STRING,
         unique: true,
         allowNull: false,
     },
-    Nome: {
-        type: db.Sequelize.STRING
-    },
-    IdCurso: {
+    IdDisciplina: {
         type: db.Sequelize.INTEGER,
         references: {
-            model: 'Cursos',
-            key: 'IdCurso'
+            model: 'Disciplinas',
+            key: 'IdDisciplina'
         },
         allowNull: false
     },
@@ -38,30 +36,26 @@ const Aluno = db.sequelize.define('Alunos', {
     }
 });
 
-//Faz a associação de chave estrangeira na tabela de ImagemFace
-Aluno.associate = (models) => {
-    Aluno.hasMany(models.ImagemFaces, {
-        as: 'ImagemFaces',
-        foreignKey: 'IdAluno'
-    });
-}
-
-
-
-Aluno.associate = (models) => {
-    Aluno.belongsToMany(models.Turmas, {
+Turma.associate = (models) => {
+    Turma.belongsToMany(models.Alunos, {
         through: {
             model: TurmaAlunos,
             unique: false
         },
-        as: 'alunos',
-        foreignKey: 'IdAluno'
+        as: 'turmas',
+        foreignKey: 'IdTurma'
     });
 }
 
+//Faz a associação de chave estrangeira na tabela de Turma
+Disciplina.hasMany(Turma, {
+    as: 'Turmas',
+    foreignKey: 'IdDisciplina'
+})
 
-//Força a criação da tabela
-//Aluno.sync({ force: true });
-module.exports = Aluno;
+//Comentar sempre após criar a tabela através do model, para não criar tabela duplicada no banco
+//para criar a tabela executar o comando node [nome do model] ex. node turma.js
+//Turma.sync({ force: true });
 
 
+module.exports = Turma;

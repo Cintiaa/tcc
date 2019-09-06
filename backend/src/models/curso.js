@@ -34,7 +34,8 @@ const Curso = db.sequelize.define('Cursos', {
 //Faz uma associação 1:n entre Curso e Aluno
 Curso.associate = (Aluno) => {
     Curso.hasMany(Aluno, {
-        as: 'alunos'
+        as: 'alunos',
+        foreignKey: 'IdCurso'
     })
 }
 
