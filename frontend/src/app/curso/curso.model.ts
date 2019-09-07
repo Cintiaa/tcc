@@ -1,3 +1,8 @@
 export class Curso {
-  constructor(public sigla: string, public nome: string) {}
+  constructor(public IdCurso: number,
+              public Sigla: string,
+              public Nome: string,
+              public IsDeleted: boolean,
+              public createdAt: Date,
+              public updatedAt: Date) {}
 }

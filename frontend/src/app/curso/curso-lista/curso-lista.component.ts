@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 import { CursoService } from '../curso.service';
 import { Curso } from '../curso.model';
-
 
 @Component({
   selector: 'app-curso-lista',
   templateUrl: './curso-lista.component.html',
   styleUrls: ['../curso.css']
 })
-export class CursoListaComponent implements OnInit {
+export class CursoListaComponent implements OnInit, OnDestroy {
   cursosArray: Array<Curso> = [];
   filteredCursos: Array<Curso> = [];
+  cursoSubscription: Subscription;
 
   _inputBusca: string;
   get inputBusca(): string {
@@ -28,15 +29,24 @@ export class CursoListaComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.cursoSubscription = this.cursoService.cursosChanged
+      .subscribe((cursos: Curso[]) => {
+        this.cursosArray = cursos;
+        this.filteredCursos = this.cursosArray;
+      });
     this.cursosArray = this.cursoService.fetchCursos();
     this.filteredCursos = this.cursosArray;
+  }
+
+  ngOnDestroy() {
+    this.cursoSubscription.unsubscribe();
   }
 
   performFilter(filterBy: string): Curso[] {
         filterBy = filterBy.toLocaleLowerCase();
         return this.cursosArray.filter((curso: Curso) =>
-              curso.sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
-              curso.nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
+              curso.Sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+              curso.Nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   onBuscar() {

@@ -46,11 +46,11 @@ export class AssociarDisciplinaCursoComponent implements OnInit {
       );
   }
 
-  performFilter(filterBy: string): Disciplina[] {
+  performFilter(filterBy: string): Curso[] {
         filterBy = filterBy.toLocaleLowerCase();
-        return this.cursosAllArray.filter((curso: Disciplina) =>
-              curso.sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
-              curso.nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
+        return this.cursosAllArray.filter((curso: Curso) =>
+              curso.Sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+              curso.Nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   onBuscar() {
@@ -72,7 +72,7 @@ export class AssociarDisciplinaCursoComponent implements OnInit {
   }
 
   checkCursoOnList(curso: Curso) {
-    if (this.cursosDisciplinaArray.some(data => data.sigla === curso.sigla)) {
+    if (this.cursosDisciplinaArray.some(data => data.Sigla === curso.Sigla)) {
       return false;
     }
     return true;

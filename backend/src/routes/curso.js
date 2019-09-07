@@ -13,7 +13,7 @@ router.get('/', (req, res, next) => {
 });
 
 //Retorno somente os cursos que possuem IsDeleted = 0
-router.get('/busca', (req, res, next) => { 
+router.get('/busca', (req, res, next) => {
     cursoModel.findAll({where:{ IsDeleted: 0}}).then((cursos) => {
         res.status(200).json({ cursos })
     }).catch((err) => {
@@ -27,15 +27,15 @@ router.post('/newCurso', (req, res, next) => {
         Sigla: req.body.Sigla,
         Nome: req.body.Nome,
         IsDeleted: 0,
-    }).then(() => {
-        res.status(200).json({ sucess: 'Curso cadastrado com sucesso!' });
+    }).then(curso => {
+        res.status(200).json({ sucess: 'Curso cadastrado com sucesso!', curso});
         /* res.redirect('/'); */
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro. Por favor tente mais tarde!', err });
     })
 });
 
-//Remove Curso da listagem ao setar o IsDeleted com 1 
+//Remove Curso da listagem ao setar o IsDeleted com 1
 router.put('/remove', (req, res, next) => {
     cursoModel.update(
         { IsDeleted: 1 },
@@ -49,9 +49,10 @@ router.put('/remove', (req, res, next) => {
 
 //Edita Nome Curso
 router.put('/edit', (req, res, next) => {
+    console.log(req.body);
     cursoModel.update(
-        { Sigla: req.body.Sigla },
-        { Nome: req.body.Nome },
+        { Sigla: req.body.Sigla,
+          Nome: req.body.Nome },
         { where: { IdCurso: req.body.IdCurso } }
     ).then(() => {
         res.status(200).json({ sucess: 'Curso atualizado com sucesso!' })

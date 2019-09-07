@@ -15,12 +15,14 @@ export class DisciplinaService {
                                 new Disciplina('ES31G', 'Lógica Para Computação')];
   // Primeiro índice diz respeito a Disciplina e segundo índice aos cursos a qual
   // essa disciplina esta vinculada
-  disciplinasCursosArray = [[new Curso('ES', 'Bacharelado em Engenharia de Software'),
-                             new Curso('EC', 'Engenharia da Computação')],
-                            [],
-                            [],
-                            [],
-                            []];
+  // disciplinasCursosArray = [[new Curso(1, 'ES', 'Bacharelado em Engenharia de Software'),
+  //                            new Curso(2, 'EC', 'Engenharia da Computação')],
+  //                           [],
+  //                           [],
+  //                           [],
+  //                           []];
+  disciplinasCursosArray = [];
+  
   constructor() { }
 
   fetchDisciplinas() {

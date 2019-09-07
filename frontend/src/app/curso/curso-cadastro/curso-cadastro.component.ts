@@ -41,8 +41,8 @@ export class CursoCadastroComponent implements OnInit {
     let siglaItem = '';
     let nomeItem = '';
     if (this.editMode) {
-      siglaItem = this.cursoItem.sigla;
-      nomeItem = this.cursoItem.nome;
+      siglaItem = this.cursoItem.Sigla;
+      nomeItem = this.cursoItem.Nome;
     }
     this.form = new FormGroup({
       'sigla': new FormControl(siglaItem, Validators.required),
@@ -59,11 +59,10 @@ export class CursoCadastroComponent implements OnInit {
   }
 
   onSubmit() {
-    const newCurso = new Curso(this.form.value.sigla, this.form.value.nome);
     if (this.editMode) {
-      this.cursoService.updateCurso(newCurso, this.index);
+      this.cursoService.updateCurso(this.form.value.sigla, this.form.value.nome, this.index, this.cursoItem);
     } else {
-      this.cursoService.addCurso(newCurso);
+      this.cursoService.addCurso(this.form.value.sigla, this.form.value.nome);
     }
     this.router.navigate(['curso']);
   }

@@ -1,5 +1,5 @@
 const express = require('express');
-const disciplinaModel = require('../models/Disciplina');
+const disciplinaModel = require('../models/disciplina');
 const cursoDisciplina = require('../models/cursoDisciplina');
 const curso = require('../models/curso');
 
@@ -45,7 +45,7 @@ router.post('/newDisciplina', async (req, res) => {
     }
 });
 
-//Remove Disciplina da listagem ao setar o IsDeleted com 1 
+//Remove Disciplina da listagem ao setar o IsDeleted com 1
 router.put('/remove', (req, res, next) => {
     disciplinaModel.update(
         { IsDeleted: 1 },

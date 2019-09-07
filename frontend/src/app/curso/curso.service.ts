@@ -1,21 +1,22 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 import { Curso } from './curso.model';
 import { Disciplina } from '../disciplina/disciplina.model';
+
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class CursoService {
+  cursoAddUrl = 'http://localhost:4200/api/curso/newCurso';
+  cursoEditUrl = 'http://localhost:4200/api/curso/edit';
+  cursoBuscaUrl = 'http://localhost:4200/api/curso/busca';
   // Salvo aqui por enquanto, mas depois vamos receber essa lista do servidor
   // backend a partir do que estiver armazenado no banco.
-  cursosArray: Array<Curso> = [ new Curso('ES', 'Bacharelado em Engenharia de Software'),
-                                new Curso('EC', 'Engenharia da Computação'),
-                                new Curso('ECA', 'Engenharia de Controle e Automação'),
-                                new Curso('EEL', 'Engenharia Elétrica'),
-                                new Curso('EELT', 'Engenharia Eletrônica'),
-                                new Curso('EM', 'Engenharia Mecânica'),
-                                new Curso('LM', 'Licenciatura em Matemática'),
-                                new Curso('AS', 'Tecnologia em Análise e Desenvolvimento de Sistemas')];
+  private cursosArray: Array<Curso>;
+  cursosChanged = new Subject<Curso[]>();
 
   // Primeiro índice diz respeito a cursos, que contem disciplinas
   cursosDisciplinasArray = [[new Disciplina('ES31A', 'Introdução A Engenharia De Software'),
@@ -28,22 +29,45 @@ export class CursoService {
                             [],
                             [],
                             []];
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   fetchCursos() {
-    return this.cursosArray.slice();
+    this.http.get<any>(this.cursoBuscaUrl)
+      .subscribe(response => {
+        this.cursosArray = response.cursos;
+        this.cursosChanged.next(this.cursosArray.slice());
+    });
+
+    return (this.cursosArray ? this.cursosArray.slice() : []);
   }
 
   getCurso(index: number) {
     return this.cursosArray[index];
   }
 
-  addCurso(curso: Curso) {
-    this.cursosArray.push(curso);
+  addCurso(sigla: string, nome:string) {
+    this.http
+    .post<any>(this.cursoAddUrl,
+                {Sigla: sigla,
+                 Nome: nome})
+      .subscribe(response => {
+        console.log(response);
+      });
   }
 
-  updateCurso(curso: Curso, index: number) {
-    this.cursosArray[index] = curso;
+  updateCurso(sigla: string, nome:string, index: number, curso: Curso) {
+    this.http
+    .put<Curso>(this.cursoEditUrl,
+                {IdCurso: curso.IdCurso,
+                 Sigla: sigla,
+                 Nome: nome})
+      .subscribe(response => {
+        this.cursosArray[index] = curso;
+        this.cursosChanged.next(this.cursosArray.slice());
+        console.log(response);
+      });
+
+
   }
 
   deleteCurso(index: number) {

@@ -5,12 +5,17 @@ const secret = require('./secret');
 //Criar um arquivo secret para receber a senha do usuário
 const sequelize = new Sequelize('reconhecimentoFacial', 'sa', secret.DATABASE_PASSWORD, {
     host: 'localhost',
+    port: 1433,
     dialect: 'mssql',
     dialectOptions: {
-        encrypt: true
+        "options": {
+            "port": 1433
+            },
+        encrypt: true,
+        port: 1433
     },
     operatorAliases: false,
-
+    logging: console.log,
     pool: {
         max: 5,
         min: 0,
