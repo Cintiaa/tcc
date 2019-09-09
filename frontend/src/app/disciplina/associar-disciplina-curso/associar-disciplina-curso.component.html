@@ -1,5 +1,5 @@
-<div class="container header">
-  <h3>Disciplina: {{ disciplina.sigla }} - {{ disciplina.nome }}</h3>
+<div *ngIf="disciplina" class="container header">
+  <h3>Disciplina: {{ disciplina.Sigla }} - {{ disciplina.Nome }}</h3>
   <hr>
 </div>
 
@@ -7,15 +7,15 @@
   <div class="card">
     <div class="card-body row">
       <div class="col-8 align-self-left ">
-        <h5>Lista de Disciplinas:</h5>
+        <h5>Lista de Cursos:</h5>
         <ul class="list-group">
           <div
             class ="list-group-item d-flex justify-content-between align-items-center"
             *ngFor="let curso of cursosDisciplinaArray; let i = index">
             <a
               style="cursor: pointer"
-              [routerLink]="['/curso', i]">
-              {{ curso.sigla }}: {{ curso.nome }}
+              [routerLink]="['/curso', curso.IdCurso]">
+              {{ curso.Sigla }}: {{ curso.Nome }}
             </a>
             <button
               type="button"
@@ -54,8 +54,8 @@
             *ngFor="let curso of filteredCursos; let i = index">
             <a
               style="cursor: pointer"
-              [routerLink]="['/curso', i]">
-              {{ curso.sigla }}: {{ curso.nome }}
+              [routerLink]="['/curso', curso.IdCurso]">
+              {{ curso.Sigla }}: {{ curso.Nome }}
             </a>
             <button
               type="button"

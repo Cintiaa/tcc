@@ -21,10 +21,10 @@
             *ngFor="let disciplina of filteredDisciplinas; let i = index">
             <a
               style="cursor: pointer"
-              [routerLink]="['./', i]">
-              {{ disciplina.sigla }}: {{ disciplina.nome }}
+              [routerLink]="['./', disciplina.IdDisciplina]">
+              {{ disciplina.Sigla }}: {{ disciplina.Nome }}
             </a>
-            <button class="btn btn-primary btn-sm" [routerLink]="['./addCurso', i]">Ver Cursos</button>
+            <button class="btn btn-primary btn-sm" [routerLink]="['./addCurso', disciplina.IdDisciplina]">Ver Cursos</button>
           </div>
         </ul>
       </div>

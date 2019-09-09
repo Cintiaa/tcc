@@ -1,5 +1,5 @@
-<div class="container header">
-  <h3>Curso: {{ curso.sigla }} - {{ curso.nome }}</h3>
+<div *ngIf="curso" class="container header">
+  <h3>Curso: {{ curso.Sigla }} - {{ curso.Nome }}</h3>
   <hr>
 </div>
 
@@ -15,7 +15,7 @@
             <a
               style="cursor: pointer"
               [routerLink]="['/disciplina', i]">
-              {{ disciplina.sigla }}: {{ disciplina.nome }}
+              {{ disciplina.Sigla }}: {{ disciplina.Nome }}
             </a>
             <button
               type="button"
@@ -55,7 +55,7 @@
             <a
               style="cursor: pointer"
               [routerLink]="['/disciplina', i]">
-              {{ disciplina.sigla }}: {{ disciplina.nome }}
+              {{ disciplina.Sigla }}: {{ disciplina.Nome }}
             </a>
             <button
               type="button"

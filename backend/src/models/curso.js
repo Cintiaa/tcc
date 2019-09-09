@@ -1,5 +1,5 @@
 const db = require('../config/db');
-const CursoDisciplina = require('./cursoDisciplina');
+// const CursoDisciplina = require('./cursoDisciplina');
 const Disciplina = require('./disciplina');
 
 const Curso = db.sequelize.define('Cursos', {
@@ -32,28 +32,27 @@ const Curso = db.sequelize.define('Cursos', {
 });
 
 //Faz uma associação 1:n entre Curso e Aluno
-Curso.associate = (Aluno) => {
-    Curso.hasMany(Aluno, {
-        as: 'alunos',
+Curso.associate = (models) => {
+    // Curso.hasMany(Aluno, {
+    //     as: 'alunos',
+    //     foreignKey: 'IdCurso'
+    // })
+    Curso.belongsToMany(models.Disciplina, {
+        through: {
+            model: 'CursoDisciplina',
+            unique: false
+        },
         foreignKey: 'IdCurso'
-    })
+    });
+    console.log('Associacao feita');
 }
 
 
 //Faz a associação n:m entre Curso e Disciplina
-Curso.associate = (models) => {
-    Curso.belongsToMany(models.Disciplinas, {
-        through: {
-            model: CursoDisciplina,
-            unique: false
-        },
-        as: 'cursos',
-        foreignKey: 'IdCurso'
-    });
-}
+// Curso.associate = (models) => {
+
+// }
 
 
-//Curso.sync({force: true});
+// Curso.sync({force: true});
 module.exports = Curso;
-
-

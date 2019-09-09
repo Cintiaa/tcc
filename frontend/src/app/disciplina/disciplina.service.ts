@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { Disciplina } from './disciplina.model';
 import { Curso } from '../curso/curso.model';
 
@@ -6,54 +8,61 @@ import { Curso } from '../curso/curso.model';
   providedIn: 'root'
 })
 export class DisciplinaService {
-  // Salvo aqui por enquanto, mas depois vamos receber essa lista do servidor
-  // backend a partir do que estiver armazenado no banco.
-  disciplinasArray: Array<Disciplina> = [ new Disciplina('ES31A', 'Introdução A Engenharia De Software'),
-                                new Disciplina('ES31B', 'Matemática Discreta'),
-                                new Disciplina('ES31C', 'Laboratório De Informática'),
-                                new Disciplina('ES31D', 'Algoritmos'),
-                                new Disciplina('ES31G', 'Lógica Para Computação')];
-  // Primeiro índice diz respeito a Disciplina e segundo índice aos cursos a qual
-  // essa disciplina esta vinculada
-  // disciplinasCursosArray = [[new Curso(1, 'ES', 'Bacharelado em Engenharia de Software'),
-  //                            new Curso(2, 'EC', 'Engenharia da Computação')],
-  //                           [],
-  //                           [],
-  //                           [],
-  //                           []];
-  disciplinasCursosArray = [];
-  
-  constructor() { }
+  disciplinaAddUrl = 'http://localhost:4200/api/disciplina/new';
+  disciplinaEditUrl = 'http://localhost:4200/api/disciplina/edit';
+  disciplinaBuscaUrl = 'http://localhost:4200/api/disciplina/busca';
+  disciplinaBuscaSiglaUrl = 'http://localhost:4200/api/disciplina/buscaSigla';
+  disciplinaBuscaIdUrl = 'http://localhost:4200/api/disciplina/buscaId';
+  disciplinaRemoveUrl = 'http://localhost:4200/api/disciplina/remove';
+
+  constructor(private http: HttpClient) { }
 
   fetchDisciplinas() {
-    return this.disciplinasArray.slice();
+    return this.http.get<any>(this.disciplinaBuscaUrl);
+  }
+
+  fetchDisciplinaSigla(sigla: string): Observable<any> {
+     return (this.http
+       .post<any>(this.disciplinaBuscaSiglaUrl,
+                 {Sigla: sigla}));
   }
 
   getDisciplina(index: number) {
-    return this.disciplinasArray[index];
+    return this.http
+      .post<any>(this.disciplinaBuscaIdUrl,
+                {IdDisciplina: index});
   }
 
-  addDisciplina(disciplina: Disciplina) {
-    this.disciplinasArray.push(disciplina);
+  addDisciplina(sigla: string, nome:string) {
+    return this.http
+    .post<any>(this.disciplinaAddUrl,
+                {Sigla: sigla,
+                 Nome: nome});
   }
 
-  updateDisciplina(disciplina: Disciplina, index: number) {
-    this.disciplinasArray[index] = disciplina;
+  updateDisciplina(sigla: string, nome:string, index: number, disciplina: Disciplina) {
+    return this.http
+    .put<Disciplina>(this.disciplinaEditUrl,
+                {IdDisciplina: disciplina.IdDisciplina,
+                 Sigla: sigla,
+                 Nome: nome});
   }
 
-  deleteDisciplina(index: number) {
-    this.disciplinasArray.splice(index, 1);
+  deleteDisciplina(index: number, disciplina: Disciplina) {
+    return this.http
+      .put<Disciplina>(this.disciplinaRemoveUrl,
+                  {IdDisciplina: disciplina.IdDisciplina});
   }
 
   fetchDisciplinaCurso(indexDisciplina: number) {
-    return this.disciplinasCursosArray[indexDisciplina].slice();
+    // return this.disciplinasCursosArray[indexDisciplina].slice();
   }
 
   deleteDisciplinaCurso(indexDisciplina: number, indexCurso: number) {
-    this.disciplinasCursosArray[indexDisciplina].splice(indexCurso, 1);
+    // this.disciplinasCursosArray[indexDisciplina].splice(indexCurso, 1);
   }
 
   addDisciplinaCurso(indexDisciplina: number, curso: Curso) {
-    this.disciplinasCursosArray[indexDisciplina].push(curso);
+    // this.disciplinasCursosArray[indexDisciplina].push(curso);
   }
 }

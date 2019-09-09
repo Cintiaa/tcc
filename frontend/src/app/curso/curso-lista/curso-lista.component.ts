@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
 
 import { CursoService } from '../curso.service';
 import { Curso } from '../curso.model';
@@ -13,7 +12,6 @@ import { Curso } from '../curso.model';
 export class CursoListaComponent implements OnInit, OnDestroy {
   cursosArray: Array<Curso> = [];
   filteredCursos: Array<Curso> = [];
-  cursoSubscription: Subscription;
 
   _inputBusca: string;
   get inputBusca(): string {
@@ -29,17 +27,15 @@ export class CursoListaComponent implements OnInit, OnDestroy {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.cursoSubscription = this.cursoService.cursosChanged
-      .subscribe((cursos: Curso[]) => {
-        this.cursosArray = cursos;
+    this.cursoService.fetchCursos()
+      .subscribe(response => {
+        this.cursosArray = response.cursos;
         this.filteredCursos = this.cursosArray;
       });
-    this.cursosArray = this.cursoService.fetchCursos();
-    this.filteredCursos = this.cursosArray;
+
   }
 
   ngOnDestroy() {
-    this.cursoSubscription.unsubscribe();
   }
 
   performFilter(filterBy: string): Curso[] {

@@ -15,7 +15,7 @@ import { DisciplinaService } from '../../disciplina/disciplina.service';
 export class AssociarCursoDisciplinaComponent implements OnInit {
   index: number;
   curso: Curso;
-  disciplinasCursoArray: Array<Disciplina>;
+  disciplinasCursoArray: Array<Disciplina> = [];
   disciplinasAllArray: Array<Disciplina> = [];
   filteredDisciplinas: Array<Disciplina> = [];
 
@@ -38,10 +38,21 @@ export class AssociarCursoDisciplinaComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.index = params['index'];
-            this.curso = this.cursoService.getCurso(this.index);
-            this.disciplinasCursoArray = this.cursoService.fetchCursoDisciplina(this.index);
-            this.disciplinasAllArray = this.disciplinaService.fetchDisciplinas();
-            this.filteredDisciplinas = this.disciplinasAllArray;
+             this.cursoService.getCurso(this.index)
+              .subscribe(response => {
+                this.curso = response.curso;
+                this.cursoService.fetchCursoDisciplina(this.curso)
+                  .subscribe(response => {
+                    console.log(response);
+                    this.disciplinasCursoArray = response.disciplinas;
+                    console.log(this.disciplinasCursoArray);
+                  })
+              });
+            this.disciplinaService.fetchDisciplinas()
+              .subscribe(response => {
+                this.disciplinasAllArray = response.disciplinas;
+                this.filteredDisciplinas = this.disciplinasAllArray;
+              });
           }
       );
   }
@@ -49,8 +60,8 @@ export class AssociarCursoDisciplinaComponent implements OnInit {
   performFilter(filterBy: string): Disciplina[] {
         filterBy = filterBy.toLocaleLowerCase();
         return this.disciplinasAllArray.filter((disciplina: Disciplina) =>
-              disciplina.sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
-              disciplina.nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
+              disciplina.Sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+              disciplina.Nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   onBuscar() {
@@ -62,17 +73,23 @@ export class AssociarCursoDisciplinaComponent implements OnInit {
   }
 
   onDeleteDisciplina(indexDisciplina: number) {
-    this.cursoService.deleteCursoDisciplina(this.index, indexDisciplina);
-    this.disciplinasCursoArray = this.cursoService.fetchCursoDisciplina(this.index);
+    this.cursoService.deleteCursoDisciplina(this.curso, this.disciplinasCursoArray[indexDisciplina])
+    .subscribe(response => {
+      this.disciplinasCursoArray.splice(indexDisciplina,1);
+      console.log(response);
+    });
   }
 
   onAddDisciplina(indexDisciplina: number) {
-    this.cursoService.addCursoDisciplina(this.index, this.filteredDisciplinas[indexDisciplina]);
-    this.disciplinasCursoArray = this.cursoService.fetchCursoDisciplina(this.index);
+    this.cursoService.addCursoDisciplina(this.curso, this.filteredDisciplinas[indexDisciplina])
+      .subscribe(response => {
+        this.disciplinasCursoArray.push(this.filteredDisciplinas[indexDisciplina]);
+        console.log(response);
+      });
   }
 
   checkDisciplinaOnList(disciplina: Disciplina) {
-    if (this.disciplinasCursoArray.some(data => data.sigla === disciplina.sigla)) {
+    if (this.disciplinasCursoArray.some(data => data.Sigla === disciplina.Sigla)) {
       return false;
     }
     return true;
