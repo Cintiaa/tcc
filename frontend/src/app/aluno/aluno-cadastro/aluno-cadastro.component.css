@@ -23,9 +23,21 @@
 
 .mb-2{
     margin-top: 25px;
+    margin-right: 12px;
 }
 
 .btn-primary{
     background-color: #3d21d2eb;
     border-color: #2700ff;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #3d21d2eb;
+    border-color: #2700ff;
+}
+
+.bt-cadastro{
+    margin-top: 2px;
+    padding-left: 30px;
 }

@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { RouterModule, Routes, ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormControl, FormArray, Validators } from '@angular/forms';
+import { AlunoService } from '../services/aluno.service';
+import { CursoService } from '../services/curso.service';
 
 @Component({
   templateUrl: 'aluno.component.html',
@@ -10,32 +12,70 @@ import { FormBuilder, FormControl, FormArray, Validators } from '@angular/forms'
 
 export class AlunoComponent implements OnInit {
 
-  cadrAluno = false;
+  aluno: [];
+  curso: [];
+  alunoEdit: any;
+  cadtrAluno = false;
+  listaAluno = false;
 
   busca = {
-    ra: "",
-    nome: "",
+    RA: "",
+    Nome: "",
   }
 
   limparInput() {
     this.busca = {
-      ra: "",
-      nome: "",
+      RA: "",
+      Nome: "",
     }
   }
-
-  buscar(){}
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
+    private service: AlunoService,
+    private cursoService: CursoService,
   ) { }
 
   ngOnInit() {
+    this.cursoService.getAllCurso().subscribe(res => {
+      this.curso = res;
+      console.log(this.curso);
+    })
+
   }
 
-  AdicionarAluno() {
-    this.router.navigate(['newAluno']);
+  buscar() {
+    console.log('Busca', this.busca);
+    this.service.listarAlunos(this.busca).subscribe(res => {
+      this.aluno = res;
+      console.log(this.aluno);
+      if (res.length == 0) {
+        this.listaAluno = false;
+      } else {
+        this.listaAluno = true;
+      }
+    })
+  }
+
+  editarAluno(id) {
+    console.log(id);
+    this.service.buscaAlunoId(id).subscribe(res => {
+      this.alunoEdit = res;
+      console.log(res);
+      this.cadtrAluno = true;
+      this.listaAluno = false;
+    })
+  }
+
+  cadastroCallback(e) {
+    this.cadtrAluno = false;
+  }
+  
+  
+  AdicionarAluno(e) {
+    this.cadtrAluno = e;
+    //this.router.navigate(['newAluno']);
   }
 
 

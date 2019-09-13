@@ -1,48 +1,93 @@
 const express = require('express');
+const db = require('../config/db');
 const alunoModel = require('../models/aluno');
+const Cursos = require('../models/curso');
 
 const router = express.Router();
 
-/* GET curso page. */
+
+//Lista todos os alunos cadastrados que não foram excluídos (IsDeleted = 0)
 router.get('/', (req, res, next) => {
-    res.render('Aluno', { title: 'Aluno' });
+    alunoModel.findAll({ where: { IsDeleted: 0 } }).then((alunos) => {
+        res.status(200).json(alunos)
+    }).catch((err) => {
+        res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
+    })
 });
 
-router.get('/', (req, res, next) => {
-    res.render('home');
+router.get('/id', (req, res, next) => {
+    let IdAluno = req.query.IdAluno;
+    alunoModel.findAll({ where: { IdAluno: IdAluno, IsDeleted: 0 } }).then((alunos) => {
+        res.status(200).json(alunos)
+    }).catch((err) => {
+        res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
+    })
 });
 
-//Busca somente os alunos que estão ativos (IsDeleted = 0)
-router.get('/busca', (req, res, next) => {
-    alunoModel.findAll({where:{ IsDeleted: 0}}).then((alunos) => {
-        res.status(200).json({ alunos })
+//Retorna os alunos que coincidem com o RA e Nome buscados
+router.get('/busca', (req, res) => {
+    const Op = db.Sequelize.Op;
+
+    let RA = req.query.RA;
+    let Nome = req.query.Nome;
+    if (RA == null) {
+        RA = null;
+    }
+    if (Nome == null) {
+        Nome = null;
+    }
+    alunoModel.findAll({
+        where: {
+            RA: {
+                [Op.or]: {
+                    [Op.eq]: null,
+                    [Op.like]: '%' + RA + '%'
+                }
+            },
+            Nome: {
+                [Op.or]: {
+                    [Op.eq]: null,
+                    [Op.like]: '%' + Nome + '%'
+                }
+            },
+            IsDeleted: 0
+        }
+    }).then((alunos) => {
+
+        res.status(200).json(alunos);
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
     })
 });
 
 /* POST Aluno */
-router.post('/newAluno', (req, res, next) => {
-    alunoModel.create({
-        RA: req.body.RA,
-        Nome: req.body.Nome,
-        IsDeleted: 0,
-        IdCurso: req.body.IdCurso,
-    }).then(() => {
-        res.status(200).json({ sucess: 'Aluno cadastrado com sucesso!' });
-        /* res.redirect('/'); */
-    }).catch((err) => {
+router.post('/newAluno', async (req, res) => {
+    let RA = req.body.RA;
+    console.log(RA);
+
+    try {
+        if (await alunoModel.findOne({ where: { RA: RA } }))
+            return res.status(400).json({ error: 'RA já cadastrado!' });
+
+        const aluno = await alunoModel.create(req.body);
+        console.log(aluno);
+
+        return res.json({ aluno });
+    } catch (err) {
+        console.log(err);
         res.status(400).json({ error: 'Houve um erro. Por favor tente mais tarde!', err });
-    })
+    }
 });
 
 //Remove Aluno da listagem ao setar o IsDeleted com 1 
 router.put('/remove', (req, res, next) => {
+    let IdAluno = req.body.IdAluno;
+    console.log(IdAluno);
     alunoModel.update(
         { IsDeleted: 1 },
-        { where: { IdAluno: req.body.IdAluno } }
+        { where: { IdAluno: IdAluno } }
     ).then(() => {
-        res.status(200).json({ sucess: 'Aluno excluído com sucesso!' })
+        res.status(200).json({ sucess: 'Aluno removido com sucesso!' })
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na exclusão. Por favor tente mais tarde!', err });
     });
@@ -50,9 +95,12 @@ router.put('/remove', (req, res, next) => {
 
 //Edita Nome Aluno
 router.put('/edit', (req, res, next) => {
+    let IdAluno = req.body.IdAluno;
+    let Nome =  req.body.Nome;
+    let IdCurso = req.body.IdCurso;
     alunoModel.update(
-        { Nome: req.body.Nome },
-        { where: { IdAluno: req.body.IdAluno } }
+        { Nome: Nome, IdCurso: IdCurso  },
+        { where: { IdAluno: IdAluno } }
     ).then(() => {
         res.status(200).json({ sucess: 'Aluno atualizado com sucesso!' })
     }).catch((err) => {

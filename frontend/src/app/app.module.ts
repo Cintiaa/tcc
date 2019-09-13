@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule, Component } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
@@ -11,6 +11,7 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
+import { ToastrModule } from 'ngx-toastr';
 
 
 import { HomeComponent } from './home/home.component';
@@ -23,7 +24,9 @@ import { ProfessorComponent } from './professor/professor.component';
 import { AppRoutingModule } from './app.routing.module';
 import { CursoModule } from './curso/curso.module';
 import { DisciplinaModule } from './disciplina/disciplina.module';
+import { FooterComponent } from './footer/footer.component';
 //import { AppRoutes } from './app.routing.module';
+
 
 @NgModule({
   declarations: [
@@ -33,6 +36,7 @@ import { DisciplinaModule } from './disciplina/disciplina.module';
     HomeComponent,
     ProfessorComponent,
     MenuComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
@@ -46,11 +50,13 @@ import { DisciplinaModule } from './disciplina/disciplina.module';
     MatButtonModule,
     HttpClientModule,
     FormsModule,
+    ReactiveFormsModule,
     AlunoModule,
     ProfessorModule,
     CursoModule,
     DisciplinaModule,
     AppRoutingModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,7 +12,7 @@ import { Disciplina } from '../disciplina/disciplina.model';
 export class CursoService {
   cursoAddUrl = 'http://localhost:4200/api/curso/newCurso';
   cursoEditUrl = 'http://localhost:4200/api/curso/edit';
-  cursoBuscaUrl = 'http://localhost:4200/api/curso/busca';
+  cursoBuscaUrl = 'http://localhost:4200/api/curso/';
   // Salvo aqui por enquanto, mas depois vamos receber essa lista do servidor
   // backend a partir do que estiver armazenado no banco.
   private cursosArray: Array<Curso>;

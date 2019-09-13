@@ -19,14 +19,14 @@ export const AlunoRoutes: Routes = [
         path: 'newAluno',
         component: AlunoCadastroComponent,
     },
-    /*  {
+     {
          path: 'buscar',
          component: AlunoListaComponent,
      },
      {
          path: ':id/editar',
          component: AlunoCadastroComponent,
-     }, */
+     },
 
 ];
 

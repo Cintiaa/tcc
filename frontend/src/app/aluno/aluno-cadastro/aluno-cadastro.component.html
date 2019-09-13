@@ -1,51 +1,34 @@
-<div class="container header">
-    <h3>Aluno</h3>
-    <hr>
-</div>
-
 <div class="container">
     <div class="card">
         <div class="card-body row">
             <div class="col-10 align-self-left ">
-                <form>
+                <form [formGroup]="form" >
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="ra">RA: </label>
-                            <input type="number" class="form-control" id="ra">
+                            <input type="number" class="form-control" name="raAluno" formControlName="RA"
+                            [attr.disabled]="editando">  
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
-                            <input type="text" class="form-control" id="nome">
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="d-flex justify-content-left">
-                            <label class="col-sm-2 col-form-label" for="sobrenome">Sobrenome: </label>
-                            <input type="text" class="form-control" id="sobrenome">
+                            <input type="text" class="form-control" name="nomeAluno" formControlName="Nome">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="curso">Curso: </label>
-                            <select class="form-control" id="curso">
-                                <option></option>
-                                <option>Bacharelado em Engenharia de Software</option>
-                                <option>Engenharia da Computação</option>
-                                <option>Engenharia de Controle e Automação</option>
-                                <option>Engenharia Elétrica</option>
-                                <option>Engenharia Eletrônica</option>
-                                <option>Engenharia Mecânica</option>
-                                <option>Licenciatura em Matemática</option>
-                                <option>Tecnologia em Análise e Desenvolvimento de Sistemas</option>
-                            </select>
+                            <select class="form-control" name="cursoAluno" formControlName="IdCurso">
+                                <option value="{{c.IdCurso}}" *ngFor="let c of curso">{{c.Nome}}</option>
+                            </select>  
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="d-flex flex-column bd-highlight mb-3">
                             <div class="form-group">
-                                <label class="col-sm-6 col-form-label" for="exampleFormControlFile1">Inserir imagem: </label>
+                                <label class="col-sm-6 col-form-label" for="exampleFormControlFile1">Inserir imagem:
+                                </label>
                                 <input type="file" class="form-control-file" id="exampleFormControlFile1">
                             </div>
                         </div>
@@ -54,7 +37,10 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary mb-2">Cadastrar</button>
-    </div>
+</div>
+
+
+<div class=" bt-cadastro d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary mb-2" (click)="cadastrar(true)">Salvar</button>
+    <button type="submit" class="btn btn-outline-primary mb-2" (click)="cadastrar(false)" >Cancelar</button>
 </div>

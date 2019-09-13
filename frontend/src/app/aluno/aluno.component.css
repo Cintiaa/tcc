@@ -3,6 +3,10 @@
     margin-top: 50px;
 }
 
+.animated {
+    margin-bottom: 0;
+}
+
 .form-control {
     width: 40%;
 }
@@ -34,4 +38,31 @@
 .btn-primary{
     background-color: #3d21d2eb;
     border-color: #2700ff;
+}
+
+.aluno-lista {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.aluno-lista.show-component {
+    height: auto;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity .3s ease-in-out;
+}
+
+
+.aluno-cadastro {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.aluno-cadastro.show-component {
+    height: auto;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity .3s ease-in-out;
 }

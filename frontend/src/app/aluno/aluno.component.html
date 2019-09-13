@@ -3,9 +3,9 @@
         <div class="col-6">
             <h3>Aluno</h3>
         </div>
-        <div class="col-6">
+        <div class="col-6" [ngStyle]="{display: cadtrAluno? 'none':'block' }">
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary mb-2" (click)="AdicionarAluno()">Adicionar</button>
+                <button type="submit" class="btn btn-primary mb-2" (click)="AdicionarAluno(true)">Adicionar</button>
             </div>
         </div>
     </div>
@@ -13,20 +13,20 @@
     <hr>
 </div>
 
-<div class="container">
-    <div class="card">
+<div class="animated fadeIn container-fluid" style=" margin-top: -20px;">
+    <div class="card" [ngStyle]="{display: cadtrAluno? 'none':'block' }">
         <div class="card-body row">
-            <div class="col-10 align-self-left ">
+            <div class="col-10 align-self-left">
                 <div class="form-group">
                     <div class="d-flex justify-content-left">
-                        <label class="col-2 col-form-label" for="ra">RA: </label>
-                        <input type="number" class="form-control" id="ra">
+                        <label class="col-2 col-form-label" for="RA">RA: </label>
+                        <input type="number" class="form-control" name="RA" [(ngModel)]="busca.RA">
                     </div>
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-left">
-                        <label class="col-2 col-form-label" for="nome">Nome: </label>
-                        <input type="text" class="form-control" id="nome">
+                        <label class="col-2 col-form-label" for="Nome">Nome: </label>
+                        <input type="text" class="form-control" name="Nome" [(ngModel)]="busca.Nome">
 
                         <div class="bt-pesquisa">
                             <button type="submit" class="btn btn-primary mb-2" (click)="buscar()">Pesquisar</button>
@@ -37,8 +37,10 @@
             </div>
         </div>
     </div>
-    <!-- <div [ngClass]="{'show-component': cadtrAcompanhamento }">
-        <app-aluno-cadastro></app-aluno-cadastro>
-    </div>-->
-    <!-- <router-outlet></router-outlet>  -->
+    <div class="aluno-cadastro" [ngClass]="{'show-component': cadtrAluno }">
+        <aluno-cadastro [alunoEdit]="alunoEdit" (completed)="cadastroCallback($event)"></aluno-cadastro>
+    </div>
+    <div class="aluno-lista" [ngClass]="{'show-component': listaAluno }">
+        <aluno-lista [aluno]="aluno" (editar)="editarAluno($event)"></aluno-lista>
+    </div>
 </div>
