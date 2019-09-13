@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subject } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Curso } from './curso.model';
 import { Disciplina } from '../disciplina/disciplina.model';
 
@@ -10,79 +10,81 @@ import { Disciplina } from '../disciplina/disciplina.model';
   providedIn: 'root'
 })
 export class CursoService {
-  cursoAddUrl = 'http://localhost:4200/api/curso/newCurso';
+  cursoAddUrl = 'http://localhost:4200/api/curso/new';
   cursoEditUrl = 'http://localhost:4200/api/curso/edit';
   cursoBuscaUrl = 'http://localhost:4200/api/curso/';
-  // Salvo aqui por enquanto, mas depois vamos receber essa lista do servidor
-  // backend a partir do que estiver armazenado no banco.
-  private cursosArray: Array<Curso>;
-  cursosChanged = new Subject<Curso[]>();
+  cursoBuscaSiglaUrl = 'http://localhost:4200/api/curso/buscaSigla';
+  cursoBuscaIdUrl = 'http://localhost:4200/api/curso/buscaId';
+  cursoRemoveUrl = 'http://localhost:4200/api/curso/remove';
+  cursoDisciplinaAddUrl = 'http://localhost:4200/api/disciplina/newCursoDisciplina';
+  cursoDisciplinaBuscaUrl = 'http://localhost:4200/api/disciplina/buscaCursoDisciplina';
+  disciplinaCursoBuscaUrl = 'http://localhost:4200/api/disciplina/buscaDisciplinaCurso';
+  cursoDisciplinaRemoveUrl = 'http://localhost:4200/api/disciplina/removeCursoDisciplina';
 
-  // Primeiro índice diz respeito a cursos, que contem disciplinas
-  cursosDisciplinasArray = [[new Disciplina('ES31A', 'Introdução A Engenharia De Software'),
-                             new Disciplina('ES31B', 'Matemática Discreta'),
-                             new Disciplina('ES31C', 'Laboratório De Informática')],
-                            [],
-                            [],
-                            [],
-                            [],
-                            [],
-                            [],
-                            []];
   constructor(private http: HttpClient) { }
 
   fetchCursos() {
-    this.http.get<any>(this.cursoBuscaUrl)
-      .subscribe(response => {
-        this.cursosArray = response.cursos;
-        this.cursosChanged.next(this.cursosArray.slice());
-    });
+    return this.http.get<any>(this.cursoBuscaUrl);
 
-    return (this.cursosArray ? this.cursosArray.slice() : []);
+  }
+
+  fetchCursoSigla(sigla: string): Observable<any> {
+     return this.http
+       .post<any>(this.cursoBuscaSiglaUrl,
+                 {Sigla: sigla});
   }
 
   getCurso(index: number) {
-    return this.cursosArray[index];
+    return this.http
+      .post<any>(this.cursoBuscaIdUrl,
+                {IdCurso: index});
   }
 
   addCurso(sigla: string, nome:string) {
-    this.http
+    return this.http
     .post<any>(this.cursoAddUrl,
                 {Sigla: sigla,
-                 Nome: nome})
-      .subscribe(response => {
-        console.log(response);
-      });
+                 Nome: nome});
   }
 
-  updateCurso(sigla: string, nome:string, index: number, curso: Curso) {
-    this.http
+  updateCurso(sigla: string, nome:string, curso: Curso) {
+    return this.http
     .put<Curso>(this.cursoEditUrl,
                 {IdCurso: curso.IdCurso,
                  Sigla: sigla,
-                 Nome: nome})
-      .subscribe(response => {
-        this.cursosArray[index] = curso;
-        this.cursosChanged.next(this.cursosArray.slice());
-        console.log(response);
-      });
+                 Nome: nome});
+  }
 
+  deleteCurso(curso: Curso) {
+    return this.http
+      .put<Curso>(this.cursoRemoveUrl,
+                  {IdCurso: curso.IdCurso});
+  }
+
+  fetchCursoDisciplina(curso: Curso) {
+    return this.http
+      .post<any>(this.cursoDisciplinaBuscaUrl,
+                {IdCurso: curso.IdCurso});
 
   }
 
-  deleteCurso(index: number) {
-    this.cursosArray.splice(index, 1);
+  fetchDisciplinaCurso(disciplina: Disciplina) {
+    return this.http
+      .post<any>(this.disciplinaCursoBuscaUrl,
+                {IdDisciplina: disciplina.IdDisciplina});
   }
 
-  fetchCursoDisciplina(indexCurso: number) {
-    return this.cursosDisciplinasArray[indexCurso].slice();
+  deleteCursoDisciplina(curso: Curso, disciplina: Disciplina) {
+    return this.http
+      .post<any>(this.cursoDisciplinaRemoveUrl,
+                {IdCurso: curso.IdCurso,
+                 IdDisciplina: disciplina.IdDisciplina});
   }
 
-  deleteCursoDisciplina(indexCurso: number, indexDisciplina: number) {
-    this.cursosDisciplinasArray[indexCurso].splice(indexDisciplina, 1);
-  }
-
-  addCursoDisciplina(indexCurso: number, disciplina: Disciplina) {
-    this.cursosDisciplinasArray[indexCurso].push(disciplina);
+  addCursoDisciplina(curso: Curso, disciplina: Disciplina) {
+    return this.http
+      .post<any>(this.cursoDisciplinaAddUrl,
+                {IdCurso: curso.IdCurso,
+                 IdDisciplina: disciplina.IdDisciplina});
   }
 }

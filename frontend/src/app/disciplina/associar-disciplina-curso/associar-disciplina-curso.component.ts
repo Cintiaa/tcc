@@ -15,7 +15,7 @@ import { DisciplinaService } from '../disciplina.service';
 export class AssociarDisciplinaCursoComponent implements OnInit {
   index: number;
   disciplina: Disciplina;
-  cursosDisciplinaArray: Array<Curso>;
+  cursosDisciplinaArray: Array<Curso> = [];
   cursosAllArray: Array<Curso> = [];
   filteredCursos: Array<Curso> = [];
 
@@ -38,10 +38,21 @@ export class AssociarDisciplinaCursoComponent implements OnInit {
       .subscribe(
         (params: Params) => {
           this.index = params['index'];
-            this.disciplina = this.disciplinaService.getDisciplina(this.index);
-            this.cursosDisciplinaArray = this.disciplinaService.fetchDisciplinaCurso(this.index);
-            this.cursosAllArray = this.cursoService.fetchCursos();
-            this.filteredCursos = this.cursosAllArray;
+             this.disciplinaService.getDisciplina(this.index)
+              .subscribe(response => {
+                this.disciplina = response.disciplina;
+                this.cursoService.fetchDisciplinaCurso(this.disciplina)
+                  .subscribe(response => {
+                    console.log(response);
+                    this.cursosDisciplinaArray = response.cursos;
+                    console.log(this.cursosDisciplinaArray);
+                  })
+              });
+            this.cursoService.fetchCursos()
+              .subscribe(response => {
+                this.cursosAllArray = response.cursos;
+                this.filteredCursos = this.cursosAllArray;
+              });
           }
       );
   }
@@ -62,13 +73,19 @@ export class AssociarDisciplinaCursoComponent implements OnInit {
   }
 
   onDeleteCurso(indexCurso: number) {
-    this.disciplinaService.deleteDisciplinaCurso(this.index, indexCurso);
-    this.cursosDisciplinaArray = this.disciplinaService.fetchDisciplinaCurso(this.index);
+    this.cursoService.deleteCursoDisciplina(this.cursosDisciplinaArray[indexCurso], this.disciplina)
+    .subscribe(response => {
+      this.cursosDisciplinaArray.splice(indexCurso,1);
+      console.log(response);
+    });
   }
 
   onAddCurso(indexCurso: number) {
-    this.disciplinaService.addDisciplinaCurso(this.index, this.filteredCursos[indexCurso]);
-    this.cursosDisciplinaArray = this.disciplinaService.fetchDisciplinaCurso(this.index);
+    this.cursoService.addCursoDisciplina(this.filteredCursos[indexCurso], this.disciplina)
+    .subscribe(response => {
+      this.cursosDisciplinaArray.push(this.filteredCursos[indexCurso]);
+      console.log(response);
+    });
   }
 
   checkCursoOnList(curso: Curso) {

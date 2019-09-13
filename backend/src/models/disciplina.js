@@ -1,6 +1,6 @@
 const db = require('../config/db');
 const Curso = require('./curso');
-const CursoDisciplina = require('./cursoDisciplina');
+// const CursoDisciplina = require('./cursoDisciplina');
 
 const Disciplina = db.sequelize.define('Disciplina', {
     IdDisciplina: {
@@ -32,32 +32,25 @@ const Disciplina = db.sequelize.define('Disciplina', {
 });
 
 Disciplina.associate = (models) => {
-    Disciplina.belongsToMany(models.Cursos, {
+    //Faz a associação de chave estrangeira na tabela de Disciplina
+    //Curso.hasMany(Disciplina, {as: 'Disciplinas'})
+    Disciplina.belongsToMany(models.Curso, {
         through: {
-            model: CursoDisciplina,
+            model: 'CursoDisciplina',
             unique: false
         },
-        as: 'disciplinas',
         foreignKey: 'IdDisciplina'
     });
+    // Disciplina.belongsToMany(models.Professores, {
+    //     through: ProfessorDisciplina,
+    //     as: 'disciplinaProfessor',
+    //     foreignKey: 'IdDisciplina'
+    // });
 }
-
-
-Disciplina.associate = (models) => {
-    Disciplina.belongsToMany(models.Professores, {
-        through: ProfessorDisciplina,
-        as: 'disciplinaProfessor',
-        foreignKey: 'IdDisciplina'
-    });
-}
-
-
-//Faz a associação de chave estrangeira na tabela de Disciplina
-//Curso.hasMany(Disciplina, {as: 'Disciplinas'})
 
 //Comentar sempre após criar a tabela através do model, para não criar tabela duplicada no banco
 //para criar a tabela executar o comando node [nome do model] ex. node disciplina.js
-//Disciplina.sync({ force: true });
+// Disciplina.sync({ force: true });
 
 
 module.exports = Disciplina;

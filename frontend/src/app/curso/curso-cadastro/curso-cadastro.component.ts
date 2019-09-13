@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { FormGroup, FormControl, Validators,
+         AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { CursoService } from '../curso.service';
 import { Curso } from '../curso.model';
@@ -22,7 +24,6 @@ export class CursoCadastroComponent implements OnInit {
               private router: Router,
               private route: ActivatedRoute) { }
 
-
   ngOnInit() {
     this.route.params
       .subscribe(
@@ -30,9 +31,16 @@ export class CursoCadastroComponent implements OnInit {
           this.index = params['index'];
           this.editMode = params['index'] != null;
           if (this.editMode) {
-            this.cursoItem = this.cursoService.getCurso(this.index);
+            this.cursoService.getCurso(this.index)
+             .subscribe(response => {
+               this.cursoItem = response.curso;
+               this.initForm();
+               console.log(this.cursoItem);
+             });
           }
-          this.initForm();
+          else {
+            this.initForm();
+          }
         }
       );
   }
@@ -45,7 +53,7 @@ export class CursoCadastroComponent implements OnInit {
       nomeItem = this.cursoItem.Nome;
     }
     this.form = new FormGroup({
-      'sigla': new FormControl(siglaItem, Validators.required),
+      'sigla': new FormControl(siglaItem, Validators.required, this.uniqueSigla(this.cursoService, this.editMode)),
       'nome': new FormControl(nomeItem, Validators.required)
     });
   }
@@ -60,15 +68,17 @@ export class CursoCadastroComponent implements OnInit {
 
   onSubmit() {
     if (this.editMode) {
-      this.cursoService.updateCurso(this.form.value.sigla, this.form.value.nome, this.index, this.cursoItem);
+      this.cursoService.updateCurso(this.form.value.sigla, this.form.value.nome, this.cursoItem)
+        .subscribe();
     } else {
-      this.cursoService.addCurso(this.form.value.sigla, this.form.value.nome);
+      this.cursoService.addCurso(this.form.value.sigla, this.form.value.nome)
+      .subscribe();
     }
     this.router.navigate(['curso']);
   }
 
   onDelete() {
-    this.cursoService.deleteCurso(this.index);
+    this.cursoService.deleteCurso(this.cursoItem).subscribe();;
     this.router.navigate(['curso']);
   }
 
@@ -77,5 +87,17 @@ export class CursoCadastroComponent implements OnInit {
     this.editMode = false;
   }
 
+  uniqueSigla(cursoService: CursoService, editMode: boolean): AsyncValidatorFn {
 
+    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      return cursoService.fetchCursoSigla(control.value)
+              .pipe(map(response => {
+                  if (!editMode) {
+                    return response.curso ? {'siglaNotUnique': true} : null;
+                  } else {
+                    return null;
+                  }
+      }));
+    };
+  }
 }

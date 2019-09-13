@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { DisciplinaService } from '../disciplina.service';
@@ -10,7 +10,7 @@ import { Disciplina } from '../disciplina.model';
   templateUrl: './disciplina-lista.component.html',
   styleUrls: ['../disciplina.css']
 })
-export class DisciplinaListaComponent implements OnInit {
+export class DisciplinaListaComponent implements OnInit, OnDestroy {
   disciplinasArray: Array<Disciplina> = [];
   filteredDisciplinas: Array<Disciplina> = [];
 
@@ -28,15 +28,22 @@ export class DisciplinaListaComponent implements OnInit {
               private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.disciplinasArray = this.disciplinaService.fetchDisciplinas();
-    this.filteredDisciplinas = this.disciplinasArray;
+    this.disciplinaService.fetchDisciplinas()
+      .subscribe(response => {
+        this.disciplinasArray = response.disciplinas;
+        this.filteredDisciplinas = this.disciplinasArray;
+      });
+
+  }
+
+  ngOnDestroy() {
   }
 
   performFilter(filterBy: string): Disciplina[] {
         filterBy = filterBy.toLocaleLowerCase();
         return this.disciplinasArray.filter((disciplina: Disciplina) =>
-              disciplina.sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
-              disciplina.nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
+              disciplina.Sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+              disciplina.Nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   onBuscar() {

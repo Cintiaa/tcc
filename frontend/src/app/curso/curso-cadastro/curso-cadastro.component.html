@@ -7,7 +7,7 @@
   <div class="card">
     <div class="card-body row">
       <div class="col-10 align-self-left ">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <form *ngIf="form" [formGroup]="form" (ngSubmit)="onSubmit()" (submit)="onSubmit()">
           <div class="form-group">
             <div class="d-flex justify-content-left">
               <label class="col-sm-2 col-form-label" for="id">Código: </label>
@@ -17,6 +17,11 @@
                   class="text-danger"
                   *ngIf="sigla.invalid && (sigla.dirty || sigla.touched) && sigla.errors.required">
                     Esse item é obrigatório.
+                </small>
+                <small
+                  class="text-danger"
+                  *ngIf="sigla.invalid && (sigla.dirty || sigla.touched) && sigla.errors['siglaNotUnique']">
+                    Código já existente.
                 </small>
               </div>
             </div>

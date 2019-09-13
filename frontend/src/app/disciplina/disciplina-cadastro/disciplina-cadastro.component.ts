@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
-
+import { FormGroup, FormControl, Validators,
+         AbstractControl, AsyncValidatorFn, ValidationErrors } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { DisciplinaService } from '../disciplina.service';
 import { Disciplina } from '../disciplina.model';
@@ -30,9 +32,16 @@ export class DisciplinaCadastroComponent implements OnInit {
           this.index = params['index'];
           this.editMode = params['index'] != null;
           if (this.editMode) {
-            this.disciplinaItem = this.disciplinaService.getDisciplina(this.index);
+            this.disciplinaService.getDisciplina(this.index)
+             .subscribe(response => {
+               this.disciplinaItem = response.disciplina;
+               this.initForm();
+               console.log(this.disciplinaItem);
+             });
           }
-          this.initForm();
+          else {
+            this.initForm();
+          }
         }
       );
   }
@@ -41,11 +50,11 @@ export class DisciplinaCadastroComponent implements OnInit {
     let siglaItem = '';
     let nomeItem = '';
     if (this.editMode) {
-      siglaItem = this.disciplinaItem.sigla;
-      nomeItem = this.disciplinaItem.nome;
+      siglaItem = this.disciplinaItem.Sigla;
+      nomeItem = this.disciplinaItem.Nome;
     }
     this.form = new FormGroup({
-      'sigla': new FormControl(siglaItem, Validators.required),
+      'sigla': new FormControl(siglaItem, Validators.required, this.uniqueSigla(this.disciplinaService, this.editMode)),
       'nome': new FormControl(nomeItem, Validators.required)
     });
   }
@@ -59,17 +68,19 @@ export class DisciplinaCadastroComponent implements OnInit {
   }
 
   onSubmit() {
-    const newDisciplina = new Disciplina(this.form.value.sigla, this.form.value.nome);
     if (this.editMode) {
-      this.disciplinaService.updateDisciplina(newDisciplina, this.index);
+      this.disciplinaService.updateDisciplina(this.form.value.sigla, this.form.value.nome, this.index, this.disciplinaItem)
+        .subscribe();
     } else {
-      this.disciplinaService.addDisciplina(newDisciplina);
+      this.disciplinaService.addDisciplina(this.form.value.sigla, this.form.value.nome)
+        .subscribe();
     }
     this.router.navigate(['disciplina']);
   }
 
   onDelete() {
-    this.disciplinaService.deleteDisciplina(this.index);
+    this.disciplinaService.deleteDisciplina(this.index, this.disciplinaItem)
+      .subscribe();
     this.router.navigate(['disciplina']);
   }
 
@@ -78,5 +89,17 @@ export class DisciplinaCadastroComponent implements OnInit {
     this.editMode = false;
   }
 
+  uniqueSigla(disciplinaService: DisciplinaService, editMode: boolean): AsyncValidatorFn {
+    return (control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> => {
+      return disciplinaService.fetchDisciplinaSigla(control.value)
+              .pipe(map(response => {
+                  if (!editMode) {
+                    return response.disciplina ? {'siglaNotUnique': true} : null;
+                  } else {
+                    return null;
+                  }
+      }));
+    };
+  }
 
 }
