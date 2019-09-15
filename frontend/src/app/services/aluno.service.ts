@@ -41,5 +41,7 @@ export class AlunoService {
   removeAluno(aluno): Observable<any>{
     return this.http.put('http://localhost:4200/api/aluno/remove/', aluno);
   }
+
+
 }
 

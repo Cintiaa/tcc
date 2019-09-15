@@ -12,7 +12,7 @@
 }
 
 .form-control-file, .form-control-range {
-    display: block;
+    display: none;
     width: 100%;
     padding-top: 12px;
 }

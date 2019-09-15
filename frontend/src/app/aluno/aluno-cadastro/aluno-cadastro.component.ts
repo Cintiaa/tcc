@@ -1,12 +1,13 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-
+import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { FileUploader, FileSelectDirective } from 'ng2-file-upload/ng2-file-upload';
+import { ToastrService } from 'ngx-toastr';
 
 import { AlunoService } from 'src/app/services/aluno.service';
 import { CursoService } from 'src/app/services/curso.service';
-import { ToastrService } from 'ngx-toastr';
-import { timeout } from 'q';
+import { UploadService } from 'src/app/services/upload.service';
+
 
 @Component({
   selector: 'aluno-cadastro',
@@ -15,16 +16,25 @@ import { timeout } from 'q';
 })
 export class AlunoCadastroComponent implements OnInit {
 
+  curso: [];
+  editando = false;
+  imagem: FormArray;
+  selectedFile: File = null;
+
   aluno = {
     IdAluno: 0,
     RA: "",
     Nome: "",
     IdCurso: 0,
-    IsDeleted: 0
+    IsDeleted: 0,
+    ImagemFaces: this.imagem,
   }
 
-  curso: [];
-  editando = false;
+  img = {
+    IdImagem: 0,
+    IdAluno: 0,
+    IsDeleted: 0
+  }
 
   form: FormGroup;
 
@@ -34,6 +44,7 @@ export class AlunoCadastroComponent implements OnInit {
     public fb: FormBuilder,
     private service: AlunoService,
     private cursoService: CursoService,
+    private uploadService: UploadService,
     private toastr: ToastrService
   ) {
     this.Initiate(false);
@@ -43,14 +54,12 @@ export class AlunoCadastroComponent implements OnInit {
   @Input()
   set alunoEdit(val) {
     if (val) {
-      console.log(val);
       this.editAluno(val);
       this.editando = true;
     }
   }
 
   @Output() completed = new EventEmitter();
-
 
   ngOnInit() {
     this.cursoService.getAllCurso().subscribe(res => {
@@ -67,13 +76,12 @@ export class AlunoCadastroComponent implements OnInit {
 
 
   cadastrar(a) {
-    console.log(a);
     if (!a) {
       this.completed.emit(a);
       this.Initiate(false);
       return;
     }
-    if (this.validateInfos) {
+    if (this.validateInfos()) {
       this.aluno = this.getJSON(this.aluno);
       if (!this.editando) {
         this.service.cadastrarAlunos(this.aluno).subscribe(res => {
@@ -119,7 +127,6 @@ export class AlunoCadastroComponent implements OnInit {
   }
 
   editAluno(el) {
-    console.log('Aluno', el);
     this.Initiate(true, () => {
       this.form.get('IdAluno').setValue(el[0].IdAluno);
       this.form.get('RA').setValue(el[0].RA);
@@ -138,9 +145,23 @@ export class AlunoCadastroComponent implements OnInit {
         IdCurso: new FormControl(null, [Validators.required]),
         IsDeleted: new FormControl(0),
       });
+
     }
     console.log('form', this.form);
     this.editando = edit;
     if (callback) callback();
+  }
+
+  uploadImagem(event) {
+    this.selectedFile = <File>event.target.files[0];
+
+
+  }
+  onUpload() {
+    const fd = new FormData();
+    fd.append('image', this.selectedFile, this.selectedFile.name);
+    this.uploadService.upload(fd).subscribe(res => {
+      console.log(res);
+    })
   }
 }

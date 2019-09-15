@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ToastrModule } from 'ngx-toastr';
+import { FileSelectDirective } from 'ng2-file-upload';
 
 
 import { HomeComponent } from './home/home.component';
@@ -36,7 +37,8 @@ import { FooterComponent } from './footer/footer.component';
     HomeComponent,
     ProfessorComponent,
     MenuComponent,
-    FooterComponent
+    FooterComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

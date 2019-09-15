@@ -15,6 +15,7 @@ router.get('/', (req, res, next) => {
     })
 });
 
+//Busca pelo ID do aluno e retorna um array contendo as informações do mesmo para edição
 router.get('/id', (req, res, next) => {
     let IdAluno = req.query.IdAluno;
     alunoModel.findAll({ where: { IdAluno: IdAluno, IsDeleted: 0 } }).then((alunos) => {
@@ -93,7 +94,7 @@ router.put('/remove', (req, res, next) => {
     });
 });
 
-//Edita Nome Aluno
+//Edita Nome e Curso Aluno
 router.put('/edit', (req, res, next) => {
     let IdAluno = req.body.IdAluno;
     let Nome =  req.body.Nome;

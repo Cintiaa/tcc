@@ -21,7 +21,7 @@ router.post('/uploadfile', upload.single("file"), (req, res) => {
         Descricao: req.file.originalname,
         Data: fs.readFileSync(__basedir + '/resources/static/assets/uploads/' + req.file.filename),
         IsDeleted: 0,
-        AlunoIdAluno: req.body.AlunoIdAluno,
+        IdAluno: req.body.IdAluno,
     }).then(image => {
         fs.writeFileSync(__basedir + '/resources/static/assets/tmp/' + image.Descricao, image.Data);
         res.status(200).json({ 'message': 'Upload de imagem realizado com sucesso!', 'file': req.file });

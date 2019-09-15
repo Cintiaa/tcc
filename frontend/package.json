@@ -28,6 +28,7 @@
     "bootstrap-fileinput": "^5.0.4",
     "font-awesome": "^4.7.0",
     "hammerjs": "^2.0.8",
+    "ng2-file-upload": "^1.3.0",
     "ngx-toastr": "^10.2.0",
     "rx-subject": "^3.1.0",
     "rxjs": "~6.4.0",
