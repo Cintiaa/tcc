@@ -1,0 +1,91 @@
+<div class="container header">
+    <div class="lista-title d-flex align-items-center justify-content-between">
+        <h1>Disciplinas Ministradas pelo Professor</h1>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="info-lista">
+        <table class="table table-striped">
+            <thead class="thead">
+                <tr>
+                    <th scope="col">Sigla</th>
+                    <th scope="col">Disciplina</th>
+                    <th scope="col">Curso</th>
+                    <th scope="col">Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let v of values">
+                    <td>{{v.Sigla}}</td>
+                    <td>{{v.Nome}}</td>
+                    <td>{{v.Curso}}</td>
+                    <td class="d-flex justify-content-center action-cell">
+                        <button class="action-lista btn btn-primary" (click)="editarDisciplina(v.IdDisciplina)"><i
+                                class="fa fa-edit"></i> Editar</button>
+                        <button class="action-lista btn btn-primary" (click)="confirmar(v.IdDisciplina)"><i
+                                class="fa fa-trash"></i>
+                            Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="d-flex justify-content-start">
+        <button class="btn btn-primary" (click)="ModalDisciplina()"><i class="fa fa-plus"></i> Adicionar
+            Disciplina</button>
+    </div>
+</div>
+
+<div class="overlay-professor-disciplina" [ngClass]="{'show-novo-dsmp': addDisciplina}">
+    <div class="wrap-professor-disciplina">
+        <div class="professor-disciplina">
+            <form [formGroup]="form">
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-sm-3 col-form-label" for="professor">Professor: </label>
+                        <select class="col-sm-6 form-control" name="professor" formControlName="IdProfessor" disabled>
+                            <option value="{{p.IdProfessor}}" *ngFor="let p of professor">{{p.Nome}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-sm-3 col-form-label" for="disciplinaProfessor">Curso: </label>
+                        <select class="col-sm-6 form-control" name="disciplinaProfessor"
+                            (change)="filterDisciplinaCurso($event)" [(ngModel)]="id"
+                            [ngModelOptions]="{standalone: true}">
+                            <option value="{{c.IdCurso}}" *ngFor="let c of curso">{{c.Nome}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-sm-3 col-form-label" for="disciplinaProfessor">Disciplina: </label>
+                        <select class="col-sm-6 form-control" name="disciplinaProfessor" formControlName="IdDisciplina">
+                            <option value="{{d.IdDisciplina}}" *ngFor="let d of disciplinaCurso">{{d.Nome}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="bt-cadastro d-flex justify-content-around">
+                <div class="col-7">
+                    <button class="btn btn-primary mb-2" (click)="novaDisciplina(true)">Salvar</button>
+                    <button class="btn btn-outline-primary mb-2" (click)="novaDisciplina(false)">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+    <div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
+        <div class="box-modal">
+            <p>Deseja realmente desvincular essa disciplina?</p>
+            <div class="action-modal">
+                <button class="btn btn-primary mb-2" (click)="remover()">Sim</button>
+                <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
+            </div>
+        </div>
+    </div>

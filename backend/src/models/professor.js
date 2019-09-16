@@ -15,6 +15,14 @@ const Professor = db.sequelize.define('Professores', {
     Nome: {
         type: db.Sequelize.STRING
     },
+    IdDepartamento: {
+        type: db.Sequelize.INTEGER,
+        references: {
+            model: 'Departamentos',
+            key: 'IdDepartamento'
+        },
+        allowNull: false
+    },
     IsDeleted: {
         type: db.Sequelize.BOOLEAN,
         allowNull: false,
@@ -32,13 +40,14 @@ const Professor = db.sequelize.define('Professores', {
 
 //Faz a associação n:m entre Professor e Disciplina
 Professor.associate = (models) => {
-    Professor.belongsToMany(models.Disciplinas, {
-        through: ProfessorDisciplina,
-        as: 'professores',
+    Professor.belongsToMany(models.Disciplina, {
+        through:{
+            model: 'ProfessorDisciplinas',
+            unique: false,
+        },
         foreignKey: 'IdProfessor'
     });
 }
-
 
 //Professor.sync({ force: true });
 module.exports = Professor;

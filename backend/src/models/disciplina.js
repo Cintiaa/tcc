@@ -41,11 +41,14 @@ Disciplina.associate = (models) => {
         },
         foreignKey: 'IdDisciplina'
     });
-    // Disciplina.belongsToMany(models.Professores, {
-    //     through: ProfessorDisciplina,
-    //     as: 'disciplinaProfessor',
-    //     foreignKey: 'IdDisciplina'
-    // });
+
+  /*   Disciplina.belongsToMany(models.Professores, {
+        through: {
+            model: 'ProfessorDisciplinas',
+            unique: false,
+        },
+        foreignKey: 'IdDisciplina'
+    }); */
 }
 
 //Comentar sempre após criar a tabela através do model, para não criar tabela duplicada no banco

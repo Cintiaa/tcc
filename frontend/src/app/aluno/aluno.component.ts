@@ -17,6 +17,7 @@ export class AlunoComponent implements OnInit {
   alunoEdit: any;
   cadtrAluno = false;
   listaAluno = false;
+  msg = false;
 
   busca = {
     RA: "",
@@ -28,6 +29,8 @@ export class AlunoComponent implements OnInit {
       RA: "",
       Nome: "",
     }
+    this.msg = false;
+    this.listaAluno = false;
   }
 
   constructor(
@@ -51,8 +54,10 @@ export class AlunoComponent implements OnInit {
       this.aluno = res;
       console.log(this.aluno);
       if (res.length == 0) {
+        this.msg = true;
         this.listaAluno = false;
       } else {
+        this.msg = false;
         this.listaAluno = true;
       }
     })
@@ -71,8 +76,8 @@ export class AlunoComponent implements OnInit {
   cadastroCallback(e) {
     this.cadtrAluno = false;
   }
-  
-  
+
+
   AdicionarAluno(e) {
     this.cadtrAluno = e;
     //this.router.navigate(['newAluno']);

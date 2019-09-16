@@ -1,0 +1,8 @@
+.toolbar.mat-primary {
+    background: #673ab7;
+    color: #fff;
+}
+
+.mat-toolbar-row p {
+    font-size: 12px;
+}

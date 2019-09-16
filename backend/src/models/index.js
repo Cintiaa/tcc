@@ -5,7 +5,7 @@ const Sequelize = require('sequelize');
 // Import models
 const models = {
   Curso: require('./curso'),
-  Disciplina: require('./disciplina')
+  Disciplina: require('./disciplina'),
 }
 
 Object.keys(models).forEach(modelKey => {
@@ -14,6 +14,8 @@ Object.keys(models).forEach(modelKey => {
     models[modelKey].associate(models)
   }
 })
+
+
 
 //db.sequelize.sync();
 module.exports = models;

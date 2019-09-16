@@ -1,4 +1,5 @@
 const db = require('../config/db');
+const Disciplina = require('../models/disciplina');
 
 ProfessorDisciplina = db.sequelize.define('ProfessorDisciplina', {
     IdProfessorDisciplina: {
@@ -37,5 +38,3 @@ ProfessorDisciplina = db.sequelize.define('ProfessorDisciplina', {
 //Força a criação da tabela
 //ProfessorDisciplina.sync({ force: true });
 module.exports = ProfessorDisciplina;
-
-

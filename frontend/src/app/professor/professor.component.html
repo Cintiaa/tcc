@@ -1,11 +1,11 @@
-<div class="container header">
+<div class="container header" [ngStyle]="{display: cadtrProfessorDisciplina ? 'none':'block' }">
     <div class="row">
         <div class="col-6">
             <h3>Professor</h3>
         </div>
-        <div class="col-6">
+        <div class="col-6" [ngStyle]="{display: cadtrProfessor ? 'none':'block' }">
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary mb-2" (click)="AdicionarProfessor()">Adicionar</button>
+                <button type="submit" class="btn btn-primary mb-2" (click)="AdicionarProfessor(true)">Adicionar</button>
             </div>
         </div>
     </div>
@@ -13,20 +13,14 @@
     <hr>
 </div>
 
-<div class="container">
-    <div class="card">
+<div class="animated fadeIn container-fluid" style=" margin-top: -20px;">
+    <div class="card" [ngStyle]="{display: cadtrProfessor || cadtrProfessorDisciplina ? 'none':'block' }">
         <div class="card-body row">
             <div class="col-10 align-self-left ">
                 <div class="form-group">
                     <div class="d-flex justify-content-left">
-                        <label class="col-2 col-form-label" for="ra">RA: </label>
-                        <input type="number" class="form-control" id="ra">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <div class="d-flex justify-content-left">
                         <label class="col-2 col-form-label" for="nome">Nome: </label>
-                        <input type="text" class="form-control" id="nome">
+                        <input type="text" class="form-control" id="nome" [(ngModel)]="busca.Nome">
 
                         <div class="bt-pesquisa">
                             <button type="submit" class="btn btn-primary mb-2" (click)="buscar()">Pesquisar</button>
@@ -37,4 +31,17 @@
             </div>
         </div>
     </div>
+</div>
+
+<div class="professor-cadastro" [ngClass]="{'show-component': cadtrProfessor }">
+    <professor-cadastro [professorEdit]="professorEdit" (completed)="cadastroCallback($event)"></professor-cadastro>
+</div>
+<div class="professor-lista" [ngClass]="{'show-component': listaProfessor }">
+    <professor-lista [professor]="professor" (editar)="editarProfessor($event)" (vincular)="vincularDisciplina($event)"></professor-lista>
+</div>
+<div class="professor-vinculo" [ngClass]="{'show-component': cadtrProfessorDisciplina }">
+    <professor-disciplina [vinculo]="vinculo" (completed)="cadastroCallback($event)"></professor-disciplina>
+</div>
+<div class="professor-lista" [ngClass]="{'show-component': msg }">
+    <p>Não há registros que satisfaçam o critério de busca!</p>
 </div>

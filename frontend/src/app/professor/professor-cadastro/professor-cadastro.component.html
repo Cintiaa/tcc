@@ -1,38 +1,26 @@
-<div class="container header">
-    <h3>Professor</h3>
-    <hr>
-</div>
-
 <div class="container">
     <div class="card">
         <div class="card-body row">
             <div class="col-10 align-self-left ">
-                <form>
+                <form [formGroup]="form">
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="ra">RA: </label>
-                            <input type="number" class="form-control" id="ra">
+                            <input type="number" class="form-control" name="raProfessor" formControlName="RA"
+                                [attr.disabled]="editando ? '' : null">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
-                            <input type="text" class="form-control" id="nome">
+                            <input type="text" class="form-control" name="nomeProfessor" formControlName="Nome">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
-                            <label class="col-sm-2 col-form-label" for="curso">Departamento: </label>
-                            <select class="form-control" id="curso">
-                                <option></option>
-                                <option>Bacharelado em Engenharia de Software</option>
-                                <option>Engenharia da Computação</option>
-                                <option>Engenharia de Controle e Automação</option>
-                                <option>Engenharia Elétrica</option>
-                                <option>Engenharia Eletrônica</option>
-                                <option>Engenharia Mecânica</option>
-                                <option>Licenciatura em Matemática</option>
-                                <option>Tecnologia em Análise e Desenvolvimento de Sistemas</option>
+                            <label class="col-sm-2 col-form-label" for="departamento">Departamento: </label>
+                            <select class="form-control" name="departamentoProfessor" formControlName="IdDepartamento">
+                                <option value="{{c.IdDepartamento}}" *ngFor="let c of departamento">{{c.Nome}}</option>
                             </select>
                         </div>
                     </div>
@@ -40,7 +28,9 @@
             </div>
         </div>
     </div>
-    <div class="d-flex justify-content-end">
-        <button type="submit" class="btn btn-primary mb-2">Cadastrar</button>
-    </div>
+</div>
+
+<div class=" bt-cadastro d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary mb-2" (click)="cadastrar(true)">Salvar</button>
+    <button type="submit" class="btn btn-outline-primary mb-2" (click)="cadastrar(false)">Cancelar</button>
 </div>

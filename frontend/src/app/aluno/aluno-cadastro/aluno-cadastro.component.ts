@@ -6,7 +6,7 @@ import { ToastrService } from 'ngx-toastr';
 
 import { AlunoService } from 'src/app/services/aluno.service';
 import { CursoService } from 'src/app/services/curso.service';
-import { UploadService } from 'src/app/services/upload.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 
 @Component({
@@ -44,7 +44,7 @@ export class AlunoCadastroComponent implements OnInit {
     public fb: FormBuilder,
     private service: AlunoService,
     private cursoService: CursoService,
-    private uploadService: UploadService,
+    private utilsService: UtilsService,
     private toastr: ToastrService
   ) {
     this.Initiate(false);
@@ -152,15 +152,15 @@ export class AlunoCadastroComponent implements OnInit {
     if (callback) callback();
   }
 
-  uploadImagem(event) {
+  uploadImage(event) {
     this.selectedFile = <File>event.target.files[0];
-
-
+    console.log(this.selectedFile);
   }
+
   onUpload() {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name);
-    this.uploadService.upload(fd).subscribe(res => {
+    this.utilsService.upload(fd).subscribe(res => {
       console.log(res);
     })
   }

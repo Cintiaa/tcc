@@ -16,6 +16,7 @@ const disciplinaRouter = require('./routes/disciplina');
 const professorRouter = require('./routes/professor');
 const imagemRouter = require('./routes/upload');
 const turmaRouter = require('./routes/turma');
+const departamentoRouter = require('./routes/departamento');
 
 
 const app = express();
@@ -54,6 +55,7 @@ app.use('/api/disciplina', disciplinaRouter);
 app.use('/api/professor', professorRouter);
 app.use('/api/upload', imagemRouter);
 app.use('/api/turma', turmaRouter);
+app.use('/api/departamento', departamentoRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

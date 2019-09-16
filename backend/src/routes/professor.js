@@ -1,42 +1,99 @@
 const express = require('express');
+const db = require('../config/db');
 const professorModel = require('../models/professor');
-professorDisciplina = require('../models/professorDisciplina');
+const professorDisciplinas = require('../models/professorDisciplina');
+const Disciplina = require('../models/disciplina');
+const models = require('../models/index');
 
 const router = express.Router();
 
-/* GET curso page. */
-router.get('/', (req, res, next) => {
-    res.render('Professor', { title: 'Professor' });
-});
-
-router.get('/', (req, res, next) => {
-    res.render('home');
-});
-
 //Retorna somente os professores que estão com IsDeleted 0
-router.get('/busca', (req, res, next) => {
+router.get('/', (req, res, next) => {
     professorModel.findAll({ where: { IsDeleted: 0 } }).then((professor) => {
-        res.status(200).json({ professor })
+        res.status(200).json(professor)
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
     })
 });
 
-/* POST Professor */
-router.post('/newProfessor', async (req, res, next) => {
-    try {
-        const { disciplinas, ...data } = req.body;
-        const professor = await professorModel.create(data);
+//Busca pelo ID do professor e retorna um array contendo as informações do mesmo para edição
+router.get('/id', (req, res, next) => {
+    let IdProfessor = req.query.IdProfessor;
+    professorModel.findAll({ where: { IdProfessor: IdProfessor, IsDeleted: 0 } }).then((professor) => {
+        res.status(200).json(professor)
+    }).catch((err) => {
+        res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
+    })
+});
 
-        if (disciplinas && disciplinas.length > 0) {
-            for (let i = 0; i < disciplinas.length; i++) {
-                professorDisciplina.create({
-                    IdProfessor: professor.IdProfessor,
-                    IdDisciplina: disciplinas[i]
-                });
-            }
+//Busca pelo Nome do professor e mostra o resultado da busca no front
+router.get('/busca', (req, res, next) => {
+    const Op = db.Sequelize.Op;
+    let Nome = req.query.Nome;
+    console.log(Nome);
+
+    if (Nome == null) {
+        Nome = null;
+    }
+    professorModel.findAll({
+        where: {
+            Nome: {
+                [Op.or]: {
+                    [Op.eq]: null,
+                    [Op.like]: '%' + Nome + '%'
+                }
+            },
+            IsDeleted: 0
         }
-        return res.status(200).json(professor);
+    }).then((professor) => {
+        res.status(200).json(professor)
+    }).catch((err) => {
+        res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
+    })
+});
+
+// Busca todas as disciplinas de um curso
+router.get('/buscaProfessorDisciplina', (req, res, next) => {
+    const IdProfessor = req.body.IdProfessor;
+    console.log('Professor', IdProfessor);
+    professorModel.findAll({
+        include: [{
+            model: models.Disciplina,
+            required: true,
+            through: {
+                where: { IdProfessor: req.body.IdProfessor }
+            }
+        }]
+    }).then((response) => {
+        console.log(response);
+        disciplinas = response[0] ? response[0].Disciplinas : [];
+        res.status(200).json( disciplinas )
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
+    })
+});
+
+//Cria um novo professor
+router.post('/newProfessor', async (req, res, next) => {
+    let RA = req.body.RA;
+    try {
+        if (await professorModel.findOne({ where: { RA: RA } }))
+            return res.status(400).json({ error: 'RA já cadastrado!' });
+
+        const professor = await professorModel.create(req.body);
+        return res.json({ professor });
+
+    } catch (err) {
+        return res.status(400).json({ err });
+    }
+});
+
+//Cria a associação entre um professor e uma disciplina
+router.post('/professorDisciplina', async (req, res) => {
+    try {
+        const disciplinaProfessor = await professorDisciplina.create(req.body);
+        return res.json({ disciplinaProfessor });
     } catch (err) {
         return res.status(400).json({ err });
     }
@@ -44,11 +101,12 @@ router.post('/newProfessor', async (req, res, next) => {
 
 //Remove Professor da listagem ao setar o IsDeleted com 1 
 router.put('/remove', (req, res, next) => {
+    let IdProfessor = req.body.IdProfessor;
     professorModel.update(
         { IsDeleted: 1 },
-        { where: { IdProfessor: req.body.IdProfessor } }
+        { where: { IdProfessor: IdProfessor } }
     ).then(() => {
-        res.status(200).json({ sucess: 'Professor excluído com sucesso!' })
+        res.status(200).json({ sucess: 'Professor removido com sucesso!' })
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na exclusão. Por favor tente mais tarde!', err });
     });
@@ -56,9 +114,11 @@ router.put('/remove', (req, res, next) => {
 
 //Edita Nome Professor
 router.put('/edit', (req, res, next) => {
+    let IdProfessor = req.body.IdProfessor;
+    let Nome = req.body.Nome;
     professorModel.update(
-        { Nome: req.body.Nome },
-        { where: { IdProfessor: req.body.IdProfessor } }
+        { Nome: Nome },
+        { where: { IdProfessor: IdProfessor } }
     ).then(() => {
         res.status(200).json({ sucess: 'Professor atualizado com sucesso!' })
     }).catch((err) => {

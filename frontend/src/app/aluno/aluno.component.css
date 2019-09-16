@@ -1,5 +1,4 @@
-
-.header{
+.header {
     margin-top: 50px;
 }
 
@@ -15,7 +14,8 @@
     text-align: left;
 }
 
-.form-control-file, .form-control-range {
+.form-control-file,
+.form-control-range {
     display: block;
     width: 100%;
     padding-top: 12px;
@@ -25,17 +25,17 @@
     margin-left: 148px;
 }
 
-.mb-2{
+.mb-2 {
     margin-top: 25px;
     margin-right: 12px;
 }
 
-.bt-pesquisa{
+.bt-pesquisa {
     margin-top: -25px;
     padding-left: 30px;
 }
 
-.btn-primary{
+.btn-primary {
     background-color: #3d21d2eb;
     border-color: #2700ff;
 }
@@ -46,13 +46,17 @@
     pointer-events: none;
 }
 
+.aluno-lista p {
+    margin-top: 30px;
+    text-align: center;
+}
+
 .aluno-lista.show-component {
     height: auto;
     opacity: 1;
     pointer-events: all;
     transition: opacity .3s ease-in-out;
 }
-
 
 .aluno-cadastro {
     height: 0;

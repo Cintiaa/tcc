@@ -3,6 +3,7 @@
         <div class="col-6">
             <h3>Aluno</h3>
         </div>
+
         <div class="col-6" [ngStyle]="{display: cadtrAluno? 'none':'block' }">
             <div class="d-flex justify-content-end">
                 <button type="submit" class="btn btn-primary mb-2" (click)="AdicionarAluno(true)">Adicionar</button>
@@ -43,4 +44,8 @@
     <div class="aluno-lista" [ngClass]="{'show-component': listaAluno }">
         <aluno-lista [aluno]="aluno" (editar)="editarAluno($event)"></aluno-lista>
     </div>
+    <div class="aluno-lista" [ngClass]="{'show-component': msg }">
+        <p>Não há registros que satisfaçam o critério de busca!</p>
+    </div>
+
 </div>

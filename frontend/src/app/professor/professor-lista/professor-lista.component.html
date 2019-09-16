@@ -1,3 +1,47 @@
 <div class="container header">
-    <p>Resultado da Busca</p>
+    <div class="lista-title d-flex align-items-center justify-content-between">
+        <h1>Resultado da Busca</h1>
+    </div>
+</div>
+
+<div class="info-lista">
+    <table class="table table-striped">
+        <thead class="thead">
+            <tr>
+                <th scope="col">RA</th>
+                <th scope="col">Nome</th>
+                <th scope="col">Departamento</th>
+                <th scope="col">Disciplinas</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let v of values">
+                <td>{{v.RA}}</td>
+                <td>{{v.Nome}}</td>
+                <td>{{v.IdDepartamento}}</td>
+                <td class="">
+                    <button class="action-lista btn btn-primary" (click)="vincularDisciplina(v.IdProfessor)" style="width: 170px;">
+                        <i class="fa fa-plus"></i> Adicionar/Visualizar </button>
+                </td>
+                <td class="d-flex justify-content-center action-cell">
+                    <button class="action-lista btn btn-primary" (click)="editarProfessor(v.IdProfessor)"><i
+                            class="fa fa-edit"></i> Editar</button>
+                    <button class="action-lista btn btn-primary" (click)="confirmar(v.IdProfessor)"><i
+                            class="fa fa-trash"></i>
+                        Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
+    <div class="box-modal">
+        <p>Deseja realmente excluir esse Professor?</p>
+        <div class="action-modal">
+            <button class="btn btn-primary mb-2" (click)="remover()">Sim</button>
+            <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
+        </div>
+    </div>
 </div>

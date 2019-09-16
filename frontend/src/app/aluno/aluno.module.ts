@@ -12,7 +12,8 @@ import { AlunoRoutingModule } from './aluno.routing.module';
 import { AlunoService } from '../services/aluno.service';
 import { CursoService } from '../services/curso.service';
 import { ToastrModule } from 'ngx-toastr';
-import { UploadService } from '../services/upload.service';
+import { UtilsService } from '../services/utils.service';
+
 
 
 
@@ -21,13 +22,13 @@ import { UploadService } from '../services/upload.service';
         CommonModule,
         AlunoRoutingModule,
         HttpClientModule,
-        FormsModule, 
+        FormsModule,
         ReactiveFormsModule ,
         ToastrModule.forRoot()
     ],
     exports: [AlunoCadastroComponent, AlunoListaComponent],
     declarations: [AlunoCadastroComponent, AlunoListaComponent],
-    providers: [HttpClientModule, AlunoService, CursoService, UploadService ]
+    providers: [HttpClientModule, AlunoService, CursoService, UtilsService ]
 })
 
 export class AlunoModule{
