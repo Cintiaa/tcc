@@ -20,7 +20,7 @@
                 <div class="form-group">
                     <div class="d-flex justify-content-left">
                         <label class="col-2 col-form-label" for="nome">Nome: </label>
-                        <input type="text" class="form-control" id="nome" [(ngModel)]="busca.Nome">
+                        <input type="text" class="form-control" id="nome" [(ngModel)]="busca.Nome" autocomplete="off">
 
                         <div class="bt-pesquisa">
                             <button type="submit" class="btn btn-primary mb-2" (click)="buscar()">Pesquisar</button>

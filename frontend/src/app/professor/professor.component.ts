@@ -12,7 +12,7 @@ export class ProfessorComponent implements OnInit {
 
   professor: [];
   professorEdit: any;
-  vinculo: any;
+  vinculo: any = [];
   cadtrProfessor = false;
   cadtrProfessorDisciplina = false;
   listaProfessor = false;
@@ -76,10 +76,12 @@ export class ProfessorComponent implements OnInit {
 
   cadastroCallback(e) {
     this.cadtrProfessor = false;
+    this.cadtrProfessorDisciplina = false;
   }
 
   AdicionarProfessor(e) {
     this.cadtrProfessor = e;
+    this.listaProfessor = false;
   }
 
 }

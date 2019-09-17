@@ -24,6 +24,10 @@ ProfessorDisciplina = db.sequelize.define('ProfessorDisciplina', {
         },
         allowNull: false
     },
+    IsDeleted: {
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false,
+    },
     createdAt: {
         allowNull: false,
         type: db.Sequelize.DATE

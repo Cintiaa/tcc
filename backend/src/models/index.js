@@ -6,6 +6,7 @@ const Sequelize = require('sequelize');
 const models = {
   Curso: require('./curso'),
   Disciplina: require('./disciplina'),
+  Professor: require('./professor'),
 }
 
 Object.keys(models).forEach(modelKey => {

@@ -10,6 +10,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { ProfessorRoutingModule } from './professor.routing.module';
 import { ProfessorCadastroComponent } from './professor-cadastro/professor-cadastro.component';
 import { ProfessorDisciplinaComponent } from './professor-disciplina/professor-disciplina.component';
+import { ToasterService, ToasterModule } from 'angular2-toaster';
 
 
 @NgModule({
@@ -19,11 +20,12 @@ import { ProfessorDisciplinaComponent } from './professor-disciplina/professor-d
         HttpClientModule,
         FormsModule,
         ReactiveFormsModule ,
-        ToastrModule.forRoot()
+        ToasterModule.forRoot()
     ],
+    
     exports: [ProfessorCadastroComponent, ProfessorListaComponent, ProfessorDisciplinaComponent],
     declarations: [ProfessorCadastroComponent, ProfessorListaComponent, ProfessorDisciplinaComponent],
-    providers: [HttpClientModule, ProfessorService]
+    providers: [HttpClientModule, ProfessorService, ToasterService]
 })
 
 export class ProfessorModule{

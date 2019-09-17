@@ -30,7 +30,7 @@ router.get('/busca', (req, res) => {
     const Op = db.Sequelize.Op;
 
     let RA = req.query.RA;
-    let Nome = req.query.Nome;
+    let Nome = req.query.NomeAluno;
     if (RA == null) {
         RA = null;
     }
@@ -45,7 +45,7 @@ router.get('/busca', (req, res) => {
                     [Op.like]: '%' + RA + '%'
                 }
             },
-            Nome: {
+            NomeAluno: {
                 [Op.or]: {
                     [Op.eq]: null,
                     [Op.like]: '%' + Nome + '%'
@@ -97,10 +97,10 @@ router.put('/remove', (req, res, next) => {
 //Edita Nome e Curso Aluno
 router.put('/edit', (req, res, next) => {
     let IdAluno = req.body.IdAluno;
-    let Nome =  req.body.Nome;
+    let Nome =  req.body.NomeAluno;
     let IdCurso = req.body.IdCurso;
     alunoModel.update(
-        { Nome: Nome, IdCurso: IdCurso  },
+        { NomeAluno: Nome, IdCurso: IdCurso  },
         { where: { IdAluno: IdAluno } }
     ).then(() => {
         res.status(200).json({ sucess: 'Aluno atualizado com sucesso!' })

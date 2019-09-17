@@ -1,3 +1,4 @@
+import { Disciplina } from './../disciplina/disciplina.model';
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
@@ -34,18 +35,24 @@ export class ProfessorService {
     return this.http.get('http://localhost:4200/api/professor/id?IdProfessor=' + id);
   }
 
-  updateProfessor(professor): Observable<any>{
+  updateProfessor(professor): Observable<any> {
     return this.http.put('http://localhost:4200/api/professor/edit', professor);
   }
 
-  removeProfessor(professor): Observable<any>{
+  removeProfessor(professor): Observable<any> {
     return this.http.put('http://localhost:4200/api/professor/remove/', professor);
   }
 
-  professorDisciplina(disciplinaProfessor): Observable<any>{
+  removeDisciplina(disciplinaProfessor): Observable<any> {
+    return this.http.put('http://localhost:4200/api/professor/removeDisciplina/', disciplinaProfessor);
+  }
+
+  professorDisciplina(disciplinaProfessor): Observable<any> {
     return this.http.post('http://localhost:4200/api/professor/professorDisciplina/', disciplinaProfessor);
   }
 
-
+  getProfessorDisciplina(id: any): Observable<any> {
+    return this.http.get('http://localhost:4200/api/professor/buscaProfessorDisciplina?IdProfessor=' + id);
+  }
 }
 

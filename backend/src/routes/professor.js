@@ -2,7 +2,7 @@ const express = require('express');
 const db = require('../config/db');
 const professorModel = require('../models/professor');
 const professorDisciplinas = require('../models/professorDisciplina');
-const Disciplina = require('../models/disciplina');
+const Disciplinas = require('../models/disciplina');
 const models = require('../models/index');
 
 const router = express.Router();
@@ -52,22 +52,22 @@ router.get('/busca', (req, res, next) => {
     })
 });
 
-// Busca todas as disciplinas de um curso
+// Busca todas as disciplinas de um determinado professor
 router.get('/buscaProfessorDisciplina', (req, res, next) => {
-    const IdProfessor = req.body.IdProfessor;
+    const IdProfessor = req.query.IdProfessor;
     console.log('Professor', IdProfessor);
-    professorModel.findAll({
+    models.Professor.findAll({
         include: [{
             model: models.Disciplina,
             required: true,
             through: {
-                where: { IdProfessor: req.body.IdProfessor }
+                where: { IdProfessor: IdProfessor, IsDeleted: 0 }
             }
         }]
     }).then((response) => {
         console.log(response);
         disciplinas = response[0] ? response[0].Disciplinas : [];
-        res.status(200).json( disciplinas )
+        res.status(200).json(disciplinas)
     }).catch((err) => {
         console.log(err);
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
@@ -91,8 +91,9 @@ router.post('/newProfessor', async (req, res, next) => {
 
 //Cria a associação entre um professor e uma disciplina
 router.post('/professorDisciplina', async (req, res) => {
+    console.log(req.body);
     try {
-        const disciplinaProfessor = await professorDisciplina.create(req.body);
+        const disciplinaProfessor = await professorDisciplinas.create(req.body);
         return res.json({ disciplinaProfessor });
     } catch (err) {
         return res.status(400).json({ err });
@@ -110,6 +111,21 @@ router.put('/remove', (req, res, next) => {
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na exclusão. Por favor tente mais tarde!', err });
     });
+});
+
+//Desvincula Disciplina do Professor
+router.put('/removeDisciplina', (req, res) => {
+    let IdDisciplina = req.body.IdDisciplina;
+    console.log(IdDisciplina);
+    professorDisciplinas.update(
+        { IsDeleted: 1 },
+        { where: { IdDisciplina: IdDisciplina } }
+    ).then(() => {
+        res.status(200).json({ sucess: 'Disciplina desvinculada com sucesso!' })
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
+    })
 });
 
 //Edita Nome Professor

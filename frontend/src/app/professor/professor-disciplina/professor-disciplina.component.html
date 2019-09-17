@@ -11,30 +11,29 @@
                 <tr>
                     <th scope="col">Sigla</th>
                     <th scope="col">Disciplina</th>
-                    <th scope="col">Curso</th>
+                    <!-- <th scope="col">Curso</th> -->
                     <th scope="col">Ações</th>
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let v of values">
+                <tr *ngFor="let v of profDisciplina">
                     <td>{{v.Sigla}}</td>
                     <td>{{v.Nome}}</td>
-                    <td>{{v.Curso}}</td>
+                    <!-- <td>{{v.Nome}}</td> -->
                     <td class="d-flex justify-content-center action-cell">
-                        <button class="action-lista btn btn-primary" (click)="editarDisciplina(v.IdDisciplina)"><i
-                                class="fa fa-edit"></i> Editar</button>
-                        <button class="action-lista btn btn-primary" (click)="confirmar(v.IdDisciplina)"><i
+                        <button class="col-4 action-lista btn btn-primary" (click)="confirmar(v.IdDisciplina)"><i
                                 class="fa fa-trash"></i>
-                            Excluir</button>
+                            Desvincular</button>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-
-    <div class="d-flex justify-content-start">
-        <button class="btn btn-primary" (click)="ModalDisciplina()"><i class="fa fa-plus"></i> Adicionar
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-primary mb-2" (click)="ModalDisciplina()"><i class="fa fa-plus"></i> Adicionar
             Disciplina</button>
+        <button class="btn btn-outline-primary mb-2" (click)="voltarBusca(false)"><i class="fa fa-arrow-left"></i>
+            Voltar</button>
     </div>
 </div>
 
@@ -71,21 +70,21 @@
             </form>
             <div class="bt-cadastro d-flex justify-content-around">
                 <div class="col-7">
-                    <button class="btn btn-primary mb-2" (click)="novaDisciplina(true)">Salvar</button>
-                    <button class="btn btn-outline-primary mb-2" (click)="novaDisciplina(false)">Cancelar</button>
+                    <button class="btn btn-primary mb-2" (click)="novaDisciplina()">Salvar</button>
+                    <button class="btn btn-outline-primary mb-2" (click)="cancelDisciplina()">Cancelar</button>
                 </div>
 
             </div>
         </div>
     </div>
+</div>
 
-
-    <div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
-        <div class="box-modal">
-            <p>Deseja realmente desvincular essa disciplina?</p>
-            <div class="action-modal">
-                <button class="btn btn-primary mb-2" (click)="remover()">Sim</button>
-                <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
-            </div>
+<div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
+    <div class="box-modal">
+        <p>Deseja realmente desvincular essa disciplina?</p>
+        <div class="action-modal">
+            <button class="btn btn-primary mb-2" (click)="remover()">Sim</button>
+            <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
         </div>
     </div>
+</div>

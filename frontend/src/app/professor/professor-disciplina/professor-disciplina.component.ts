@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { ProfessorService } from 'src/app/services/professor.service';
 import { CursoService } from './../../services/curso.service';
 import { UtilsService } from 'src/app/services/utils.service';
+import { isNgTemplate } from '@angular/compiler';
 
 
 @Component({
@@ -18,13 +19,16 @@ export class ProfessorDisciplinaComponent implements OnInit {
     values = [];
     id: any;
     idProfessor: any;
+
     excluir = false;
     professorFilter = [];
     professor = [];
-    professores = [];
+    discipProf = [];
     disciplina = [];
     curso = [];
     disciplinaCurso = [];
+    profDisciplina = [];
+    cursoFiltter = [];
 
     vincular = false;
     addDisciplina = false;
@@ -32,6 +36,7 @@ export class ProfessorDisciplinaComponent implements OnInit {
     professorDisciplinas = {
         IdDisciplina: 0,
         IdProfessor: 0,
+        IsDeleted: 0,
     }
 
     @Input()
@@ -39,12 +44,6 @@ export class ProfessorDisciplinaComponent implements OnInit {
         this.professor = val;
         this.vincDisciplina(val);
         console.log(this.professor);
-    }
-
-    vincDisciplina(el) {
-        if (el.length != 0) {
-            this.form.get('IdProfessor').setValue(el[0].IdProfessor);
-        }
     }
 
     @Output() completed = new EventEmitter();
@@ -80,6 +79,21 @@ export class ProfessorDisciplinaComponent implements OnInit {
 
     }
 
+    vincDisciplina(el) {
+        if (el.length != 0) {
+            for (let i = 0; i < el.length; i++) {
+                this.service.getProfessorDisciplina(this.professor[i].IdProfessor).subscribe(res => {
+                    this.profDisciplina = res;
+                    console.log(this.profDisciplina);
+                });
+                this.form.get('IdProfessor').setValue(el[i].IdProfessor);
+            this.profDisciplina.push(el[i]);
+            }
+
+        }
+    }
+
+
     filterDisciplinaCurso(e) {
         this.id = parseInt(e.target.value);
         console.log(this.id);
@@ -91,7 +105,23 @@ export class ProfessorDisciplinaComponent implements OnInit {
     ModalDisciplina() {
         this.addDisciplina = true;
     }
+    cancelDisciplina() {
+        this.addDisciplina = false;
+        this.professorDisciplinas = {
+            IdDisciplina: 0,
+            IdProfessor: 0,
+            IsDeleted: 0
+        };
+    }
 
+    voltarBusca(e) {
+        console.log(e);
+        if (!e) {
+            this.completed.emit(e);
+            this.Initiate(false);
+            return;
+        }
+    }
     getJSON(obj) {
         for (var prop in this.form.controls) {
             obj[prop] = this.form.controls[prop].value;
@@ -99,21 +129,14 @@ export class ProfessorDisciplinaComponent implements OnInit {
         return obj;
     }
 
-    novaDisciplina(a) {
-        if (!a) {
-            this.completed.emit(a);
-            this.Initiate(false);
-            return;
-        }
+    novaDisciplina() {
         if (this.validateInfos()) {
             this.professorDisciplinas = this.getJSON(this.professorDisciplinas);
-
             this.service.professorDisciplina(this.professorDisciplinas).subscribe(res => {
-                this.toastr.success('Sucesso', 'Disciplina vinculada com sucesso!', { timeOut: 3000 });
-                this.completed.emit(a);
+                this.toastr.success('Sucesso', 'Disciplina vinculada com sucesso!');
+                this.cancelDisciplina();
                 this.Initiate(false);
             });
-
         }
     }
 
@@ -122,8 +145,10 @@ export class ProfessorDisciplinaComponent implements OnInit {
             this.form = this.fb.group({
                 IdDisciplina: new FormControl(0),
                 IdProfessor: new FormControl(0),
+                IsDeleted: new FormControl(0),
             });
         }
+        if (callback) callback();
     }
 
     setFormErrors(parent) {
@@ -145,15 +170,13 @@ export class ProfessorDisciplinaComponent implements OnInit {
     }
 
     remover() {
-        this.professores = this.professorFilter.filter((item) => item.IdProfessor == this.id);
-        if (this.professores.length != 0) {
-            this.service.removeProfessor(this.professores[0]).subscribe(res => {
-                console.log(res);
-                this.toastr.success('Sucesso', 'Professor removido com sucesso!');
-                this.values = this.values.filter(e => e.IdProfessor != this.id);
-                this.excluir = false;
-            });
-        }
+        this.discipProf = this.disciplina.filter((item) => item.IdDisciplina = this.id);
+        this.service.removeDisciplina(this.discipProf[0]).subscribe(res => {
+            console.log(res);
+            this.toastr.success('Sucesso', 'Disciplina desvinculada com sucesso!');
+            this.profDisciplina = this.profDisciplina.filter(e => e.IdDisciplina != this.id);
+            this.excluir = false;
+        });
     }
 
     cancelar() {

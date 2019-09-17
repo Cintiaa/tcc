@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 import { ProfessorService } from 'src/app/services/professor.service';
+import { ToasterService } from 'angular2-toaster';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class ProfessorListaComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private service: ProfessorService,
-    private toastr: ToastrService,
+    private toasterService: ToasterService
   ) { }
 
   ngOnInit() {
@@ -55,7 +56,7 @@ export class ProfessorListaComponent implements OnInit {
     if (this.professores.length != 0) {
       this.service.removeProfessor(this.professores[0]).subscribe(res => {
         console.log(res);
-        this.toastr.success('Sucesso', 'Professor removido com sucesso!');
+        this.toasterService.pop('success', 'Sucesso', 'Professor removido com sucesso!');
         this.values = this.values.filter(e => e.IdProfessor != this.id);
         this.excluir = false;
       });
