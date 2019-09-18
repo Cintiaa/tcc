@@ -1,0 +1,85 @@
+.header {
+    margin-top: 50px;
+}
+
+.animated {
+    margin-bottom: 0;
+}
+
+.form-control {
+    width: 40%;
+}
+
+.form-control .form-label {
+    text-align: left;
+}
+
+.form-control-file,
+.form-control-range {
+    display: block;
+    width: 100%;
+    padding-top: 12px;
+}
+
+.custom-file {
+    margin-left: 148px;
+}
+
+.mb-2 {
+    margin-top: 25px;
+    margin-right: 12px;
+}
+
+.bt-pesquisa {
+    margin-top: -25px;
+    padding-left: 30px;
+}
+
+.btn-primary {
+    background-color: #3d21d2eb;
+    border-color: #2700ff;
+}
+
+.departamento-lista {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.departamento-lista p {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.departamento-lista.show-component {
+    height: auto;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity .3s ease-in-out;
+}
+
+.departamento-cadastro {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.departamento-cadastro.show-component {
+    height: auto;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity .3s ease-in-out;
+}
+
+.departamento-vinculo {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.departamento-vinculo.show-component {
+    height: auto;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity .3s ease-in-out;
+}

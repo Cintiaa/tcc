@@ -37,11 +37,14 @@
     <professor-cadastro [professorEdit]="professorEdit" (completed)="cadastroCallback($event)"></professor-cadastro>
 </div>
 <div class="professor-lista" [ngClass]="{'show-component': listaProfessor }">
-    <professor-lista [professor]="professor" (editar)="editarProfessor($event)" (vincular)="vincularDisciplina($event)"></professor-lista>
+    <professor-lista [professor]="professor" (editar)="editarProfessor($event)" (vincular)="vincularDisciplina($event)">
+    </professor-lista>
 </div>
 <div class="professor-vinculo" [ngClass]="{'show-component': cadtrProfessorDisciplina }">
     <professor-disciplina [vinculo]="vinculo" (completed)="cadastroCallback($event)"></professor-disciplina>
 </div>
-<div class="professor-lista" [ngClass]="{'show-component': msg }">
-    <p>Não há registros que satisfaçam o critério de busca!</p>
+<div [ngStyle]="{display: cadtrProfessor || cadtrProfessorDisciplina ? 'none':'block' }">
+    <div class="professor-lista" [ngClass]="{'show-component': msg }">
+        <p>Não há registros que satisfaçam o critério de busca!</p>
+    </div>
 </div>

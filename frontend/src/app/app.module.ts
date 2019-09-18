@@ -27,6 +27,9 @@ import { AppRoutingModule } from './app.routing.module';
 import { CursoModule } from './curso/curso.module';
 import { DisciplinaModule } from './disciplina/disciplina.module';
 import { FooterComponent } from './footer/footer.component';
+import { DepartamentoComponent } from './departamento/departamento.component';
+import { DepartamentoModule } from './departamento/departamento.module';
+
 //import { AppRoutes } from './app.routing.module';
 
 
@@ -39,6 +42,7 @@ import { FooterComponent } from './footer/footer.component';
     ProfessorComponent,
     MenuComponent,
     FooterComponent,
+    DepartamentoComponent,
     FileSelectDirective
   ],
   imports: [
@@ -58,8 +62,9 @@ import { FooterComponent } from './footer/footer.component';
     ProfessorModule,
     CursoModule,
     DisciplinaModule,
+    DepartamentoModule,
     AppRoutingModule,
-    ToasterModule.forRoot()
+    ToastrModule.forRoot()
   ],
 
   providers: [ToasterService],

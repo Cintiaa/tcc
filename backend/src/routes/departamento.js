@@ -85,32 +85,31 @@ router.post('/newDepartamento', async (req, res) => {
     }
 });
 
-/* //Remove Aluno da listagem ao setar o IsDeleted com 1 
+//Remove Departamento da listagem ao setar o IsDeleted com 1 
 router.put('/remove', (req, res, next) => {
-    let IdAluno = req.body.IdAluno;
-    console.log(IdAluno);
+    let IdDepartamento = req.body.IdDepartamento;
+    console.log(IdDepartamento);
     departamentoModel.update(
         { IsDeleted: 1 },
-        { where: { IdAluno: IdAluno } }
+        { where: { IdDepartamento: IdDepartamento } }
     ).then(() => {
-        res.status(200).json({ sucess: 'Aluno removido com sucesso!' })
+        res.status(200).json({ sucess: 'Departamento removido com sucesso!' })
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na exclusão. Por favor tente mais tarde!', err });
     });
 });
 
-//Edita Nome e Curso Aluno
+//Edita Nome e Curso Departamento
 router.put('/edit', (req, res, next) => {
-    let IdAluno = req.body.IdAluno;
+    let IdDepartamento = req.body.IdDepartamento;
     let Nome = req.body.Nome;
-    let IdCurso = req.body.IdCurso;
     departamentoModel.update(
-        { Nome: Nome, IdCurso: IdCurso },
-        { where: { IdAluno: IdAluno } }
+        { Nome: Nome},
+        { where: { IdDepartamento: IdDepartamento } }
     ).then(() => {
-        res.status(200).json({ sucess: 'Aluno atualizado com sucesso!' })
+        res.status(200).json({ sucess: 'Departamento atualizado com sucesso!' })
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na atualização. Por favor tente mais tarde!', err });
     });
-}); */
+});
 module.exports = router;

@@ -6,6 +6,7 @@
         <mat-nav-list>
             <a mat-list-item [routerLink]="['/']">Home</a>
             <a mat-list-item [routerLink]="['/aluno']">Aluno</a>
+            <a mat-list-item [routerLink]="['/departamento']">Departamento</a>
             <a mat-list-item [routerLink]="['/professor']">Professor</a>
             <a mat-list-item [routerLink]="['/curso']">Curso</a>
             <a mat-list-item [routerLink]="['/disciplina']">Disciplina</a>
@@ -19,7 +20,7 @@
                 *ngIf="isHandset | async">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            Welcome to {{title}}
+            <!-- Welcome to {{title}} -->
         </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-drawer-content>
