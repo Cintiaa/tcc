@@ -19,7 +19,7 @@
             <tr *ngFor="let v of values">
                 <td>{{v.RA}}</td>
                 <td>{{v.Nome}}</td>
-                <td>{{v.IdDepartamento}}</td>
+                <td>{{v.Departamento.Nome}}</td>
                 <td class="">
                     <button class="action-lista btn btn-primary" (click)="vincularDisciplina(v.IdProfessor)" style="width: 170px;">
                         <i class="fa fa-plus"></i> Adicionar/Visualizar </button>

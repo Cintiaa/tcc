@@ -49,6 +49,10 @@ Disciplina.associate = (models) => {
         },
         foreignKey: 'IdDisciplina'
     });
+
+    Disciplina.hasMany(models.Turma, {
+        foreignKey: 'IdDisciplina'
+    });
 }
 
 //Comentar sempre após criar a tabela através do model, para não criar tabela duplicada no banco

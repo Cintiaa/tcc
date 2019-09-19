@@ -15,16 +15,18 @@ export class CursoListaComponent implements OnInit, OnDestroy {
 
   _inputBusca: string;
   get inputBusca(): string {
-      return this._inputBusca;
+    return this._inputBusca;
   }
   set inputBusca(value: string) {
-      this._inputBusca = value;
-      this.filteredCursos = this.inputBusca ? this.performFilter(this.inputBusca) : this.cursosArray;
+    this._inputBusca = value;
+    this.filteredCursos = this.inputBusca ? this.performFilter(this.inputBusca) : this.cursosArray;
   }
 
-  constructor(private cursoService: CursoService,
-              private router: Router,
-              private route: ActivatedRoute) { }
+  constructor(
+    private cursoService: CursoService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     this.cursoService.fetchCursos()
@@ -39,10 +41,10 @@ export class CursoListaComponent implements OnInit, OnDestroy {
   }
 
   performFilter(filterBy: string): Curso[] {
-        filterBy = filterBy.toLocaleLowerCase();
-        return this.cursosArray.filter((curso: Curso) =>
-              curso.Sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
-              curso.Nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
+    filterBy = filterBy.toLocaleLowerCase();
+    return this.cursosArray.filter((curso: Curso) =>
+      curso.Sigla.toLocaleLowerCase().indexOf(filterBy) !== -1 ||
+      curso.Nome.toLocaleLowerCase().indexOf(filterBy) !== -1);
   }
 
   onBuscar() {

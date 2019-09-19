@@ -36,6 +36,9 @@ router.get('/busca', (req, res, next) => {
         Nome = null;
     }
     professorModel.findAll({
+        include: [
+            { model: models.Departamento },
+        ],
         where: {
             Nome: {
                 [Op.or]: {
@@ -44,7 +47,7 @@ router.get('/busca', (req, res, next) => {
                 }
             },
             IsDeleted: 0
-        }
+        },
     }).then((professor) => {
         res.status(200).json(professor)
     }).catch((err) => {
@@ -61,13 +64,16 @@ router.get('/buscaProfessorDisciplina', (req, res, next) => {
             model: models.Disciplina,
             required: true,
             through: {
-                where: { IdProfessor: IdProfessor, IsDeleted: 0 }
-            }
-        }]
+                where: { IdProfessor: IdProfessor, IsDeleted: 0 },
+            },
+            include: [{
+                model: models.Curso,
+            }]
+        }],
     }).then((response) => {
         console.log(response);
-        disciplinas = response[0] ? response[0].Disciplinas : [];
-        res.status(200).json(disciplinas)
+        disciplinas = response[0] ? response[0].Disciplinas :  [];
+        res.status(200).json(disciplinas);
     }).catch((err) => {
         console.log(err);
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });

@@ -3,6 +3,8 @@ const db = require('../config/db');
 const alunoModel = require('../models/aluno');
 const Cursos = require('../models/curso');
 
+const models = require('../models/index');
+
 const router = express.Router();
 
 
@@ -30,7 +32,9 @@ router.get('/busca', (req, res) => {
     const Op = db.Sequelize.Op;
 
     let RA = req.query.RA;
-    let Nome = req.query.NomeAluno;
+    let Nome = req.query.Nome;
+    console.log(RA)
+    console.log(Nome)
     if (RA == null) {
         RA = null;
     }
@@ -38,6 +42,9 @@ router.get('/busca', (req, res) => {
         Nome = null;
     }
     alunoModel.findAll({
+        include: [
+            { model: models.Curso },
+        ],
         where: {
             RA: {
                 [Op.or]: {
@@ -45,7 +52,7 @@ router.get('/busca', (req, res) => {
                     [Op.like]: '%' + RA + '%'
                 }
             },
-            NomeAluno: {
+            Nome: {
                 [Op.or]: {
                     [Op.eq]: null,
                     [Op.like]: '%' + Nome + '%'
@@ -54,7 +61,6 @@ router.get('/busca', (req, res) => {
             IsDeleted: 0
         }
     }).then((alunos) => {
-
         res.status(200).json(alunos);
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });

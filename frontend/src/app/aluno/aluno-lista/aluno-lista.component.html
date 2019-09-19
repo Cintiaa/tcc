@@ -18,7 +18,7 @@
             <tr *ngFor="let v of values">
                 <td>{{v.RA}}</td>
                 <td>{{v.Nome}}</td>
-                <td>{{v.IdCurso}}</td>
+                <td>{{v.Curso.Nome}}</td>
                 <td class="d-flex justify-content-around">
                     <div class="action-lista" (click)="editarAluno(v.IdAluno)"> 
                         <a><i class="fa fa-edit"></i> Editar</a>

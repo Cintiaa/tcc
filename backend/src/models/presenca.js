@@ -48,22 +48,6 @@ const Presenca = db.sequelize.define('Presencas', {
     }
 });
 
-//Faz a associação de chave estrangeira na tabela de Presença
-Aluno.associate = (models) => {
-    Aluno.hasMany(models.Presencas, { 
-        as: 'presencasAluno',
-        foreignKey: 'IdAluno'
-    });
-}
-
-Turma.associate = (models) => {
-    Turma.hasMany(models.Presencas, { 
-        as: 'presencas',
-        foreignKey: 'IdTurma'
-     });
-}
-
-
 //Força a criação da tabela
 //Presenca.sync({ force: true });
 module.exports = Presenca;

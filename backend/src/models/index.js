@@ -7,6 +7,11 @@ const models = {
   Curso: require('./curso'),
   Disciplina: require('./disciplina'),
   Professor: require('./professor'),
+  Aluno: require('./aluno'),
+  Turma: require('./turma'),
+  ImagemFace: require('./imagemFace'),
+  Presenca: require('./presenca'),
+  Departamento: require('./departamento')
 }
 
 Object.keys(models).forEach(modelKey => {

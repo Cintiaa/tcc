@@ -37,21 +37,18 @@ const Turma = db.sequelize.define('Turma', {
 });
 
 Turma.associate = (models) => {
-    Turma.belongsToMany(models.Alunos, {
+    Turma.belongsToMany(models.Aluno, {
         through: {
-            model: TurmaAlunos,
+            model: 'TurmaAluno',
             unique: false
         },
-        as: 'turmas',
         foreignKey: 'IdTurma'
     });
-}
 
-//Faz a associação de chave estrangeira na tabela de Turma
-Disciplina.hasMany(Turma, {
-    as: 'Turmas',
-    foreignKey: 'IdDisciplina'
-})
+    Turma.hasMany(models.Presenca, { 
+        foreignKey: 'IdTurma'
+     });
+}
 
 //Comentar sempre após criar a tabela através do model, para não criar tabela duplicada no banco
 //para criar a tabela executar o comando node [nome do model] ex. node turma.js

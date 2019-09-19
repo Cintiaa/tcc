@@ -31,13 +31,10 @@ const Departamento = db.sequelize.define('Departamentos', {
 
 //Faz uma associação 1:n entre Departamento e Professor 
 Departamento.associate = (models) => {
-    Departamento.hasMany(Professor, {
-        as: 'professores',
+    Departamento.hasMany(models.Professor, {
         foreignKey: 'IdDepartamento'
     })
-    console.log('Associacao feita');
 }
-
 
 //Departamento.sync({force: true});
 module.exports = Departamento;

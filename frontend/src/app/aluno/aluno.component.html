@@ -44,8 +44,10 @@
     <div class="aluno-lista" [ngClass]="{'show-component': listaAluno }">
         <aluno-lista [aluno]="aluno" (editar)="editarAluno($event)"></aluno-lista>
     </div>
-    <div class="aluno-lista" [ngClass]="{'show-component': msg }">
-        <p>Não há registros que satisfaçam o critério de busca!</p>
+    <div [ngStyle]="{display: cadtrAluno? 'none':'block' }">
+        <div class="aluno-lista" [ngClass]="{'show-component': msg }">
+            <p>Não há registros que satisfaçam o critério de busca!</p>
+        </div>
     </div>
 
 </div>

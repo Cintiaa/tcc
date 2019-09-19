@@ -38,24 +38,25 @@ const Aluno = db.sequelize.define('Alunos', {
     }
 });
 
-//Faz a associação de chave estrangeira na tabela de ImagemFace
 Aluno.associate = (models) => {
-    Aluno.hasMany(models.ImagemFaces, {
-        as: 'ImagemFaces',
-        foreignKey: 'IdAluno'
-    });
-}
-
-
-
-Aluno.associate = (models) => {
-    Aluno.belongsToMany(models.Turmas, {
+    Aluno.belongsToMany(models.Turma, {
         through: {
-            model: TurmaAlunos,
+            model: 'TurmaAluno',
             unique: false
         },
-        as: 'alunos',
         foreignKey: 'IdAluno'
+    });
+
+    Aluno.hasMany(models.ImagemFace, {
+        foreignKey: 'IdAluno'
+    });
+
+    Aluno.hasMany(models.Presenca, { 
+        foreignKey: 'IdAluno'
+    });
+
+    Aluno.belongsTo(models.Curso, {
+        foreignKey: 'IdCurso'
     });
 }
 

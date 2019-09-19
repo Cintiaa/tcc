@@ -33,10 +33,9 @@ const Curso = db.sequelize.define('Cursos', {
 
 //Faz uma associação 1:n entre Curso e Aluno
 Curso.associate = (models) => {
-    // Curso.hasMany(Aluno, {
-    //     as: 'alunos',
-    //     foreignKey: 'IdCurso'
-    // })
+    Curso.hasMany(models.Aluno, {
+        foreignKey: 'IdCurso'
+    })
     Curso.belongsToMany(models.Disciplina, {
         through: {
             model: 'CursoDisciplina',
