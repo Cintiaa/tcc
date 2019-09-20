@@ -65,10 +65,7 @@ router.get('/buscaProfessorDisciplina', (req, res, next) => {
             required: true,
             through: {
                 where: { IdProfessor: IdProfessor, IsDeleted: 0 },
-            },
-            include: [{
-                model: models.Curso,
-            }]
+            }
         }],
     }).then((response) => {
         console.log(response);

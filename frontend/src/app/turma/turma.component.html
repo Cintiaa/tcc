@@ -1,0 +1,51 @@
+<div class="container header" [ngStyle]="{display: cadtrTurmaAluno ? 'none':'block' }">
+    <div class="row">
+        <div class="col-6">
+            <h3>Turma</h3>
+        </div>
+        <div class="col-6" [ngStyle]="{display: cadtrTurma ? 'none':'block' }">
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mb-2" (click)="AdicionarTurma(true)">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+</div>
+
+<div class="animated fadeIn container-fluid" style=" margin-top: -20px;">
+    <div class="card" [ngStyle]="{display: cadtrTurma || cadtrTurmaAluno ? 'none':'block' }">
+        <div class="card-body row">
+            <div class="col-10 align-self-left ">
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-2 col-form-label" for="sigla">Sigla: </label>
+                        <input type="text" class="form-control" id="sigla" [(ngModel)]="busca.Sigla" autocomplete="off">
+
+                        <div class="bt-pesquisa">
+                            <button type="submit" class="btn btn-primary mb-2" (click)="buscar()">Pesquisar</button>
+                            <button type="submit" class="btn btn-primary mb-2" (click)="limparInput()">Limpar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="turma-cadastro" [ngClass]="{'show-component': cadtrTurma }">
+    <turma-cadastro [turmaEdit]="turmaEdit" (completed)="cadastroCallback($event)">
+    </turma-cadastro>
+</div>
+<div class="turma-lista" [ngClass]="{'show-component': listaTurma }">
+    <turma-lista [turma]="turma" (editar)="editarTurma($event)">
+    </turma-lista>
+</div>
+<div class="turma-vinculo" [ngClass]="{'show-component': cadtrTurmaAluno }">
+    <turma-aluno [vinculo]="vinculo" (completed)="cadastroCallback($event)"></turma-aluno>
+</div>
+<div [ngStyle]="{display: cadtrTurma ? 'none':'block' }">
+    <div class="turma-lista" [ngClass]="{'show-component': msg }">
+        <p>Não há registros que satisfaçam o critério de busca!</p>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<div class="container header">
+    <div class="lista-title d-flex align-items-center justify-content-between">
+        <h1>Resultado da Busca</h1>
+    </div>
+</div>
+
+<div class="info-lista">
+    <table class="table table-striped">
+        <thead class="thead">
+            <tr>
+                <th scope="col">Sigla</th>
+                <th scope="col">Disciplina</th>
+                <th scope="col">Alunos</th>
+                <th scope="col">Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let v of values">
+                <td>{{v.Sigla}}</td>
+                <td>{{v.Disciplina.Nome}}</td>
+                <td class="">
+                    <button class="action-lista btn btn-primary" (click)="vincularAluno(v.IdTurma)" style="width: 170px;">
+                        <i class="fa fa-plus"></i> Adicionar/Visualizar </button>
+                </td>
+                <td class="d-flex justify-content-center action-cell">
+                    <button class="action-lista btn btn-primary" (click)="editarTurma(v.IdTurma)"><i
+                            class="fa fa-edit"></i> Editar</button>
+                    <button class="action-lista btn btn-primary" (click)="confirmar(v.IdTurma)"><i
+                            class="fa fa-trash"></i>
+                        Excluir</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
+    <div class="box-modal">
+        <p>Deseja realmente excluir esse Turma?</p>
+        <div class="action-modal">
+            <button class="btn btn-primary mb-2" (click)="remover()">Sim</button>
+            <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
+        </div>
+    </div>
+</div>

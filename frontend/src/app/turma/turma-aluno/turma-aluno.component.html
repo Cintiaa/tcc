@@ -1,0 +1,78 @@
+<div class="container header">
+    <div class="lista-title d-flex align-items-center justify-content-between">
+        <h1>Alunos matriculados na Disciplina</h1>
+    </div>
+</div>
+
+<div class="container-fluid">
+    <div class="info-lista">
+        <table class="table table-striped">
+            <thead class="thead">
+                <tr>
+                    <th scope="col">RA</th>
+                    <th scope="col">Nome</th>
+                    <th scope="col">Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let v of turmaAluno; let i = index;">
+                    <td>{{v.RA}}</td>
+                    <td>{{v.Nome}}</td>
+                    <td class="d-flex justify-content-center action-cell">
+                        <button class="col-4 action-lista btn btn-primary" (click)="confirmar(v.IdAluno)"><i
+                                class="fa fa-trash"></i>
+                            Desvincular</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-primary mb-2" (click)="ModalAluno()"><i class="fa fa-plus"></i> Adicionar
+            Aluno</button>
+        <button class="btn btn-outline-primary mb-2" (click)="voltarBusca(false)"><i class="fa fa-arrow-left"></i>
+            Voltar</button>
+    </div>
+</div>
+
+<div class="overlay-turma-aluno" [ngClass]="{'show-novo-dsmp': addAluno}">
+    <div class="wrap-turma-aluno">
+        <div class="turma-aluno">
+            <form [formGroup]="form">
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-sm-3 col-form-label" for="turma">Turma: </label>
+                        <select class="col-sm-6 form-control" name="turma" formControlName="IdTurma" disabled>
+                            <option value="{{p.IdTurma}}" *ngFor="let p of turmaFilter">{{p.Sigla}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-sm-3 col-form-label" for="AlunoTurma">Aluno: </label>
+                        <select class="col-sm-6 form-control" name="AlunoTurma" formControlName="IdAluno">
+                            <option value="{{d.IdAluno}}" *ngFor="let d of aluno">{{d.Nome}}</option>
+                        </select>
+                    </div>
+                </div>
+            </form>
+            <div class="bt-cadastro d-flex justify-content-around">
+                <div class="col-7">
+                    <button class="btn btn-primary mb-2" (click)="novoAluno()">Salvar</button>
+                    <button class="btn btn-outline-primary mb-2" (click)="cancelAluno()">Cancelar</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
+    <div class="box-modal">
+        <p>Deseja realmente remover esse aluno?</p>
+        <div class="action-modal">
+            <button class="btn btn-primary mb-2" (click)="remover()">Sim</button>
+            <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
+        </div>
+    </div>
+</div>

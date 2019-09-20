@@ -87,11 +87,13 @@ export class ProfessorComponent implements OnInit {
   cadastroCallback(e) {
     this.cadtrProfessor = false;
     this.cadtrProfessorDisciplina = false;
+    this.msg = false;
   }
 
   AdicionarProfessor(e) {
     this.cadtrProfessor = e;
     this.listaProfessor = false;
+    this.msg = false;
   }
 
 }

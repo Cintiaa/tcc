@@ -13,6 +13,7 @@ const Turma = db.sequelize.define('Turma', {
         type: db.Sequelize.STRING,
         unique: true,
         allowNull: false,
+        upperCase: true,
     },
     IdDisciplina: {
         type: db.Sequelize.INTEGER,
@@ -48,6 +49,10 @@ Turma.associate = (models) => {
     Turma.hasMany(models.Presenca, { 
         foreignKey: 'IdTurma'
      });
+
+     Turma.belongsTo(models.Disciplina, {
+        foreignKey: 'IdDisciplina'
+    });
 }
 
 //Comentar sempre após criar a tabela através do model, para não criar tabela duplicada no banco

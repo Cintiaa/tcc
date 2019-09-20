@@ -29,6 +29,8 @@ import { DisciplinaModule } from './disciplina/disciplina.module';
 import { FooterComponent } from './footer/footer.component';
 import { DepartamentoComponent } from './departamento/departamento.component';
 import { DepartamentoModule } from './departamento/departamento.module';
+import { TurmaComponent } from './turma/turma.component';
+import { TurmaModule } from './turma/turma.module';
 
 //import { AppRoutes } from './app.routing.module';
 
@@ -43,6 +45,7 @@ import { DepartamentoModule } from './departamento/departamento.module';
     MenuComponent,
     FooterComponent,
     DepartamentoComponent,
+    TurmaComponent,
     FileSelectDirective
   ],
   imports: [
@@ -63,6 +66,7 @@ import { DepartamentoModule } from './departamento/departamento.module';
     CursoModule,
     DisciplinaModule,
     DepartamentoModule,
+    TurmaModule,
     AppRoutingModule,
     ToastrModule.forRoot()
   ],

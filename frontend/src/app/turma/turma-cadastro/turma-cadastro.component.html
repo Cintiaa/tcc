@@ -1,0 +1,30 @@
+<div class="container">
+    <div class="card">
+        <div class="card-body row">
+            <div class="col-10 align-self-left ">
+                <form [formGroup]="form">
+                    <div class="form-group">
+                        <div class="d-flex justify-content-left">
+                            <label class="col-sm-2 col-form-label" for="siglaTurma">Sigla: </label>
+                            <input type="text" class="form-control" name="siglaTurma" formControlName="Sigla"
+                             autocomplete="off" style="text-transform: uppercase">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="d-flex justify-content-left">
+                            <label class="col-sm-2 col-form-label" for="disciplina">Disciplina: </label>
+                            <select class="form-control" name="disciplina" formControlName="IdDisciplina">
+                                <option value="{{d.IdDisciplina}}" *ngFor="let d of disciplina">{{d.Nome}}</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class=" bt-cadastro d-flex justify-content-end">
+    <button type="submit" class="btn btn-primary mb-2" (click)="cadastrar(true)">Salvar</button>
+    <button type="submit" class="btn btn-outline-primary mb-2" (click)="cadastrar(false)">Cancelar</button>
+</div>

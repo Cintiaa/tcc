@@ -13,6 +13,7 @@ const Disciplina = db.sequelize.define('Disciplina', {
         type: db.Sequelize.STRING,
         unique: true,
         allowNull: false,
+        upperCase: true,
     },
     Nome: {
         type: db.Sequelize.STRING
