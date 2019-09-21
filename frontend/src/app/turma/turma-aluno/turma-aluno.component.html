@@ -49,9 +49,18 @@
                 </div>
                 <div class="form-group">
                     <div class="d-flex justify-content-left">
-                        <label class="col-sm-3 col-form-label" for="AlunoTurma">Aluno: </label>
-                        <select class="col-sm-6 form-control" name="AlunoTurma" formControlName="IdAluno">
-                            <option value="{{d.IdAluno}}" *ngFor="let d of aluno">{{d.Nome}}</option>
+                        <label class="col-sm-3 col-form-label" for="AlunoTurma">RA: </label>
+                        <select class="col-sm-6 form-control" name="AlunoTurma" formControlName="IdAluno"
+                        (change)="filterNome($event)">
+                            <option value="{{d.IdAluno}}" *ngFor="let d of aluno">{{d.RA}}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-sm-3 col-form-label" for="nomeAluno">Aluno: </label>
+                        <select class="col-sm-6 form-control" name="nomeAluno" formControlName="Nome">
+                            <option value="{{d.IdAluno}}" *ngFor="let d of raFilter">{{d.Nome}}</option>
                         </select>
                     </div>
                 </div>

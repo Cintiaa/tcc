@@ -80,10 +80,13 @@ export class TurmaComponent implements OnInit {
 
     cadastroCallback(e) {
         this.cadtrTurma = false;
+        this.cadtrTurmaAluno = false;
+        this.msg = false;
     }
 
     AdicionarTurma(e) {
         this.cadtrTurma = e;
         this.listaTurma = false;
+        this.msg = false;
     }
 }  

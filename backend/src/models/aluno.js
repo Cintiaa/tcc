@@ -41,7 +41,7 @@ const Aluno = db.sequelize.define('Alunos', {
 Aluno.associate = (models) => {
     Aluno.belongsToMany(models.Turma, {
         through: {
-            model: 'TurmaAluno',
+            model: 'TurmaAlunos',
             unique: false
         },
         foreignKey: 'IdAluno'

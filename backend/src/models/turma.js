@@ -40,7 +40,7 @@ const Turma = db.sequelize.define('Turma', {
 Turma.associate = (models) => {
     Turma.belongsToMany(models.Aluno, {
         through: {
-            model: 'TurmaAluno',
+            model: 'TurmaAlunos',
             unique: false
         },
         foreignKey: 'IdTurma'

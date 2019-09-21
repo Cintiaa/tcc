@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { isNgTemplate } from '@angular/compiler';
 
 import { UtilsService } from 'src/app/services/utils.service';
@@ -19,7 +19,7 @@ export class TurmaAlunoComponent implements OnInit {
 
     values = [];
     id: any;
-    //idTurma: any;
+    idTurma: any;
 
     excluir = false;
     turmaFilter = [];
@@ -29,7 +29,8 @@ export class TurmaAlunoComponent implements OnInit {
     curso = [];
     AlunoCurso = [];
     turmaAluno = [];
-    cursoFiltter = [];
+    raFilter = [];
+
 
     vincular = false;
     addAluno = false;
@@ -37,6 +38,7 @@ export class TurmaAlunoComponent implements OnInit {
     turmaAlunos = {
         IdAluno: 0,
         IdTurma: 0,
+        Nome: "",
         IsDeleted: 0,
     }
 
@@ -79,18 +81,24 @@ export class TurmaAlunoComponent implements OnInit {
     vincAluno(el) {
         if (el.length != 0) {
             for (let i = 0; i < el.length; i++) {
-                this.service.getTurmaAluno(this.turma[i].Idturma).subscribe(res => {
+                this.service.getTurmaAluno(this.turma[i].IdTurma).subscribe(res => {
                     this.turmaAluno = res;
-                    console.log(this.turmaAluno);
+                    console.log('Turma', this.turmaAluno);
                 });
                 this.form.get('IdTurma').setValue(el[i].IdTurma);
-            this.turmaAluno.push(el[i]);
+                this.turmaAluno.push(el[i]);
             }
-
         }
     }
 
 
+    filterNome(e) {
+        let raDig = e.target.value;
+        console.log(raDig);
+        this.raFilter = this.aluno.filter((item) => item.IdAluno == raDig);
+        //this.form.get('Nome').setValue(this.raFilter[0].Nome)
+
+    }
     /* filterAlunoCurso(e) {
         this.id = parseInt(e.target.value);
         console.log(this.id);
@@ -108,6 +116,7 @@ export class TurmaAlunoComponent implements OnInit {
         this.turmaAlunos = {
             IdAluno: 0,
             IdTurma: 0,
+            Nome: "",
             IsDeleted: 0
         };
     }
@@ -120,6 +129,7 @@ export class TurmaAlunoComponent implements OnInit {
             return;
         }
     }
+
     getJSON(obj) {
         for (var prop in this.form.controls) {
             obj[prop] = this.form.controls[prop].value;
@@ -127,7 +137,7 @@ export class TurmaAlunoComponent implements OnInit {
         return obj;
     }
 
-    novaAluno() {
+    novoAluno() {
         if (this.validateInfos()) {
             this.turmaAlunos = this.getJSON(this.turmaAlunos);
             this.service.turmaAluno(this.turmaAlunos).subscribe(res => {
@@ -142,7 +152,8 @@ export class TurmaAlunoComponent implements OnInit {
         if (!edit) {
             this.form = this.fb.group({
                 IdAluno: new FormControl(0),
-                Idturma: new FormControl(0),
+                IdTurma: new FormControl(0),
+                Nome: new FormControl(null, [Validators.required]),
                 IsDeleted: new FormControl(0),
             });
         }

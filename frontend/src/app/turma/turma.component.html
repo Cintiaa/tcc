@@ -38,7 +38,7 @@
     </turma-cadastro>
 </div>
 <div class="turma-lista" [ngClass]="{'show-component': listaTurma }">
-    <turma-lista [turma]="turma" (editar)="editarTurma($event)">
+    <turma-lista [turma]="turma" (editar)="editarTurma($event)" (vincular)="vincularAluno($event)">
     </turma-lista>
 </div>
 <div class="turma-vinculo" [ngClass]="{'show-component': cadtrTurmaAluno }">

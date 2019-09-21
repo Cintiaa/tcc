@@ -46,11 +46,11 @@ export class TurmaService {
   }
 
   turmaAluno(alunoTurma): Observable<any> {
-    return this.http.post('http://localhost:4200/api/tuma/turmaAluno/', alunoTurma);
+    return this.http.post('http://localhost:4200/api/turma/turmaAluno/', alunoTurma);
   }
 
   getTurmaAluno(id: any): Observable<any> {
-    return this.http.get('http://localhost:4200/api/tuma/buscaTurmaAluno?IdTurma=' + id);
+    return this.http.get('http://localhost:4200/api/turma/buscaTurmaAluno?IdTurma=' + id);
   }
 
 }
