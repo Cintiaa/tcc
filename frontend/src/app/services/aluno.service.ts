@@ -23,7 +23,7 @@ export class AlunoService {
   }
 
   listarAlunos(busca: any): Observable<any> {
-    return this.http.get('http://localhost:4200/api/aluno/busca?RA=' + busca["RA"] + '&Nome=' + busca["Nome"]);
+    return this.http.get('http://localhost:4200/api/aluno/busca?RA=' + busca["RA"] + '&Nome=' + busca["Nome"] + '&IdCurso=' + busca["IdCurso"]);
   }
 
   cadastrarAlunos(aluno): Observable<any> {

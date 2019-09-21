@@ -97,7 +97,12 @@ export class TurmaAlunoComponent implements OnInit {
         console.log(raDig);
         this.raFilter = this.aluno.filter((item) => item.IdAluno == raDig);
         //this.form.get('Nome').setValue(this.raFilter[0].Nome)
-
+        if (this.turmaAluno.filter((item) => item.IdAluno === raDig)) {
+            this.toastr.error('Atenção', 'Aluno já inserido na turma!');
+            return false;
+        } else {
+            return true;
+        }
     }
     /* filterAlunoCurso(e) {
         this.id = parseInt(e.target.value);
@@ -141,7 +146,7 @@ export class TurmaAlunoComponent implements OnInit {
         if (this.validateInfos()) {
             this.turmaAlunos = this.getJSON(this.turmaAlunos);
             this.service.turmaAluno(this.turmaAlunos).subscribe(res => {
-                this.toastr.success('Sucesso', 'Aluno vinculada com sucesso!');
+                this.toastr.success('Sucesso', 'Aluno vinculado com sucesso!');
                 this.cancelAluno();
                 this.Initiate(false);
             });

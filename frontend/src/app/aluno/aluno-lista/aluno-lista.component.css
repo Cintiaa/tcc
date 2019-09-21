@@ -29,13 +29,13 @@ tbody > tr > td {
     text-align: center;
 }
 
-tbody > tr > td > div.action-lista a {
-        background: none;
-        color: #000 !important;
-        font-weight: 400;
-        font-size: 15px;
-        display: flex;
-        align-items: center;
+tbody>tr>td>button.action-lista {
+    border-radius: 4px;
+    display: block;
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+    margin-right: 3px;
 }
 
 tbody > tr:hover {

@@ -22,12 +22,14 @@ export class AlunoComponent implements OnInit {
   busca = {
     RA: "",
     Nome: "",
+    IdCurso: "",
   }
 
   limparInput() {
     this.busca = {
       RA: "",
       Nome: "",
+      IdCurso: "",
     }
     this.msg = false;
     this.listaAluno = false;
@@ -75,13 +77,14 @@ export class AlunoComponent implements OnInit {
 
   cadastroCallback(e) {
     this.cadtrAluno = false;
+    this.msg = false;
   }
 
 
   AdicionarAluno(e) {
     this.cadtrAluno = e;
+    this.listaAluno = false;
+    this.msg = false;
     //this.router.navigate(['newAluno']);
   }
-
-
 }

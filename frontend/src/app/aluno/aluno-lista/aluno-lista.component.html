@@ -19,13 +19,12 @@
                 <td>{{v.RA}}</td>
                 <td>{{v.Nome}}</td>
                 <td>{{v.Curso.Nome}}</td>
-                <td class="d-flex justify-content-around">
-                    <div class="action-lista" (click)="editarAluno(v.IdAluno)"> 
-                        <a><i class="fa fa-edit"></i> Editar</a>
-                    </div>
-                    <div class="action-lista" (click)="confirmar(v.IdAluno)"> 
-                        <a><i class="fa fa-trash"></i> Excluir</a>
-                    </div>
+                <td class="d-flex justify-content-center action-cell">
+                    <button class="action-lista btn btn-primary" (click)="editarAluno(v.IdAluno)"><i
+                            class="fa fa-edit"></i> Editar</button>
+                    <button class="action-lista btn btn-primary" (click)="confirmar(v.IdAluno)"><i
+                            class="fa fa-trash"></i>
+                        Excluir</button>
                 </td>
             </tr>
         </tbody>

@@ -33,6 +33,7 @@ router.get('/busca', (req, res) => {
 
     let RA = req.query.RA;
     let Nome = req.query.Nome;
+    let IdCurso = req.query.IdCurso
     console.log(RA)
     console.log(Nome)
     if (RA == null) {
@@ -40,6 +41,9 @@ router.get('/busca', (req, res) => {
     }
     if (Nome == null) {
         Nome = null;
+    }
+    if(IdCurso == null){
+        IdCurso = null;
     }
     alunoModel.findAll({
         include: [
@@ -56,6 +60,12 @@ router.get('/busca', (req, res) => {
                 [Op.or]: {
                     [Op.eq]: null,
                     [Op.like]: '%' + Nome + '%'
+                }
+            },
+            IdCurso: {
+                [Op.or]: {
+                    [Op.eq]: null,
+                    [Op.like]: '%' + IdCurso + '%'
                 }
             },
             IsDeleted: 0
