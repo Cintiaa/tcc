@@ -34,8 +34,8 @@ export class ProfessorDisciplinaComponent implements OnInit {
     addDisciplina = false;
 
     professorDisciplinas = {
-        IdDisciplina: 0,
-        IdProfessor: 0,
+        IdDisciplina: null,
+        IdProfessor: null,
         IsDeleted: 0,
     }
 
@@ -86,9 +86,8 @@ export class ProfessorDisciplinaComponent implements OnInit {
                     this.profDisciplina = res;
                     console.log(this.profDisciplina);
                 });
-                this.form.get('IdProfessor').setValue(el[i].IdProfessor);
-            this.profDisciplina.push(el[i]);
             }
+            this.form.get('IdProfessor').setValue(el[0].IdProfessor);
 
         }
     }
@@ -104,18 +103,22 @@ export class ProfessorDisciplinaComponent implements OnInit {
     }
     ModalDisciplina() {
         this.addDisciplina = true;
+        this.vincDisciplina(this.professor);
+        this.clear();
     }
     cancelDisciplina() {
         this.addDisciplina = false;
+        this.clear();
+    }
+
+    clear() {
         this.professorDisciplinas = {
-            IdDisciplina: 0,
-            IdProfessor: 0,
+            IdDisciplina: null,
+            IdProfessor: null,
             IsDeleted: 0
         };
     }
-
     voltarBusca(e) {
-        console.log(e);
         if (!e) {
             this.completed.emit(e);
             this.Initiate(false);
@@ -134,9 +137,10 @@ export class ProfessorDisciplinaComponent implements OnInit {
             this.professorDisciplinas = this.getJSON(this.professorDisciplinas);
             this.service.professorDisciplina(this.professorDisciplinas).subscribe(res => {
                 this.toastr.success('Sucesso', 'Disciplina vinculada com sucesso!');
-                this.cancelDisciplina();
                 this.Initiate(false);
+                this.cancelDisciplina();
             });
+            this.vincDisciplina(this.professor);
         }
     }
 

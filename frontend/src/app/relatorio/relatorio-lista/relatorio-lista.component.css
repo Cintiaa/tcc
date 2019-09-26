@@ -1,14 +1,4 @@
-.btn-primary{
-    background-color: #3d21d2eb;
-    border-color: #2700ff;
-}
-
-.btn-outline-primary {
-    color: #3d21d2eb;
-    border-color: #2700ff;
-}
-.btn-outline-primary:hover {
-    color: #fff;
+.btn-primary {
     background-color: #3d21d2eb;
     border-color: #2700ff;
 }
@@ -20,7 +10,7 @@
     margin-top: 20px;
 }
 
-.head-dados-turma>tr>th {
+.head-dados-relatorio>tr>th {
     background-color: #29363d !important;
 }
 

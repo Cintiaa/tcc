@@ -61,6 +61,7 @@
                     <div class="d-flex justify-content-left">
                         <label class="col-sm-3 col-form-label" for="disciplinaProfessor">Disciplina: </label>
                         <select class="col-sm-6 form-control" name="disciplinaProfessor" formControlName="IdDisciplina">
+                            <option value="0" disabled>Selecione</option>
                             <option value="{{d.IdDisciplina}}" *ngFor="let d of disciplinaCurso">{{d.Nome}}</option>
                         </select>
                     </div>

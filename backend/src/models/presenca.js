@@ -11,7 +11,6 @@ const Presenca = db.sequelize.define('Presencas', {
     },
     QtdPresenca: {
         type: db.Sequelize.INTEGER,
-        unique: true,
         allowNull: false,
     },
     DtAula: {
@@ -48,6 +47,14 @@ const Presenca = db.sequelize.define('Presencas', {
     }
 });
 
+Presenca.associate = (models) => {
+    Presenca.belongsTo(models.Turma, {
+        foreignKey: 'IdTurma'
+    });
+    Presenca.belongsTo(models.Aluno, {
+        foreignKey: 'IdAluno'
+    });
+}
 //Força a criação da tabela
 //Presenca.sync({ force: true });
 module.exports = Presenca;

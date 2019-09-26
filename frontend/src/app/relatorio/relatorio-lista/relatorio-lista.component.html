@@ -1,0 +1,26 @@
+<div class="container header">
+    <div class="lista-title d-flex align-items-center justify-content-between">
+        <h1>Resultado da Busca</h1>
+    </div>
+</div>
+
+<div class="info-lista">
+    <table class="table table-striped">
+        <thead class="thead">
+            <tr>
+                <th>Turma</th>
+                <th>Aluno</th>
+                <th>Data</th>
+                <th>Quantidade de Presença</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of excel">
+                <td>{{item.Turma.Sigla}}</td>
+                <td>{{item.Aluno.Nome}}</td>
+                <td>{{item.DtAula}}</td>
+                <td>{{item.QtdPresenca}}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

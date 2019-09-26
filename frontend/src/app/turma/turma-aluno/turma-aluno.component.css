@@ -151,3 +151,7 @@ a .fa {
     background-color: #3d21d2eb;
     border-color: #2700ff;
 }
+
+select > span{
+    color: #ff0000;
+}

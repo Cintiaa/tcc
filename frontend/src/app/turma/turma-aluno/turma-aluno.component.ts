@@ -20,6 +20,7 @@ export class TurmaAlunoComponent implements OnInit {
     values = [];
     id: any;
     idTurma: any;
+    raAluno: any;
 
     excluir = false;
     turmaFilter = [];
@@ -38,15 +39,16 @@ export class TurmaAlunoComponent implements OnInit {
     turmaAlunos = {
         IdAluno: 0,
         IdTurma: 0,
-        Nome: "",
+        Nome: '',
         IsDeleted: 0,
     }
+
+
 
     @Input()
     set vinculo(val) {
         this.turma = val;
         this.vincAluno(val);
-        console.log(this.turma);
     }
 
     @Output() completed = new EventEmitter();
@@ -79,60 +81,54 @@ export class TurmaAlunoComponent implements OnInit {
     }
 
     vincAluno(el) {
-        if (el.length != 0) {
+        if (el.length !== 0) {
             for (let i = 0; i < el.length; i++) {
                 this.service.getTurmaAluno(this.turma[i].IdTurma).subscribe(res => {
                     this.turmaAluno = res;
-                    console.log('Turma', this.turmaAluno);
                 });
-                this.form.get('IdTurma').setValue(el[i].IdTurma);
-                this.turmaAluno.push(el[i]);
             }
+            this.form.get('IdTurma').setValue(el[0].IdTurma);
         }
     }
 
 
     filterNome(e) {
-        let raDig = e.target.value;
+        const raDig = parseInt(e.target.value);
         console.log(raDig);
-        this.raFilter = this.aluno.filter((item) => item.IdAluno == raDig);
-        //this.form.get('Nome').setValue(this.raFilter[0].Nome)
+        this.raFilter = this.aluno.filter((item) => item.IdAluno === raDig);
         if (this.turmaAluno.filter((item) => item.IdAluno === raDig)) {
-            this.toastr.error('Atenção', 'Aluno já inserido na turma!');
+            console.log(this.turmaAluno);
+            this.toastr.error('Aluno já inserido na turma!', 'Atenção');
             return false;
         } else {
             return true;
         }
     }
-    /* filterAlunoCurso(e) {
-        this.id = parseInt(e.target.value);
-        console.log(this.id);
-        this.utils.getTurmaAluno(this.id).subscribe(res => {
-            this.AlunoCurso = res;
-            console.log(res);
-        });
-    } */
 
     ModalAluno() {
         this.addAluno = true;
+        this.vincAluno(this.turma);
+        console.log(this.turma);
+        this.clear();
     }
+
     cancelAluno() {
         this.addAluno = false;
-        this.turmaAlunos = {
-            IdAluno: 0,
-            IdTurma: 0,
-            Nome: "",
-            IsDeleted: 0
-        };
+        this.clear();
     }
 
     voltarBusca(e) {
-        console.log(e);
         if (!e) {
             this.completed.emit(e);
             this.Initiate(false);
             return;
         }
+    }
+
+    clear() {
+        this.turmaAlunos.IdAluno = 0;
+        this.turmaAlunos.Nome = '';
+        this.turmaAlunos.IsDeleted = 0;
     }
 
     getJSON(obj) {
@@ -146,17 +142,19 @@ export class TurmaAlunoComponent implements OnInit {
         if (this.validateInfos()) {
             this.turmaAlunos = this.getJSON(this.turmaAlunos);
             this.service.turmaAluno(this.turmaAlunos).subscribe(res => {
-                this.toastr.success('Sucesso', 'Aluno vinculado com sucesso!');
-                this.cancelAluno();
+                this.toastr.success('Aluno vinculado com sucesso!', 'Sucesso');
                 this.Initiate(false);
+                this.cancelAluno();
+                console.log(this.turmaAluno);
             });
+            this.vincAluno(this.turma);
         }
     }
 
     Initiate(edit, callback = null) {
         if (!edit) {
             this.form = this.fb.group({
-                IdAluno: new FormControl(0),
+                IdAluno: new FormControl(0, [Validators.required]),
                 IdTurma: new FormControl(0),
                 Nome: new FormControl(null, [Validators.required]),
                 IsDeleted: new FormControl(0),
@@ -187,7 +185,7 @@ export class TurmaAlunoComponent implements OnInit {
         this.alunoTurma = this.aluno.filter((item) => item.IdAluno = this.id);
         this.service.removeAluno(this.alunoTurma[0]).subscribe(res => {
             console.log(res);
-            this.toastr.success('Sucesso', 'Aluno desvinculada com sucesso!');
+            this.toastr.success( 'Aluno desvinculada com sucesso!', 'Sucesso');
             this.turmaAluno = this.turmaAluno.filter(e => e.IdAluno != this.id);
             this.excluir = false;
         });
