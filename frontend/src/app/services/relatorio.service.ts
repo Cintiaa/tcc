@@ -28,7 +28,7 @@ export class RelatorioService {
         FileSaver.saveAs(data, fileName + '_export_' + new Date().getTime() + EXCEL_EXTENSION);
     }
 
-    getJSON(id: any): Observable<any> {
-        return this.http.get('http://localhost:4200/api/relatorio?IdTurma=' + id);
+    getJSON(busca: any): Observable<any> {
+        return this.http.get('http://localhost:4200/api/relatorio?IdTurma=' + busca["IdTurma"] + '&DtAula=' + busca["DtAula"]);
     }
 }

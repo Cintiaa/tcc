@@ -6,6 +6,10 @@ import { RelatorioService } from '../services/relatorio.service';
 import { TurmaService } from '../services/turma.service';
 
 
+import * as moment from 'moment';
+
+moment.locale('es');
+
 @Component({
   templateUrl: 'relatorio.component.html',
   styleUrls: ['relatorio.component.css']
@@ -13,9 +17,12 @@ import { TurmaService } from '../services/turma.service';
 export class RelatorioComponent implements OnInit {
 
     title = 'excel-download';
-    excel = [];
+
     turma = [];
+    relatorio: any = [];
+
     listaRelatorio = false;
+    msg = false;
 
     id: any;
 
@@ -29,13 +36,7 @@ export class RelatorioComponent implements OnInit {
     private router: Router,
     private service: RelatorioService,
     private turmaService: TurmaService,
-  ) { 
-      this.service.getJSON(1).subscribe(res =>{
-          res.forEach(row => {
-              this.excel.push(row);
-          });
-      });
-  }
+  ) { }
 
   ngOnInit() {
     this.turmaService.getAllTurmas().subscribe(res => {
@@ -43,21 +44,30 @@ export class RelatorioComponent implements OnInit {
     });
   }
 
-  exportAsXLSX(){
-      this.service.exportAsExcelFile(this.excel, 'sample');
+  buscar(){
+    console.log(this.busca);
+    this.service.getJSON(this.busca).subscribe(res => {
+      this.relatorio = res;
+      console.log('Relatório', this.relatorio);
+
+      if (res.length === 0) {
+        this.msg = true;
+        this.listaRelatorio = false;
+      } else {
+        this.msg = false;
+        this.listaRelatorio = true;
+      }
+    });
   }
 
   limparInput(){
     this.busca = {
         IdTurma: 0,
         DtAula: 0
-    }
+    },
+    this.msg = false;
+    this.listaRelatorio = false;
   }
-  buscar(){
-
-  }
-
-
 
 }
 

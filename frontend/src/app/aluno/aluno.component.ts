@@ -5,6 +5,8 @@ import { FormBuilder, FormControl, FormArray, Validators } from '@angular/forms'
 import { AlunoService } from '../services/aluno.service';
 import { CursoService } from '../services/curso.service';
 
+
+
 @Component({
   templateUrl: 'aluno.component.html',
   styleUrls: ['aluno.component.css']
@@ -20,17 +22,17 @@ export class AlunoComponent implements OnInit {
   msg = false;
 
   busca = {
-    RA: "",
-    Nome: "",
-    IdCurso: "",
+    RA: '',
+    Nome: '',
+    IdCurso: ''
   }
 
   limparInput() {
     this.busca = {
-      RA: "",
-      Nome: "",
-      IdCurso: "",
-    }
+      RA: '',
+      Nome: '',
+      IdCurso: '',
+    },
     this.msg = false;
     this.listaAluno = false;
   }
@@ -55,7 +57,7 @@ export class AlunoComponent implements OnInit {
     this.service.listarAlunos(this.busca).subscribe(res => {
       this.aluno = res;
       console.log(this.aluno);
-      if (res.length == 0) {
+      if (res.length === 0) {
         this.msg = true;
         this.listaAluno = false;
       } else {

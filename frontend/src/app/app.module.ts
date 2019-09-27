@@ -13,7 +13,7 @@ import { MatListModule } from '@angular/material/list';
 import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ToastrModule } from 'ngx-toastr';
 import { FileSelectDirective } from 'ng2-file-upload';
-import {ToasterModule, ToasterService, ToasterContainerComponent} from 'angular2-toaster';
+import { ToasterModule, ToasterService, ToasterContainerComponent } from 'angular2-toaster';
 
 
 import { HomeComponent } from './home/home.component';

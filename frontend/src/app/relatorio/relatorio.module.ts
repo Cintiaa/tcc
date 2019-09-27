@@ -5,6 +5,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
 import { ToasterService, ToasterModule } from 'angular2-toaster';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 
 
 import { RelatorioRoutingModule } from './relatorio.routing.module';
@@ -25,4 +26,4 @@ import { RelatorioService } from '../services/relatorio.service';
     providers: [HttpClientModule, ToasterService, RelatorioService]
 })
 
-export class RelatorioModule{}
+export class RelatorioModule { }

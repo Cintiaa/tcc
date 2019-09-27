@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ToasterService } from 'angular2-toaster';
 import { RelatorioService } from 'src/app/services/relatorio.service';
+import { FormBuilder } from '@angular/forms';
 
 
 
@@ -13,24 +14,30 @@ import { RelatorioService } from 'src/app/services/relatorio.service';
   styleUrls: ['./relatorio-lista.component.css']
 })
 export class RelatorioListaComponent implements OnInit {
-
-  values = [];
   id: any;
   excluir = false;
-  professorFilter = [];
-  professores = [];
+ 
+  excel = [];
+  excelFilter = [];
+  turmaFilter = [];
+  alunoFilter = [];
 
-  @Output() editar = new EventEmitter();
+  @Input() set relatorio(val){
+    this.excel = val;
+  }
 
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
+    public fb: FormBuilder,
     private service: RelatorioService,
     private toasterService: ToasterService
-  ) { }
-
+  ) {
+  }
   ngOnInit() {
-   
   }
 
+  exportAsXLSX() {
+    this.service.exportAsExcelFile(this.excel, 'relatorio');
+  }
 }

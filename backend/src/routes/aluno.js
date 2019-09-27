@@ -113,10 +113,10 @@ router.put('/remove', (req, res, next) => {
 //Edita Nome e Curso Aluno
 router.put('/edit', (req, res, next) => {
     let IdAluno = req.body.IdAluno;
-    let Nome =  req.body.NomeAluno;
+    let Nome =  req.body.Nome;
     let IdCurso = req.body.IdCurso;
     alunoModel.update(
-        { NomeAluno: Nome, IdCurso: IdCurso  },
+        { Nome: Nome, IdCurso: IdCurso  },
         { where: { IdAluno: IdAluno } }
     ).then(() => {
         res.status(200).json({ sucess: 'Aluno atualizado com sucesso!' })
