@@ -16,20 +16,20 @@ moment.locale('es');
 })
 export class RelatorioComponent implements OnInit {
 
-    title = 'excel-download';
+  title = 'excel-download';
 
-    turma = [];
-    relatorio: any = [];
+  turma = [];
+  relatorio: any = [];
 
-    listaRelatorio = false;
-    msg = false;
+  listaRelatorio = false;
+  msg = false;
 
-    id: any;
+  id: any;
 
-    busca = {
-        IdTurma: 0,
-        DtAula: 0
-    }
+  busca = {
+    IdTurma: 0,
+    DtAula: 0
+  }
 
   constructor(
     private route: ActivatedRoute,
@@ -40,17 +40,17 @@ export class RelatorioComponent implements OnInit {
 
   ngOnInit() {
     this.turmaService.getAllTurmas().subscribe(res => {
-        this.turma = res;
+      this.turma = res;
     });
   }
 
-  buscar(){
+  buscar() {
     console.log(this.busca);
     this.service.getJSON(this.busca).subscribe(res => {
       this.relatorio = res;
       console.log('Relatório', this.relatorio);
 
-      if (res.length === 0) {
+      if (res.length == 0) {
         this.msg = true;
         this.listaRelatorio = false;
       } else {
@@ -59,13 +59,12 @@ export class RelatorioComponent implements OnInit {
       }
     });
   }
-
-  limparInput(){
+  limparInput() {
     this.busca = {
-        IdTurma: 0,
-        DtAula: 0
+      IdTurma: 0,
+      DtAula: 0
     },
-    this.msg = false;
+      this.msg = false;
     this.listaRelatorio = false;
   }
 

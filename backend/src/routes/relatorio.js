@@ -10,7 +10,6 @@ router.get('/', (req, res) => {
     const Op = db.Sequelize.Op;
     let IdTurma = req.query.IdTurma;
     let DtAula = req.query.DtAula;
-    console.log('Data', DtAula);
 
     if (IdTurma == undefined && DtAula == undefined) {
         DtAula = null;
@@ -24,6 +23,17 @@ router.get('/', (req, res) => {
     }
 
     presencaModel.findAll({
+        where: {
+            IdTurma: IdTurma,
+            DtAula: {
+                [Op.and]: {
+                    //[Op.gte]: moment().subtract(7, 'days').toDate(),
+                    [Op.lte]: new Date(DtAula),
+                    [Op.gt]: new Date(new Date(DtAula) - 24 * 60 * 60 * 1000)
+                }
+            },
+            IsDeleted: 0
+        },
         include: [
             {
                 model: models.Turma,
@@ -34,31 +44,20 @@ router.get('/', (req, res) => {
                 attributes: ['RA', 'Nome']
             },
         ],
-        where: {
-        IdTurma: IdTurma,
-        DtAula: {
-            [Op.or]: {
-                //[Op.gte]: moment().subtract(7, 'days').toDate(),
-                [Op.lt]: new Date(DtAula),
-                [Op.gt]: new Date(new Date() - 24 * 60 * 60 * 1000)
-            }
-        },
-        IsDeleted: 0
-    },
         attributes: ['IdTurma', 'DtAula', 'QtdPresenca']
     }).then((presencas) => {
-            res.status(200).json(presencas);
-        }).catch((err) => {
-            console.log(err);
-            res.status(400).json({ error: 'Houve um erro na execução da busca', err });
-        });
+        res.status(200).json(presencas);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).json({ error: 'Houve um erro na execução da busca', err });
+    });
 });
 
 router.post('/newPresenca', async (req, res) => {
     try {
         const presenca = await presencaModel.create({
             QtdPresenca: req.body.QtdPresenca,
-            DtAula: Date.now(),
+            DtAula: moment().format('YYYY-MM-DD'),
             IdAluno: req.body.IdAluno,
             IdTurma: req.body.IdTurma,
             IsDeleted: 0
