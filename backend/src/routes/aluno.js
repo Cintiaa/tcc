@@ -42,7 +42,7 @@ router.get('/busca', (req, res) => {
     if (Nome == null) {
         Nome = null;
     }
-    if(IdCurso == null){
+    if (IdCurso == null) {
         IdCurso = null;
     }
     alunoModel.findAll({
@@ -77,6 +77,17 @@ router.get('/busca', (req, res) => {
     })
 });
 
+//Retorna o último aluno inserido no banco
+router.get('/ultimo', (res, resq) => {
+    alunoModel.findAll({ where: { IsDeleted: 0 } }).then((response) => {
+        alunos = response[response.length - 1];
+        console.log(alunos);
+        res.status(200).json(alunos)
+    }).catch((err) => {
+        res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
+    })
+});
+
 /* POST Aluno */
 router.post('/newAluno', async (req, res) => {
     let RA = req.body.RA;
@@ -89,7 +100,7 @@ router.post('/newAluno', async (req, res) => {
         const aluno = await alunoModel.create(req.body);
         console.log(aluno);
 
-        return res.json({ aluno });
+        return res.json(aluno);
     } catch (err) {
         console.log(err);
         res.status(400).json({ error: 'Houve um erro. Por favor tente mais tarde!', err });
@@ -113,10 +124,10 @@ router.put('/remove', (req, res, next) => {
 //Edita Nome e Curso Aluno
 router.put('/edit', (req, res, next) => {
     let IdAluno = req.body.IdAluno;
-    let Nome =  req.body.Nome;
+    let Nome = req.body.Nome;
     let IdCurso = req.body.IdCurso;
     alunoModel.update(
-        { Nome: Nome, IdCurso: IdCurso  },
+        { Nome: Nome, IdCurso: IdCurso },
         { where: { IdAluno: IdAluno } }
     ).then(() => {
         res.status(200).json({ sucess: 'Aluno atualizado com sucesso!' })

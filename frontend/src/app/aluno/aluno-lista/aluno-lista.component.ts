@@ -47,7 +47,7 @@ export class AlunoListaComponent implements OnInit {
     if (this.alunos.length != 0) {
       this.service.removeAluno(this.alunos[0]).subscribe(res => {
         console.log(res);
-        this.toastr.success('Sucesso', 'Aluno removido com sucesso!');
+        this.toastr.success('Aluno removido com sucesso!', 'Sucesso');
         this.values = this.values.filter(e => e.IdAluno != this.id);
         this.excluir = false;
       });

@@ -16,10 +16,17 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class AlunoCadastroComponent implements OnInit {
 
-  curso: [];
+  curso = [];
+  alunos: any = [];
+  aluno2 = [];
   editando = false;
+  completo = false;
   imagem: FormArray;
   selectedFile: File = null;
+  upload = [];
+
+  id: any;
+
 
   aluno = {
     IdAluno: 0,
@@ -27,13 +34,6 @@ export class AlunoCadastroComponent implements OnInit {
     Nome: "",
     IdCurso: 0,
     IsDeleted: 0,
-    ImagemFaces: this.imagem,
-  }
-
-  img = {
-    IdImagem: 0,
-    IdAluno: 0,
-    IsDeleted: 0
   }
 
   form: FormGroup;
@@ -75,6 +75,9 @@ export class AlunoCadastroComponent implements OnInit {
   }
 
 
+  voltar(e) {
+    this.completed.emit(e);
+  }
   cadastrar(a) {
     if (!a) {
       this.completed.emit(a);
@@ -85,26 +88,23 @@ export class AlunoCadastroComponent implements OnInit {
       this.aluno = this.getJSON(this.aluno);
       if (!this.editando) {
         this.service.cadastrarAlunos(this.aluno).subscribe(res => {
-          this.toastr.success('Sucesso', 'Aluno cadastrado com sucesso!', {
-            timeOut: 3000
-          });
-          this.completed.emit(a);
+          this.toastr.success('Aluno cadastrado com sucesso!', 'Sucesso', { timeOut: 3000 });
+          //this.completed.emit(a);
+          this.complet();
           this.Initiate(false);
-
+          this.completo = true;
         });
       }
       if (this.editando) {
         this.service.updateAluno(this.aluno).subscribe(res => {
-          this.toastr.success('Sucesso', 'Aluno atualizado com sucesso!', { timeOut: 3000 });
+          this.toastr.success('Aluno atualizado com sucesso!', 'Sucesso', { timeOut: 3000 });
           this.completed.emit(a);
           this.Initiate(false);
         })
       }
 
     } else {
-      this.toastr.error('Atenção', 'Preencha todos os campos!', {
-        timeOut: 3000
-      });
+      this.toastr.error('Preencha todos os campos!', 'Atenção', { timeOut: 3000 });
     }
   }
 
@@ -125,6 +125,27 @@ export class AlunoCadastroComponent implements OnInit {
       return true;
     }
   }
+
+
+  complet() {
+    this.aluno2 = [];
+    this.service.getAllAlunos().subscribe((res) => {
+      this.alunos = res;
+      console.log(this.alunos);
+      this.aluno2[0] = this.alunos[this.alunos.length - 1];
+      console.log(this.aluno2);
+
+      if (res.length != 0 && this.completo == true) {
+        this.form.get('IdAluno').setValue(this.aluno2[0].IdAluno);
+        this.form.get('RA').setValue(this.aluno2[0].RA);
+        this.form.get('Nome').setValue(this.aluno2[0].Nome);
+        this.form.get('IdCurso').setValue(this.aluno2[0].IdCurso);
+      }
+
+      this.id = this.aluno2[0].IdAluno;
+    });
+  }
+
 
   editAluno(el) {
     this.Initiate(true, () => {
@@ -160,7 +181,7 @@ export class AlunoCadastroComponent implements OnInit {
   onUpload() {
     const fd = new FormData();
     fd.append('image', this.selectedFile, this.selectedFile.name);
-    this.utilsService.upload(fd).subscribe(res => {
+    this.utilsService.upload(this.id, fd).subscribe(res => {
       console.log(res);
     })
   }

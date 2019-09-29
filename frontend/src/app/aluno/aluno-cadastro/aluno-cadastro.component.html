@@ -7,7 +7,7 @@
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="ra">RA: </label>
-                            <input type="number" class="form-control" name="raAluno" formControlName="RA"
+                            <input type="text" class="form-control" name="raAluno" formControlName="RA"
                                 [attr.disabled]="editando ? '' : null">
                         </div>
                     </div>
@@ -25,25 +25,31 @@
                             </select>
                         </div>
                     </div>
-                    <div class="form-group" [ngStyle]="{display: editando? 'block':'none' }">
-                        <div class="d-flex flex-column bd-highlight mb-3">
-                            <div class="form-group">
-                                <input type="file" class="form-control-file" accept="image/*" id="upimagem"
-                                    (change)="uploadImage($event)" #fileInput>
-                                <button type="submit" class="btn btn-primary mb-2" (click)="fileInput.click()">Adicionar
-                                    Imagem</button>
-                                <button type="submit" class="btn btn-outline-primary mb-2" (click)="onUpload()"><i
-                                        class="fa fa-upload"></i> Upload</button>
-                            </div>
-                        </div>
-                    </div>
                 </form>
             </div>
         </div>
     </div>
 </div>
 
-<div class=" bt-cadastro d-flex justify-content-end">
-    <button type="submit" class="btn btn-primary mb-2" (click)="cadastrar(true)">Salvar</button>
-    <button type="submit" class="btn btn-outline-primary mb-2" (click)="cadastrar(false)">Cancelar</button>
+<div class="form-group" [ngStyle]="{display: editando || completo ? 'block':'none' }">
+    <div class="d-flex justify-content-end bd-highlight mb-3">
+        <div class="form-group">
+            <input type="file" class="form-control-file" accept="image/*" id="upimagem" (change)="uploadImage($event)"
+                #fileInput>
+            <button type="submit" class="btn btn-primary mb-2" (click)="fileInput.click()">Adicionar
+                Imagem</button>
+            <button type="submit" class="btn btn-outline-primary mb-2" (click)="onUpload()"><i class="fa fa-upload"></i>
+                Upload</button>
+            <button type="submit" class="btn btn-outline-primary mb-2" (click)="voltar(false)"><i
+                    class="fa fa-arrow-left"></i>
+                Voltar</button>
+        </div>
+    </div>
+</div>
+
+<div [ngStyle]="{display: !completo ? 'block':'none' }">
+    <div class=" bt-cadastro d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary mb-2" (click)="cadastrar(true)">Salvar</button>
+        <button type="submit" class="btn btn-outline-primary mb-2" (click)="cadastrar(false)">Cancelar</button>
+    </div>
 </div>
