@@ -7,13 +7,13 @@ const ImagemFace = db.sequelize.define('ImagemFaces', {
         type: db.Sequelize.INTEGER,
         primaryKey: true
     },
-    Tipo: {
+    type: {
         type: db.Sequelize.STRING
     },
-    Descricao: {
+    name: {
         type: db.Sequelize.STRING
     },
-    Data: {
+    data: {
         type: db.Sequelize.BLOB('long')
     },
     IsDeleted: {

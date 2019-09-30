@@ -17,13 +17,13 @@ router.get('/busca', (req, res, next) => {
 
 router.post('/uploadfile', upload.single("file"), (req, res) => {
     Image.create({
-        Tipo: req.file.mimetype,
-        Descricao: req.file.originalname,
-        Data: fs.readFileSync(__basedir + '/resources/static/assets/uploads/' + req.file.filename),
+        type: req.file.mimetype,
+        name: req.file.originalname,
+        data: fs.readFileSync(__basedir + '/../../../resources/uploads/' + req.file.filename),
         IsDeleted: 0,
-        IdAluno: req.body.IdAluno,
+        IdAluno: req.query.IdAluno,
     }).then(image => {
-        fs.writeFileSync(__basedir + '/resources/static/assets/tmp/' + image.Descricao, image.Data);
+        fs.writeFileSync(__basedir + '/../../../resources/tmp/' + image.name, image.data);
         res.status(200).json({ 'message': 'Upload de imagem realizado com sucesso!', 'file': req.file });
     }).catch((err) => {
         console.log(err);
@@ -32,3 +32,7 @@ router.post('/uploadfile', upload.single("file"), (req, res) => {
 });
 
 module.exports = router;
+
+
+
+

@@ -22,7 +22,7 @@ export class AlunoCadastroComponent implements OnInit {
   editando = false;
   completo = false;
   imagem: FormArray;
-  selectedFile: File = null;
+  file: File = null;
   upload = [];
 
   id: any;
@@ -30,10 +30,10 @@ export class AlunoCadastroComponent implements OnInit {
 
   aluno = {
     IdAluno: 0,
-    RA: "",
-    Nome: "",
+    RA: '',
+    Nome: '',
     IdCurso: 0,
-    IsDeleted: 0,
+    IsDeleted: 0
   }
 
   form: FormGroup;
@@ -77,36 +77,45 @@ export class AlunoCadastroComponent implements OnInit {
 
   voltar(e) {
     this.completed.emit(e);
+    this.Initiate(false);
+    this.completo = false;
   }
+
   cadastrar(a) {
     if (!a) {
       this.completed.emit(a);
       this.Initiate(false);
       return;
     }
-    if (this.validateInfos()) {
-      this.aluno = this.getJSON(this.aluno);
-      if (!this.editando) {
-        this.service.cadastrarAlunos(this.aluno).subscribe(res => {
-          this.toastr.success('Aluno cadastrado com sucesso!', 'Sucesso', { timeOut: 3000 });
-          //this.completed.emit(a);
-          this.complet();
-          this.Initiate(false);
-          this.completo = true;
-        });
-      }
-      if (this.editando) {
-        this.service.updateAluno(this.aluno).subscribe(res => {
-          this.toastr.success('Aluno atualizado com sucesso!', 'Sucesso', { timeOut: 3000 });
-          this.completed.emit(a);
-          this.Initiate(false);
-        })
-      }
-
+    console.log(this.form.get('RA').value);
+    if (!this.validateRA(this.form.get('RA').value)) {
+      this.toastr.error('RA já cadastrado', 'Atenção!');
+      return false;
     } else {
-      this.toastr.error('Preencha todos os campos!', 'Atenção', { timeOut: 3000 });
+      if (this.validateInfos()) {
+        this.aluno = this.getJSON(this.aluno);
+        if (!this.editando) {
+          this.service.cadastrarAlunos(this.aluno).subscribe(res => {
+            this.toastr.success('Aluno cadastrado com sucesso!', 'Sucesso', { timeOut: 3000 });
+            this.complet();
+            this.Initiate(false);
+            this.completo = true;
+          });
+        }
+        if (this.editando) {
+          this.service.updateAluno(this.aluno).subscribe(res => {
+            this.toastr.success('Aluno atualizado com sucesso!', 'Sucesso', { timeOut: 3000 });
+            this.completed.emit(a);
+            this.Initiate(false);
+          })
+        }
+
+      } else {
+        this.toastr.error('Preencha todos os campos!', 'Atenção', { timeOut: 3000 });
+      }
     }
   }
+
 
   setFormErrors(parent) {
     Object.keys(parent.controls).forEach(key => {
@@ -127,21 +136,28 @@ export class AlunoCadastroComponent implements OnInit {
   }
 
 
+  validateRA(e) {
+    const ra = e;
+    console.log(ra);
+    if (this.alunos.filter((el) => el.RA === ra)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+
   complet() {
     this.aluno2 = [];
     this.service.getAllAlunos().subscribe((res) => {
       this.alunos = res;
-      console.log(this.alunos);
       this.aluno2[0] = this.alunos[this.alunos.length - 1];
-      console.log(this.aluno2);
-
-      if (res.length != 0 && this.completo == true) {
+      if (res.length !== 0 && this.completo === true) {
         this.form.get('IdAluno').setValue(this.aluno2[0].IdAluno);
         this.form.get('RA').setValue(this.aluno2[0].RA);
         this.form.get('Nome').setValue(this.aluno2[0].Nome);
         this.form.get('IdCurso').setValue(this.aluno2[0].IdCurso);
       }
-
       this.id = this.aluno2[0].IdAluno;
     });
   }
@@ -174,15 +190,25 @@ export class AlunoCadastroComponent implements OnInit {
   }
 
   uploadImage(event) {
-    this.selectedFile = <File>event.target.files[0];
-    console.log(this.selectedFile);
+    this.file = <File>event.target.files[0];
+    console.log(this.file);
   }
 
   onUpload() {
-    const fd = new FormData();
-    fd.append('image', this.selectedFile, this.selectedFile.name);
-    this.utilsService.upload(this.id, fd).subscribe(res => {
-      console.log(res);
-    })
+    const fd: FormData = new FormData();
+    console.log('Id', this.id);
+
+    if (this.id !== 0 && this.file !== null) {
+      fd.append('file', this.file, this.file.name);
+      this.utilsService.upload(this.id, fd).subscribe((res) => {
+        this.toastr.success('Imagem adicionada com sucesso!', 'Sucesso', { timeOut: 3000 });
+        console.log('File', res);
+      },
+        (err) => {
+          this.id = 0;
+          console.log(err);
+        });
+    }
+
   }
 }

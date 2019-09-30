@@ -17,8 +17,8 @@ export class UtilsService {
     this.headers.append("Content-Type", "application/json");
   }
 
-  upload(id, imagem): Observable<any> {
-    return this.http.post('http://localhost:4200/api/upload/uploadfile?IdAluno=' + id, imagem);
+  upload(IdAluno, file): Observable<any> {
+    return this.http.post('http://localhost:4200/api/upload/uploadfile?IdAluno=' + IdAluno, file);
   }
 
   getAllDepartamentos(): Observable<any> {

@@ -7,20 +7,21 @@
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="ra">RA: </label>
-                            <input type="text" class="form-control" name="raAluno" formControlName="RA"
-                                [attr.disabled]="editando ? '' : null">
+                            <input type="text" class="form-control" (change)="validateRA($event)" name="raAluno" formControlName="RA"
+                                [attr.disabled]="editando || completo ? '' : null">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
-                            <input type="text" class="form-control" name="nomeAluno" formControlName="Nome">
+                            <input type="text" class="form-control" name="nomeAluno" formControlName="Nome" autocomplete="off"
+                            [attr.disabled]="completo ? '' : null">
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="d-flex justify-content-left">
                             <label class="col-sm-2 col-form-label" for="curso">Curso: </label>
-                            <select class="form-control" name="cursoAluno" formControlName="IdCurso">
+                            <select class="form-control" name="cursoAluno" formControlName="IdCurso" [attr.disabled]="completo ? '' : null">
                                 <option value="{{c.IdCurso}}" *ngFor="let c of curso">{{c.Nome}}</option>
                             </select>
                         </div>
@@ -34,7 +35,7 @@
 <div class="form-group" [ngStyle]="{display: editando || completo ? 'block':'none' }">
     <div class="d-flex justify-content-end bd-highlight mb-3">
         <div class="form-group">
-            <input type="file" class="form-control-file" accept="image/*" id="upimagem" (change)="uploadImage($event)"
+            <input type="file" multiple class="form-control-file" accept="image/*" id="upimagem" name="file" (change)="uploadImage($event)"
                 #fileInput>
             <button type="submit" class="btn btn-primary mb-2" (click)="fileInput.click()">Adicionar
                 Imagem</button>
