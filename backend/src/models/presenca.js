@@ -12,10 +12,12 @@ const Presenca = db.sequelize.define('Presencas', {
     QtdPresenca: {
         type: db.Sequelize.INTEGER,
         allowNull: false,
+        unique: false,
     },
     DtAula: {
         type: db.Sequelize.DATE,
         allowNull: false,
+        unique: false,
     },
     IdAluno: {
         type: db.Sequelize.INTEGER,
@@ -23,7 +25,8 @@ const Presenca = db.sequelize.define('Presencas', {
             model: 'Alunos',
             key: 'IdAluno'
         },
-        allowNull: false
+        allowNull: false,
+        unique: false,
     },
     IdTurma: {
         type: db.Sequelize.INTEGER,
@@ -31,7 +34,8 @@ const Presenca = db.sequelize.define('Presencas', {
             model: 'Turmas',
             key: 'IdTurma'
         },
-        allowNull: false
+        allowNull: false, 
+        unique: false,
     },
     IsDeleted: {
         type: db.Sequelize.BOOLEAN,

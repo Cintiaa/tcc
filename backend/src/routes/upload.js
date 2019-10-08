@@ -15,10 +15,10 @@ router.get('/busca', (req, res, next) => {
 });
 
 
-router.post('/uploadfile', upload.single("file"), (req, res) => {
+router.post('/uploadfile', upload.single("imagem"), (req, res) => {
     Image.create({
         type: req.file.mimetype,
-        name: req.file.originalname,
+        name: 'imagem-' + req.file.originalname + '.jpg',
         data: fs.readFileSync(__basedir + '/../../../resources/uploads/' + req.file.filename),
         IsDeleted: 0,
         IdAluno: req.query.IdAluno,

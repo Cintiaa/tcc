@@ -88,7 +88,7 @@ export class AlunoCadastroComponent implements OnInit {
       return;
     }
     console.log(this.form.get('RA').value);
-    if (!this.validateRA(this.form.get('RA').value)) {
+    if (this.validateRA(this.form.get('RA').value)) {
       this.toastr.error('RA já cadastrado', 'Atenção!');
       return false;
     } else {
@@ -139,6 +139,7 @@ export class AlunoCadastroComponent implements OnInit {
   validateRA(e) {
     const ra = e;
     console.log(ra);
+    console.log(this.alunos.filter((el) => el.RA === ra));
     if (this.alunos.filter((el) => el.RA === ra)) {
       return false;
     } else {
@@ -171,6 +172,7 @@ export class AlunoCadastroComponent implements OnInit {
       this.form.get('IdCurso').setValue(el[0].IdCurso);
       this.form.get('IsDeleted').setValue(el[0].IsDeleted);
     });
+    this.id = el[0].IdAluno;
   }
 
   Initiate(edit, callback = null) {
@@ -199,7 +201,7 @@ export class AlunoCadastroComponent implements OnInit {
     console.log('Id', this.id);
 
     if (this.id !== 0 && this.file !== null) {
-      fd.append('file', this.file, this.file.name);
+      fd.append('imagem', this.file, this.id);
       this.utilsService.upload(this.id, fd).subscribe((res) => {
         this.toastr.success('Imagem adicionada com sucesso!', 'Sucesso', { timeOut: 3000 });
         console.log('File', res);
