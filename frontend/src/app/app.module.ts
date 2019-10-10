@@ -14,6 +14,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { ToastrModule } from 'ngx-toastr';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { ToasterModule, ToasterService, ToasterContainerComponent } from 'angular2-toaster';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 import { HomeComponent } from './home/home.component';
@@ -64,6 +65,7 @@ import { RelatorioModule } from './relatorio/relatorio.module';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     AlunoModule,
     ProfessorModule,
     CursoModule,

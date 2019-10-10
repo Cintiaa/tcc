@@ -19,15 +19,13 @@ moment.locale('es');
 export class RelatorioListaComponent implements OnInit {
   id: any;
   excluir = false;
+  public paginaAtual = 1;
  
   excel = [];
-  excelFilter = [];
-  turmaFilter = [];
-  alunoFilter = [];
+  
 
   @Input() set relatorio(val){
     this.excel = val;
-    this.filter(val);
   }
 
   constructor(
@@ -41,22 +39,6 @@ export class RelatorioListaComponent implements OnInit {
   ngOnInit() {
   }
 
-  formatData(e){
-    let data = moment(e).format("DD-MM-YYYY");
-    if(e != 0) return data;
-  }
-
-  filter(e){
-  console.log('Relatórios', e);
-  if(this.excel.length != 0){
-    for(let i = 0; i < this.excel.length; i++){
-      this.turmaFilter.push(this.excel[i].Turma);
-      this.turmaFilter.push(this.excel[i].Aluno);
-    }
-    console.log('Turma filtrada', this.turmaFilter);
-    console.log('Aluno filtrado', this.alunoFilter);
-  }
-  }
   exportAsXLSX() {
     this.service.exportAsExcelFile(this.excel, 'relatorio');
   }

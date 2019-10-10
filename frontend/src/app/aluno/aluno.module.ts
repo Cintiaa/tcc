@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 import { AlunoComponent } from './aluno.component';
@@ -23,6 +23,7 @@ import { UtilsService } from '../services/utils.service';
         AlunoRoutingModule,
         HttpClientModule,
         FormsModule,
+        NgxPaginationModule,
         ReactiveFormsModule ,
         ToastrModule.forRoot()
     ],

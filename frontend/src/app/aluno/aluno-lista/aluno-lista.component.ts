@@ -34,7 +34,7 @@ export class AlunoListaComponent implements OnInit {
   ngOnInit() {
     this.service.getAllAlunos().subscribe(res => {
       this.alunoFilter = res;
-    })
+    });
   }
 
   editarAluno(e) {

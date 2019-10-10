@@ -1,4 +1,34 @@
-<div class="container header">
+
+<div class="container">
+  <div class="card">
+      <div class="card-body row">
+          <div class="col-10 align-self-left ">
+              <form [formGroup]="form">
+                  <div class="form-group">
+                      <div class="d-flex justify-content-left">
+                          <label class="col-sm-2 col-form-label" for="ra">Sigla: </label>
+                          <input type="text" class="form-control" name="siglaCurso" formControlName="Sigla"
+                              [attr.disabled]="editando ? '' : null" autocomplete="off">
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <div class="d-flex justify-content-left">
+                          <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
+                          <input type="text" class="form-control" name="nomeCurso" formControlName="Nome" autocomplete="off">
+                      </div>
+                  </div>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class=" bt-cadastro d-flex justify-content-end">
+  <button type="submit" class="btn btn-primary mb-2" (click)="cadastrar(true)">Salvar</button>
+  <button type="submit" class="btn btn-outline-primary mb-2" (click)="cadastrar(false)">Cancelar</button>
+</div>
+
+<!-- <div class="container header">
   <h3>Curso</h3>
   <hr>
 </div>
@@ -66,3 +96,4 @@
   </div>
 
 </div>
+ -->

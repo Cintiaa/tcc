@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { CursoService } from '../services/curso.service';
 import { UtilsService } from '../services/utils.service';
@@ -17,6 +18,7 @@ import { DepartamentoService } from '../services/departamento.service';
         DepartamentoRoutingModule,
         HttpClientModule,
         FormsModule,
+        NgxPaginationModule,
         ReactiveFormsModule ,
         ToastrModule.forRoot()
     ],

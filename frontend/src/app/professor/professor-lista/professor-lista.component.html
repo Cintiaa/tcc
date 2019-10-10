@@ -16,7 +16,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let v of values">
+            <tr *ngFor="let v of values | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
                 <td>{{v.RA}}</td>
                 <td>{{v.Nome}}</td>
                 <td>{{v.Departamento.Nome}}</td>
@@ -34,6 +34,9 @@
             </tr>
         </tbody>
     </table>
+    <div class="wrap-action">
+        <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+    </div>
 </div>
 
 <div class="modal-excluir" [ngClass]="{'show-modal': excluir }">

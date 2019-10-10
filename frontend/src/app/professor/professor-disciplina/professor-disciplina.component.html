@@ -15,7 +15,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let v of profDisciplina; let i = index;">
+                <tr *ngFor="let v of profDisciplina | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index;">
                     <td>{{v.Sigla}}</td>
                     <td>{{v.Nome}}</td>
                     <td class="d-flex justify-content-center action-cell">
@@ -26,6 +26,9 @@
                 </tr>
             </tbody>
         </table>
+        <div class="wrap-action">
+            <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo"></pagination-controls>
+        </div>
     </div>
     <div class="d-flex justify-content-between">
         <button class="btn btn-primary mb-2" (click)="ModalDisciplina()"><i class="fa fa-plus"></i> Adicionar

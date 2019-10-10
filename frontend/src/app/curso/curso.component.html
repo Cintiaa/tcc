@@ -1,15 +1,53 @@
 <div class="container header">
-  <div class="row">
-      <div class="col-6">
-          <h3><i class="fa fa-university"></i> Curso</h3>
-      </div>
-      <div class="col-6">
-          <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary mb-2" (click)="onAdicionar()">Adicionar</button>
-          </div>
-      </div>
-  </div>
-  <hr>
+    <div class="row">
+        <div class="col-6">
+            <h3><i class="fa fa-graduation-cap"></i> Curso</h3>
+        </div>
+
+        <div class="col-6" [ngStyle]="{display: cadtrCurso? 'none':'block' }">
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mb-2" (click)="onAdicionar(true)">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
 </div>
 
-<app-curso-lista></app-curso-lista>
+<div class="animated fadeIn container-fluid" style=" margin-top: -20px;">
+    <div class="card" [ngStyle]="{display: cadtrCurso? 'none':'block' }">
+        <div class="card-body row">
+            <div class="col-10 align-self-left">
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-2 col-form-label" for="Sigla">Sigla: </label>
+                        <input type="text" class="form-control" name="Sigla" [(ngModel)]="busca.Sigla"
+                            style="text-transform: uppercase">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-2 col-form-label" for="Nome">Nome: </label>
+                        <input type="text" class="form-control" name="Nome" [(ngModel)]="busca.Nome">
+                        <div class="bt-pesquisa">
+                            <button type="submit" class="btn btn-primary mb-2" (click)="buscar()">Pesquisar</button>
+                            <button type="submit" class="btn btn-primary mb-2" (click)="limparInput()">Limpar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="curso-cadastro" [ngClass]="{'show-component': cadtrCurso }">
+        <curso-cadastro [cursoEdit]="cursoEdit" (completed)="cadastroCallback($event)"></curso-cadastro>
+    </div>
+    <div class="curso-lista" [ngClass]="{'show-component': listaCurso }">
+        <curso-lista [curso]="curso" (editar)="editarCurso($event)"></curso-lista>
+    </div>
+    <div [ngStyle]="{display: cadtrCurso? 'none':'block' }">
+        <div class="curso-lista" [ngClass]="{'show-component': msg }">
+            <p>Não há registros que satisfaçam o critério de busca!</p>
+        </div>
+    </div>
+
+</div>

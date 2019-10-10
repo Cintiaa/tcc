@@ -60,13 +60,11 @@ export class DepartamentoComponent implements OnInit {
 
 
   editarDepartamento(id) {
-    console.log(id);
     this.service.buscaDepartamentoId(id).subscribe(res => {
       this.departamentoEdit = res;
-      console.log(res);
       this.cadtrDepartamento = true;
       this.listaDepartamento = false;
-    })
+    });
   }
 
  /*  vincularDisciplina(id) {

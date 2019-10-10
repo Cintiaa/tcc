@@ -6,52 +6,22 @@ const models = require('../models/index');
 
 const router = express.Router();
 
+//Consulta Bruta para gerar o relatório
 router.get('/', (req, res) => {
-    const Op = db.Sequelize.Op;
     let IdTurma = req.query.IdTurma;
     let DtAula = req.query.DtAula;
-
-    if (IdTurma == undefined && DtAula == undefined) {
-        DtAula = null;
-        IdTurma = null;
-    }
-    if (IdTurma == null) {
-        IdTurma = null;
-    }
-    if (IdTurma == null) {
-        IdTurma = null;
-    }
-
-    presencaModel.findAll({
-        where: {
-            IdTurma: IdTurma,
-            DtAula: {
-                [Op.and]: {
-                    //[Op.gte]: moment().subtract(7, 'days').toDate(),
-                    [Op.lte]: new Date(DtAula),
-                    [Op.gt]: new Date(new Date(DtAula) - 24 * 60 * 60 * 1000)
-                }
-            },
-            IsDeleted: 0
-        },
-        include: [
-            {
-                model: models.Turma,
-                attributes: ['Sigla']
-            },
-            {
-                model: models.Aluno,
-                attributes: ['RA', 'Nome']
-            },
-        ],
-        attributes: ['IdTurma', 'DtAula', 'QtdPresenca']
-    }).then((presencas) => {
-        res.status(200).json(presencas);
+    db.sequelize.query(`SELECT t.Sigla, a.RA, a.Nome, p.QtdPresenca, FORMAT(p.DtAula, 'dd/MM/yyyy', 'en-US' ) as DtAula FROM Presencas p ` +
+        ` JOIN Alunos a ON p.IdAluno = a.IdAluno ` +
+        ` JOIN Turmas t ON t.IdTurma = p.IdTurma WHERE t.IdTurma = '${IdTurma}' AND p.DtAula like '%${DtAula}%'`,
+        { type: db.Sequelize.QueryTypes.SELECT }
+    ).then(results => {
+        res.status(200).json(results);
     }).catch((err) => {
         console.log(err);
         res.status(400).json({ error: 'Houve um erro na execução da busca', err });
     });
 });
+
 
 router.post('/newPresenca', async (req, res) => {
     try {

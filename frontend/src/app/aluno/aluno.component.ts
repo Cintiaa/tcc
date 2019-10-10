@@ -14,8 +14,8 @@ import { CursoService } from '../services/curso.service';
 
 export class AlunoComponent implements OnInit {
 
-  aluno: [];
-  curso: [];
+  aluno = [];
+  curso = [];
   alunoEdit: any;
   cadtrAluno = false;
   listaAluno = false;
@@ -47,16 +47,13 @@ export class AlunoComponent implements OnInit {
   ngOnInit() {
     this.cursoService.getAllCurso().subscribe(res => {
       this.curso = res;
-      console.log(this.curso);
-    })
+    });
 
   }
 
   buscar() {
-    console.log('Busca', this.busca);
     this.service.listarAlunos(this.busca).subscribe(res => {
       this.aluno = res;
-      console.log(this.aluno);
       if (res.length === 0) {
         this.msg = true;
         this.listaAluno = false;
@@ -64,17 +61,16 @@ export class AlunoComponent implements OnInit {
         this.msg = false;
         this.listaAluno = true;
       }
-    })
+    });
   }
 
   editarAluno(id) {
-    console.log(id);
     this.service.buscaAlunoId(id).subscribe(res => {
       this.alunoEdit = res;
       console.log(res);
       this.cadtrAluno = true;
       this.listaAluno = false;
-    })
+    });
   }
 
   cadastroCallback(e) {

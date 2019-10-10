@@ -1,5 +1,6 @@
 const express = require('express');
 const models = require('../models/index');
+const db = require('../config/db');
 
 const router = express.Router();
 
@@ -16,27 +17,52 @@ router.get('/', (req, res, next) => {
 
 //Retorno somente os cursos que possuem IsDeleted = 0
 router.get('/busca', (req, res, next) => {
+    const Op = db.Sequelize.Op;
+    let Sigla = req.query.Sigla;
+    let Nome = req.query.Nome;
+
+    if (Sigla == null) {
+        Sigla = null;
+    }
+    if (Nome == null) {
+        Nome = null;
+    }
+
     models.Curso.findAll({
-        where: { IsDeleted: 0 }
+        where: {
+            Sigla: {
+                [Op.or]: {
+                    [Op.eq]: null,
+                    [Op.like]: '%' + Sigla + '%'
+                }
+            },
+            Nome: {
+                [Op.or]: {
+                    [Op.eq]: null,
+                    [Op.like]: '%' + Nome + '%'
+                }
+            },
+            IsDeleted: 0
+        }
     }).then((cursos) => {
-        res.status(200).json({ cursos })
+        res.status(200).json(cursos)
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
     })
 });
 
 //Retorno do curso com sigla definida.
-router.post('/buscaSigla', (req, res, next) => {
+router.get('/buscaSigla', (req, res, next) => {
     models.Curso.findOne({ where: { Sigla: req.body.Sigla, IsDeleted: 0 } }).then((curso) => {
-        res.status(200).json({ curso })
+        res.status(200).json( curso )
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
     })
 });
 
-router.post('/buscaId', (req, res, next) => {
-    models.Curso.findOne({ where: { IdCurso: req.body.IdCurso, IsDeleted: 0 } }).then((curso) => {
-        res.status(200).json({ curso })
+router.get('/buscaId', (req, res, next) => {
+    models.Curso.findAll({ where: { IdCurso: req.query.IdCurso, IsDeleted: 0 } }).then((curso) => {
+        res.status(200).json( curso )
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
     })

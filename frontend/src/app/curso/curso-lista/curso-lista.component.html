@@ -1,33 +1,48 @@
-<div class="container">
-  <div class="card">
-    <div class="card-body row">
-      <div class="col-10 align-self-left ">
-        <div class="form-group">
-            <div class="d-flex justify-content-left">
-                <label class="col-2 col-form-label" for="ra">Busca: </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  [(ngModel)]="inputBusca">
-                <div class="bt-pesquisa">
-                    <button class="btn btn-primary mb-2" (click)="onBuscar()">Pesquisar</button>
-                    <button class="btn btn-primary mb-2" (click)="onLimparInput()">Limpar</button>
-                </div>
-            </div>
-        </div>
-        <ul class="list-group">
-          <div
-            class ="list-group-item d-flex justify-content-between align-items-center"
-            *ngFor="let curso of filteredCursos; let i = index">
-            <a
-              style="cursor: pointer"
-              [routerLink]="['./', curso.IdCurso]">
-              {{ curso.Sigla }}: {{ curso.Nome }}
-            </a>
-            <button class="btn btn-primary btn-sm" [routerLink]="['./addDisciplina', curso.IdCurso]">Ver Disciplinas</button>
-          </div>
-        </ul>
-      </div>
+<div class="container header">
+  <div class="lista-title d-flex align-items-center justify-content-between">
+    <h1>Resultado da Busca</h1>
+  </div>
+</div>
+
+<div class="info-lista">
+  <table class="table table-striped">
+    <thead class="thead">
+      <tr>
+        <th scope="col">Sigla</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Disciplinas</th>
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of values | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
+        <td>{{v.Sigla}}</td>
+        <td>{{v.Nome}}</td>
+        <td class="">
+          <button class="action-lista btn btn-primary" 
+            style="width: 170px;">
+            <i class="fa fa-plus"></i> Adicionar/Visualizar </button>
+        </td>
+        <td class="d-flex justify-content-center action-cell">
+          <button class="action-lista btn btn-primary" (click)="editarCurso(v.IdCurso)"><i class="fa fa-edit"></i> Editar</button>
+          <button class="action-lista btn btn-primary" (click)="confirmar(v.IdCurso)"><i class="fa fa-trash"></i>
+            Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="wrap-action">
+    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo">
+    </pagination-controls>
+  </div>
+</div>
+
+<div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
+  <div class="box-modal">
+    <p>Deseja realmente excluir esse Curso?</p>
+    <div class="action-modal">
+      <button class="btn btn-primary mb-2" (click)="remover()">Sim</button>
+      <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
     </div>
   </div>
 </div>

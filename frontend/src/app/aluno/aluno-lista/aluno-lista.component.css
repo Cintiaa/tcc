@@ -87,3 +87,8 @@ a .fa {
 .mb-2{
     margin-right: 12px;
 }
+
+.wrap-action {
+    display: flex;
+    justify-content: center;
+}

@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ToastrModule } from 'ngx-toastr';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { ProfessorService } from './../services/professor.service';
 import { ProfessorListaComponent } from './professor-lista/professor-lista.component';
@@ -19,6 +20,7 @@ import { ProfessorDisciplinaComponent } from './professor-disciplina/professor-d
         ProfessorRoutingModule,
         HttpClientModule,
         FormsModule,
+        NgxPaginationModule,
         ReactiveFormsModule ,
         ToasterModule.forRoot()
     ],

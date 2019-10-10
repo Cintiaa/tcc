@@ -34,8 +34,7 @@ router.get('/busca', (req, res) => {
     let RA = req.query.RA;
     let Nome = req.query.Nome;
     let IdCurso = req.query.IdCurso
-    console.log(RA)
-    console.log(Nome)
+
     if (RA == null) {
         RA = null;
     }
