@@ -11,9 +11,12 @@ import { CursoService } from 'src/app/services/curso.service';
 export class CursoComponent {
 
   curso = [];
+  vinculo: any = [];
   cursoEdit: any;
+  
   cadtrCurso = false;
   listaCurso = false;
+  cadtrCursoDisciplina = false;
   msg = false;
 
   busca = {
@@ -53,14 +56,23 @@ export class CursoComponent {
   editarCurso(id) {
     this.service.buscaCursoId(id).subscribe(res => {
       this.cursoEdit = res;
-      console.log(res);
       this.cadtrCurso = true;
+      this.listaCurso = false;
+    });
+  }
+
+  vincularDisciplina(id) {
+    this.service.buscaCursoId(id).subscribe(res => {
+      this.vinculo = res;
+      console.log(this.vinculo);
+      this.cadtrCursoDisciplina = true;
       this.listaCurso = false;
     });
   }
 
   cadastroCallback(e) {
     this.cadtrCurso = false;
+    this.cadtrCursoDisciplina = false;
     this.msg = false;
   }
 

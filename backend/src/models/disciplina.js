@@ -37,7 +37,7 @@ Disciplina.associate = (models) => {
     //Curso.hasMany(Disciplina, {as: 'Disciplinas'})
     Disciplina.belongsToMany(models.Curso, {
         through: {
-            model: 'CursoDisciplina',
+            model: 'CursoDisciplinas',
             unique: false
         },
         foreignKey: 'IdDisciplina'

@@ -1,4 +1,4 @@
-<div class="container">
+<!-- <div class="container">
   <div class="card">
     <div class="card-body row">
       <div class="col-10 align-self-left ">
@@ -28,6 +28,56 @@
           </div>
         </ul>
       </div>
+    </div>
+  </div>
+</div>
+ -->
+
+ <div class="container header">
+  <div class="lista-title d-flex align-items-center justify-content-between">
+    <h1>Resultado da Busca</h1>
+  </div>
+</div>
+
+<div class="info-lista">
+  <table class="table table-striped">
+    <thead class="thead">
+      <tr>
+        <th scope="col">Sigla</th>
+        <th scope="col">Disciplina</th>
+        <!-- <th scope="col">Curso</th> -->
+        <th scope="col">Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let v of values | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index">
+        <td>{{v.Sigla}}</td>
+        <td>{{v.Nome}}</td>
+       <!--  <td class="">
+          <button class="action-lista btn btn-primary" style="width: 170px;" (click)="vincularDisciplina(v.IdCurso)">
+            <i class="fa fa-plus"></i> Adicionar/Visualizar </button>
+        </td> -->
+        <td class="d-flex justify-content-center action-cell">
+          <button class="action-lista btn btn-primary" (click)="editarDisciplina(v.IdDisciplina)"><i class="fa fa-edit"></i>
+            Editar</button>
+          <button class="action-lista btn btn-primary" (click)="confirmar(v.IdDisciplina)"><i class="fa fa-trash"></i>
+            Excluir</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <div class="wrap-action">
+    <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo">
+    </pagination-controls>
+  </div>
+</div>
+
+<div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
+  <div class="box-modal">
+    <p>Deseja realmente excluir essa Disciplina?</p>
+    <div class="action-modal">
+      <button class="btn btn-primary mb-2" (click)="remover()">Sim</button>
+      <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
     </div>
   </div>
 </div>

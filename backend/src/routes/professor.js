@@ -57,20 +57,15 @@ router.get('/busca', (req, res, next) => {
 
 // Busca todas as disciplinas de um determinado professor
 router.get('/buscaProfessorDisciplina', (req, res, next) => {
-    const IdProfessor = req.query.IdProfessor;
-    console.log('Professor', IdProfessor);
-    models.Professor.findAll({
-        include: [{
-            model: models.Disciplina,
-            required: true,
-            through: {
-                where: { IdProfessor: IdProfessor, IsDeleted: 0 },
-            }
-        }],
-    }).then((response) => {
-        console.log(response);
-        disciplinas = response[0] ? response[0].Disciplinas :  [];
-        res.status(200).json(disciplinas);
+    db.sequelize.query(`SELECT DISTINCT d.IdDisciplina, d.Sigla, d.Nome as Disciplina, c.Nome as Curso FROM Cursos c 
+                        JOIN CursoDisciplina cd ON c.IdCurso = cd.IdCurso 
+                        JOIN Disciplinas d On d.IdDisciplina = cd.IdDisciplina
+                        JOIN ProfessorDisciplinas pd On pd.IdDisciplina = d.IdDisciplina
+                        JOIN Professores p ON p.IdProfessor = pd.IdProfessor
+                        WHERE p.IdProfessor = '${req.query.IdProfessor}'`,
+        { type: db.Sequelize.QueryTypes.SELECT }
+    ).then(results => {
+        res.status(200).json(results);
     }).catch((err) => {
         console.log(err);
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });

@@ -17,6 +17,7 @@ import { AlunoService } from 'src/app/services/aluno.service';
 })
 export class TurmaAlunoComponent implements OnInit {
 
+    public paginaAtual = 1;
     values = [];
     id: any;
     idTurma: any;
@@ -96,13 +97,13 @@ export class TurmaAlunoComponent implements OnInit {
         const raDig = parseInt(e.target.value);
         console.log(raDig);
         this.raFilter = this.aluno.filter((item) => item.IdAluno === raDig);
-        if (this.turmaAluno.filter((item) => item.IdAluno === raDig)) {
+        /* if (this.turmaAluno.filter((item) => item.IdAluno === raDig)) {
             console.log(this.turmaAluno);
             this.toastr.error('Aluno já inserido na turma!', 'Atenção');
             return false;
         } else {
             return true;
-        }
+        } */
     }
 
     ModalAluno() {

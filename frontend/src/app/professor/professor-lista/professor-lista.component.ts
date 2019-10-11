@@ -13,6 +13,7 @@ import { ToasterService } from 'angular2-toaster';
 })
 export class ProfessorListaComponent implements OnInit {
 
+  public paginaAtual = 1;
   values = [];
   id: any;
   excluir = false;

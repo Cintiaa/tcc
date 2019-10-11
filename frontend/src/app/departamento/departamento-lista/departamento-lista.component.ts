@@ -14,6 +14,8 @@ import { DepartamentoService } from 'src/app/services/departamento.service';
 
 export class DepartamentoListaComponent implements OnInit {
 
+  public paginaAtual = 1;
+  
   values = [];
   id: any;
   excluir = false;

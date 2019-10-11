@@ -16,6 +16,7 @@ import { isNgTemplate } from '@angular/compiler';
 })
 export class ProfessorDisciplinaComponent implements OnInit {
 
+    public paginaAtual = 1;
     values = [];
     id: any;
     idProfessor: any;
@@ -88,7 +89,6 @@ export class ProfessorDisciplinaComponent implements OnInit {
                 });
             }
             this.form.get('IdProfessor').setValue(el[0].IdProfessor);
-
         }
     }
 
@@ -106,6 +106,7 @@ export class ProfessorDisciplinaComponent implements OnInit {
         this.vincDisciplina(this.professor);
         this.clear();
     }
+    
     cancelDisciplina() {
         this.addDisciplina = false;
         this.clear();
@@ -174,7 +175,7 @@ export class ProfessorDisciplinaComponent implements OnInit {
     }
 
     remover() {
-        this.discipProf = this.disciplina.filter((item) => item.IdDisciplina = this.id);
+        this.discipProf = this.disciplina.filter((item) => item.IdDisciplina == this.id);
         this.service.removeDisciplina(this.discipProf[0]).subscribe(res => {
             console.log(res);
             this.toastr.success('Sucesso', 'Disciplina desvinculada com sucesso!');

@@ -10,6 +10,8 @@ import { isNgTemplate } from '@angular/compiler';
   styleUrls: ['./aluno-lista.component.css']
 })
 export class AlunoListaComponent implements OnInit {
+  public paginaAtual = 1;
+  
   values = [];
   id: any;
   excluir = false;

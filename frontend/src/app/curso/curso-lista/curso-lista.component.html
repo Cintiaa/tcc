@@ -19,12 +19,12 @@
         <td>{{v.Sigla}}</td>
         <td>{{v.Nome}}</td>
         <td class="">
-          <button class="action-lista btn btn-primary" 
-            style="width: 170px;">
+          <button class="action-lista btn btn-primary" style="width: 170px;" (click)="vincularDisciplina(v.IdCurso)">
             <i class="fa fa-plus"></i> Adicionar/Visualizar </button>
         </td>
         <td class="d-flex justify-content-center action-cell">
-          <button class="action-lista btn btn-primary" (click)="editarCurso(v.IdCurso)"><i class="fa fa-edit"></i> Editar</button>
+          <button class="action-lista btn btn-primary" (click)="editarCurso(v.IdCurso)"><i class="fa fa-edit"></i>
+            Editar</button>
           <button class="action-lista btn btn-primary" (click)="confirmar(v.IdCurso)"><i class="fa fa-trash"></i>
             Excluir</button>
         </td>

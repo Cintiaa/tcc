@@ -12,8 +12,11 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['../curso.css']
 })
 export class CursoListaComponent implements OnInit {
-  cursosArray: Array<Curso> = [];
-  filteredCursos: Array<Curso> = [];
+
+  public paginaAtual = 1;
+  
+  cursosArray = [];
+  filteredCursos = [];
   values = [];
   id: any;
   excluir = false;
@@ -32,6 +35,7 @@ export class CursoListaComponent implements OnInit {
   }
 
   @Output() editar = new EventEmitter();
+  @Output() vincular = new EventEmitter();
 
   constructor(
     private service: CursoService,
@@ -48,9 +52,9 @@ export class CursoListaComponent implements OnInit {
 
   }
 
- /*  ngOnDestroy() {
-  }
- */
+  /*  ngOnDestroy() {
+   }
+  */
   /* performFilter(filterBy: string): Curso[] {
     filterBy = filterBy.toLocaleLowerCase();
     return this.cursosArray.filter((curso: Curso) =>
@@ -67,8 +71,12 @@ export class CursoListaComponent implements OnInit {
   } */
 
   editarCurso(e) {
-    console.log(e);
     this.editar.emit(e);
+  }
+
+  vincularDisciplina(e) {
+    console.log(e);
+    this.vincular.emit(e);
   }
 
   remover() {

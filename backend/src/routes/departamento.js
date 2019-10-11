@@ -67,7 +67,7 @@ router.get('/busca', (req, res) => {
 
 /* POST Departamento */
 router.post('/newDepartamento', async (req, res) => {
-    let Sigla = req.body.Sigla;
+    let Sigla = req.body.Sigla.toUpperCase();
     console.log(Sigla);
 
     try {

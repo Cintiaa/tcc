@@ -1,4 +1,4 @@
-<div class="container header">
+<!-- <div class="container header">
   <h3>Disciplina</h3>
   <hr>
 </div>
@@ -13,16 +13,10 @@
               <label class="col-sm-2 col-form-label" for="id">Código: </label>
               <input type="text" class="form-control" id="sigla" formControlName="sigla">
               <div class="col-sm-3">
-                <small
-                  class="text-danger"
-                  *ngIf="sigla.invalid && (sigla.dirty || sigla.touched) && sigla.errors.required">
-                    Esse item é obrigatório.
-                </small>
-                <small
-                  class="text-danger"
-                  *ngIf="sigla.invalid && (sigla.dirty || sigla.touched) && sigla.errors['siglaNotUnique']">
-                    Código já existente.
-                </small>
+                <small class="text-danger" *ngIf="sigla.invalid && (sigla.dirty || sigla.touched) && sigla.errors.required">
+                  Esse item é obrigatório. </small>
+                <small class="text-danger" *ngIf="sigla.invalid && (sigla.dirty || sigla.touched) && sigla.errors['siglaNotUnique']">
+                  Código já existente. </small>
               </div>
             </div>
           </div>
@@ -31,37 +25,52 @@
               <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
               <input type="text" class="form-control" id="nome" formControlName="nome">
               <div class="col-sm-3">
-                <small
-                  class="text-danger"
-                  *ngIf="nome.invalid && (nome.dirty || nome.touched) && nome.errors.required">
+                <small class="text-danger" *ngIf="nome.invalid && (nome.dirty || nome.touched) && nome.errors.required">
                   Esse item é obrigatório.
                 </small>
               </div>
             </div>
           </div>
           <div class="d-flex justify-content-left">
-            <button
-              type="submit"
-              class="btn btn-primary mb-2"
-              [disabled]="!form.valid">
+            <button type="submit" class="btn btn-primary mb-2" [disabled]="!form.valid">
               {{ editMode ? 'Atualizar' : 'Cadastrar'}}
             </button>
-            <button
-              type="button"
-              class="btn btn-danger mb-2"
-              (click)="onDelete()"
-              *ngIf="editMode">
+            <button type="button" class="btn btn-danger mb-2" (click)="onDelete()" *ngIf="editMode">
               Excluir
             </button>
-            <button
-              type="button"
-              class="btn btn-success mb-2"
-              (click)="onClear()">
-              Limpar
-            </button>
+            <button type="button" class="btn btn-success mb-2" (click)="onClear()"> Limpar </button>
           </div>
         </form>
       </div>
     </div>
   </div>
+</div> -->
+
+<div class="container">
+  <div class="card">
+    <div class="card-body row">
+      <div class="col-10 align-self-left ">
+        <form [formGroup]="form">
+          <div class="form-group">
+            <div class="d-flex justify-content-left">
+              <label class="col-sm-2 col-form-label" for="ra">Sigla: </label>
+              <input type="text" class="form-control" name="siglaDisciplina" formControlName="Sigla"
+                [attr.disabled]="editando ? '' : null" autocomplete="off" style="text-transform: uppercase">
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="d-flex justify-content-left">
+              <label class="col-sm-2 col-form-label" for="nome">Nome: </label>
+              <input type="text" class="form-control" name="nomeDisciplina" formControlName="Nome" autocomplete="off">
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class=" bt-cadastro d-flex justify-content-end">
+  <button type="submit" class="btn btn-primary mb-2" (click)="cadastrar(true)">Salvar</button>
+  <button type="submit" class="btn btn-outline-primary mb-2" (click)="cadastrar(false)">Cancelar</button>
 </div>

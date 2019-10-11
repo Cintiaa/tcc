@@ -24,13 +24,13 @@ export class ProfessorComponent implements OnInit {
 
 
   busca = {
-    Nome: "",
+    Nome: '',
   }
 
   limparInput() {
     this.busca = {
-      Nome: "",
-    }
+      Nome: '',
+    },
     this.msg = false;
     this.listaProfessor = false;
   }
@@ -49,11 +49,8 @@ export class ProfessorComponent implements OnInit {
   }
 
   buscar() {
-    console.log('Busca', this.busca);
     this.service.listarProfessores(this.busca).subscribe(res => {
       this.professor = res;
-      console.log(this.professor);
-    
       if (res.length == 0) {
         this.msg = true;
         this.listaProfessor = false;
@@ -61,22 +58,19 @@ export class ProfessorComponent implements OnInit {
         this.msg = false;
         this.listaProfessor = true;
       }
-    })
+    });
   }
 
 
   editarProfessor(id) {
-    console.log(id);
     this.service.buscaProfessorId(id).subscribe(res => {
       this.professorEdit = res;
-      console.log(res);
       this.cadtrProfessor = true;
       this.listaProfessor = false;
-    })
+    });
   }
 
   vincularDisciplina(id) {
-    console.log(id);
     this.service.buscaProfessorId(id).subscribe(res => {
       this.vinculo = res;
       this.cadtrProfessorDisciplina = true;

@@ -14,6 +14,9 @@ import { TurmaService } from 'src/app/services/turma.service';
 })
 
 export class TurmaListaComponent implements OnInit {
+
+  public paginaAtual = 1;
+  
   values = [];
   id: any;
   excluir = false;

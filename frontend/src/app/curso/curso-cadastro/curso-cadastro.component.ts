@@ -26,7 +26,7 @@ export class CursoCadastroComponent implements OnInit {
 
   curso = {
     IdCurso: 0,
-    RA: '',
+    Sigla: '',
     Nome: '',
     IsDeleted: 0
   }

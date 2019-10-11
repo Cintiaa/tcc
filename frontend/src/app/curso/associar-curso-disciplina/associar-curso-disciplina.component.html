@@ -1,4 +1,88 @@
-<div *ngIf="curso" class="container header">
+<div class="container header">
+  <div class="lista-title d-flex align-items-center justify-content-between">
+    <h1>Disciplinas vinculadas ao Curso</h1>
+  </div>
+</div>
+
+<div class="container-fluid">
+  <div class="info-lista">
+    <table class="table table-striped">
+      <thead class="thead">
+        <tr>
+          <th scope="col">Sigla</th>
+          <th scope="col">Disciplina</th>
+          <th scope="col">Ação</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let v of cursoDisciplina | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index;">
+          <td>{{v.Sigla}}</td>
+          <td>{{v.Nome}}</td>
+          <td class="d-flex justify-content-center action-cell">
+            <button class="col-4 action-lista btn btn-primary" (click)="confirmar(v.IdDisciplina)"><i
+                class="fa fa-trash"></i>
+              Desvincular</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="wrap-action">
+      <pagination-controls (pageChange)="paginaAtual = $event" previousLabel="Anterior" nextLabel="Próximo">
+      </pagination-controls>
+    </div>
+  </div>
+  <div class="d-flex justify-content-between">
+    <button class="btn btn-primary mb-2" (click)="ModalDisciplina()"><i class="fa fa-plus"></i> Adicionar
+      Disciplina</button>
+    <button class="btn btn-outline-primary mb-2" (click)="voltarBusca(false)"><i class="fa fa-arrow-left"></i>
+      Voltar</button>
+  </div>
+</div>
+
+<div class="overlay-curso-disciplina" [ngClass]="{'show-novo-dsmp': addDisciplina}">
+  <div class="wrap-curso-disciplina">
+    <div class="curso-disciplina">
+      <form [formGroup]="form">
+        <div class="form-group">
+          <div class="d-flex justify-content-left">
+            <label class="col-sm-3 col-form-label" for="curso">Curso: </label>
+            <select class="col-sm-6 form-control" name="curso" formControlName="IdCurso" disabled>
+              <option value="{{p.IdCurso}}" *ngFor="let p of curso">{{p.Nome}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="d-flex justify-content-left">
+            <label class="col-sm-3 col-form-label" for="disciplinacurso">Disciplina: </label>
+            <select class="col-sm-6 form-control" name="disciplinacurso" formControlName="IdDisciplina">
+              <option value="0" disabled>Selecione</option>
+              <option value="{{d.IdDisciplina}}" *ngFor="let d of disciplinasAllArray">{{d.Nome}}</option>
+            </select>
+          </div>
+        </div>
+      </form>
+      <div class="bt-cadastro d-flex justify-content-around">
+        <div class="col-7">
+          <button class="btn btn-primary mb-2" (click)="onAddDisciplina()">Salvar</button>
+          <button class="btn btn-outline-primary mb-2" (click)="cancelDisciplina()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal-excluir" [ngClass]="{'show-modal': excluir }">
+  <div class="box-modal">
+    <p>Deseja realmente desvincular essa disciplina?</p>
+    <div class="action-modal">
+      <button class="btn btn-primary mb-2" (click)="onDeleteDisciplina()">Sim</button>
+      <button class="btn btn-outline-primary mb-2" (click)="cancelar()">Não</button>
+    </div>
+  </div>
+</div>
+
+<!-- <div *ngIf="curso" class="container header">
   <h3>Curso: {{ curso.Sigla }} - {{ curso.Nome }}</h3>
   <hr>
 </div>
@@ -78,3 +162,4 @@
     </div>
   </div>
 </div>
+ -->

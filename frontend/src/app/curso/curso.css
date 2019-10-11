@@ -44,7 +44,9 @@
     /* red */
 }
 
-.curso-lista {
+.curso-lista,
+.curso-cadastro, 
+.curso-vinculo {
     height: 0;
     opacity: 0;
     pointer-events: none;
@@ -55,20 +57,9 @@
     text-align: center;
 }
 
-.curso-lista.show-component {
-    height: auto;
-    opacity: 1;
-    pointer-events: all;
-    transition: opacity .3s ease-in-out;
-}
-
-.curso-cadastro {
-    height: 0;
-    opacity: 0;
-    pointer-events: none;
-}
-
-.curso-cadastro.show-component {
+.curso-lista.show-component,
+.curso-cadastro.show-component, 
+.curso-vinculo.show-component {
     height: auto;
     opacity: 1;
     pointer-events: all;
@@ -172,4 +163,36 @@ a .fa {
 .wrap-action {
     display: flex;
     justify-content: center;
+}
+
+
+.overlay-curso-disciplina {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 9999;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease-in-out;
+}
+
+.overlay-curso-disciplina.show-novo-dsmp {
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity .2s ease-in-out;
+}
+
+.wrap-curso-disciplina {
+    background-color: #fff;
+    width: 450px;
+    height: 240px;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 25px;
+    border-radius: 5px;
 }

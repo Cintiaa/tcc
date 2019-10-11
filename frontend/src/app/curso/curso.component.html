@@ -1,7 +1,7 @@
-<div class="container header">
+<div class="container header" [ngStyle]="{display: cadtrCursoDisciplina ? 'none':'block' }">
     <div class="row">
         <div class="col-6">
-            <h3><i class="fa fa-graduation-cap"></i> Curso</h3>
+            <h3><i class="fa fa-university"></i> Curso</h3>
         </div>
 
         <div class="col-6" [ngStyle]="{display: cadtrCurso? 'none':'block' }">
@@ -15,7 +15,7 @@
 </div>
 
 <div class="animated fadeIn container-fluid" style=" margin-top: -20px;">
-    <div class="card" [ngStyle]="{display: cadtrCurso? 'none':'block' }">
+    <div class="card" [ngStyle]="{display: cadtrCurso || cadtrCursoDisciplina ? 'none':'block' }">
         <div class="card-body row">
             <div class="col-10 align-self-left">
                 <div class="form-group">
@@ -42,7 +42,11 @@
         <curso-cadastro [cursoEdit]="cursoEdit" (completed)="cadastroCallback($event)"></curso-cadastro>
     </div>
     <div class="curso-lista" [ngClass]="{'show-component': listaCurso }">
-        <curso-lista [curso]="curso" (editar)="editarCurso($event)"></curso-lista>
+        <curso-lista [curso]="curso" (editar)="editarCurso($event)" (vincular)="vincularDisciplina($event)"></curso-lista>
+    </div>
+    <div class="curso-vinculo" [ngClass]="{'show-component': cadtrCursoDisciplina }">
+        <associar-curso-disciplina [vinculo]="vinculo" (completed)="cadastroCallback($event)">
+        </associar-curso-disciplina>
     </div>
     <div [ngStyle]="{display: cadtrCurso? 'none':'block' }">
         <div class="curso-lista" [ngClass]="{'show-component': msg }">

@@ -12,12 +12,14 @@
                     <th scope="col">Sigla</th>
                     <th scope="col">Disciplina</th>
                     <th scope="col">Curso</th>
+                    <th scope="col">Ação</th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let v of profDisciplina | paginate: { itemsPerPage: 10, currentPage: paginaAtual }; let i = index;">
                     <td>{{v.Sigla}}</td>
-                    <td>{{v.Nome}}</td>
+                    <td>{{v.Disciplina}}</td>
+                    <td>{{v.Curso}}</td>
                     <td class="d-flex justify-content-center action-cell">
                         <button class="col-4 action-lista btn btn-primary" (click)="confirmar(v.IdDisciplina)"><i
                                 class="fa fa-trash"></i>

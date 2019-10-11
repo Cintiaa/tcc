@@ -79,7 +79,7 @@ router.get('/buscaTurmaAluno', (req, res, next) => {
 router.post('/newTurma', async (req, res, next) => {
 
     try {
-        if (await turmaModel.findOne({ where: { Sigla: req.body.Sigla } }))
+        if (await turmaModel.findOne({ where: { Sigla: req.body.Sigla.toUpperCase() } }))
             res.status(400).json({ error: 'Sigla já cadastrada' });
 
         const turma = await turmaModel.create(req.body);

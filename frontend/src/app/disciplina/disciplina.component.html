@@ -1,15 +1,53 @@
 <div class="container header">
-  <div class="row">
-      <div class="col-6">
-          <h3><i class="fa fa-book"></i> Disciplina</h3>
-      </div>
-      <div class="col-6">
-          <div class="d-flex justify-content-end">
-              <button type="submit" class="btn btn-primary mb-2" (click)="onAdicionar()">Adicionar</button>
-          </div>
-      </div>
-  </div>
-  <hr>
+    <div class="row">
+        <div class="col-6">
+            <h3><i class="fa fa-book"></i> Disciplina</h3>
+        </div>
+
+        <div class="col-6" [ngStyle]="{display: cadtrDisciplina? 'none':'block' }">
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary mb-2" (click)="onAdicionar(true)">Adicionar</button>
+            </div>
+        </div>
+    </div>
+
+    <hr>
 </div>
 
-<app-disciplina-lista></app-disciplina-lista>
+<div class="animated fadeIn container-fluid" style=" margin-top: -20px;">
+    <div class="card" [ngStyle]="{display: cadtrDisciplina? 'none':'block' }">
+        <div class="card-body row">
+            <div class="col-10 align-self-left">
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-2 col-form-label" for="Sigla">Sigla: </label>
+                        <input type="text" class="form-control" name="Sigla" [(ngModel)]="busca.Sigla"
+                            style="text-transform: uppercase">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="d-flex justify-content-left">
+                        <label class="col-2 col-form-label" for="Nome">Nome: </label>
+                        <input type="text" class="form-control" name="Nome" [(ngModel)]="busca.Nome">
+                        <div class="bt-pesquisa">
+                            <button type="submit" class="btn btn-primary mb-2" (click)="buscar()">Pesquisar</button>
+                            <button type="submit" class="btn btn-primary mb-2" (click)="limparInput()">Limpar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="disciplina-cadastro" [ngClass]="{'show-component': cadtrDisciplina}">
+        <disciplina-cadastro [disciplinaEdit]="disciplinaEdit" (completed)="cadastroCallback($event)"></disciplina-cadastro>
+    </div>
+    <div class="disciplina-lista" [ngClass]="{'show-component': listaDisciplina }">
+        <disciplina-lista [disciplina]="disciplina" (editar)="editarDisciplina($event)"></disciplina-lista>
+    </div>
+    <div [ngStyle]="{display: cadtrDisciplina? 'none':'block' }">
+        <div class="disciplina-lista" [ngClass]="{'show-component': msg }">
+            <p>Não há registros que satisfaçam o critério de busca!</p>
+        </div>
+    </div>
+
+</div>

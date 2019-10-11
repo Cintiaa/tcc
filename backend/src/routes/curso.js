@@ -54,7 +54,7 @@ router.get('/busca', (req, res, next) => {
 //Retorno do curso com sigla definida.
 router.get('/buscaSigla', (req, res, next) => {
     models.Curso.findOne({ where: { Sigla: req.body.Sigla, IsDeleted: 0 } }).then((curso) => {
-        res.status(200).json( curso )
+        res.status(200).json(curso)
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
     })
@@ -62,7 +62,7 @@ router.get('/buscaSigla', (req, res, next) => {
 
 router.get('/buscaId', (req, res, next) => {
     models.Curso.findAll({ where: { IdCurso: req.query.IdCurso, IsDeleted: 0 } }).then((curso) => {
-        res.status(200).json( curso )
+        res.status(200).json(curso)
     }).catch((err) => {
         res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
     })
@@ -71,7 +71,7 @@ router.get('/buscaId', (req, res, next) => {
 /* POST curso */
 router.post('/new', (req, res, next) => {
     models.Curso.create({
-        Sigla: req.body.Sigla,
+        Sigla: req.body.Sigla.toUpperCase(),
         Nome: req.body.Nome,
         IsDeleted: 0,
     }).then(curso => {
@@ -84,7 +84,7 @@ router.post('/new', (req, res, next) => {
                 Nome: req.body.Nome,
                 IsDeleted: 0
             },
-                { where: { Sigla: req.body.Sigla } }
+                { where: { Sigla: req.body.Sigla.toUpperCase() } }
             ).then(curso => {
                 res.status(200).json({ sucess: 'Curso cadastrado com sucesso!', curso });
                 /* res.redirect('/'); */
@@ -126,5 +126,22 @@ router.put('/edit', (req, res, next) => {
         res.status(400).json({ error: 'Houve um erro na atualização. Por favor tente mais tarde!', err });
     });
 });
+
+// Busca todas as disciplinas de um determinado curso
+router.get('/buscaCursoDisciplina', (req, res, next) => {
+    db.sequelize.query(`SELECT DISTINCT d.Sigla, d.Nome as Disciplina FROM Cursos c 
+                        JOIN CursoDisciplina cd ON c.IdCurso = cd.IdCurso 
+                        JOIN Disciplinas d On d.IdDisciplina = cd.IdDisciplina
+                        WHERE c.IdCurso = '${req.query.IdCurso}'`,
+        { type: db.Sequelize.QueryTypes.SELECT }
+    ).then(results => {
+        res.status(200).json(results);
+    }).catch((err) => {
+        console.log(err);
+        res.status(400).json({ error: 'Houve um erro na execução da busca!', err });
+    })
+});
+
+
 
 module.exports = router;

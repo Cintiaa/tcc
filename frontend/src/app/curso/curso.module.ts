@@ -12,6 +12,7 @@ import { CursoListaComponent } from './curso-lista/curso-lista.component';
 import { AssociarCursoDisciplinaComponent } from './associar-curso-disciplina/associar-curso-disciplina.component';
 import { HttpClientModule } from '@angular/common/http';
 import { CursoService } from '../services/curso.service';
+import { DisciplinaService } from '../services/disciplina.service';
 
 @NgModule({
   imports: [
@@ -23,9 +24,9 @@ import { CursoService } from '../services/curso.service';
     NgxPaginationModule,
     ToastrModule.forRoot()
   ],
-  exports: [CursoCadastroComponent, CursoListaComponent],
+  exports: [CursoCadastroComponent, CursoListaComponent, AssociarCursoDisciplinaComponent],
   declarations: [CursoCadastroComponent, CursoListaComponent, CursoComponent, AssociarCursoDisciplinaComponent],
-  providers: [HttpClientModule, CursoService]
+  providers: [HttpClientModule, CursoService, DisciplinaService]
 })
 
 export class CursoModule {

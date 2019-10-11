@@ -23,6 +23,10 @@ CursoDisciplina = db.sequelize.define('CursoDisciplina', {
         },
         allowNull: false
     },
+    IsDeleted:{
+        type: db.Sequelize.BOOLEAN,
+        allowNull: false,
+    },
     createdAt: {
         allowNull: false,
         type: db.Sequelize.DATE
