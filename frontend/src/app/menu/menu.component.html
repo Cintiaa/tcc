@@ -1,29 +1,40 @@
-<mat-drawer-container>
+<mat-drawer-container [ngStyle]="{display: logout ? 'none':'block' }">
     <mat-drawer #drawer class="sidenav" fixedInViewport="false"
         [attr.role]="(isHandset | async) ? 'dialog' : 'navigation'"
         [mode]="(isHandset | async)!.matches ? 'over' : 'side'" [opened]="!(isHandset | async)!.matches">
         <mat-toolbar color="primary">Menu</mat-toolbar>
         <mat-nav-list>
-            <a mat-list-item [routerLink]="['/']"><i class="fa fa-home"></i> Home</a>
-            <a mat-list-item [routerLink]="['/aluno']"><i class="fa fa-graduation-cap"></i> Aluno</a>
-            <a mat-list-item [routerLink]="['/departamento']"><i class="fa fa-archive"></i> Departamento</a>
-            <a mat-list-item [routerLink]="['/professor']"><i class="fa fa-user-secret"></i> Professor</a>
-            <a mat-list-item [routerLink]="['/curso']"><i class="fa fa-university"></i> Curso</a>
-            <a mat-list-item [routerLink]="['/disciplina']"><i class="fa fa-book"></i> Disciplina</a>
-            <a mat-list-item [routerLink]="['/turma']"><i class="fa fa-users"></i> Turma</a>
-            <a mat-list-item [routerLink]="['/relatorio']"><i class="fa fa-file"></i> Relatório</a>
+            <a mat-list-item [routerLink]="['/home']" ><i class="fa fa-home"></i> Home</a>
+            <a mat-list-item [routerLink]="['/aluno']" ><i class="fa fa-graduation-cap"></i> Aluno</a>
+            <a mat-list-item [routerLink]="['/departamento']" ><i class="fa fa-archive"></i> Departamento</a>
+            <a mat-list-item [routerLink]="['/professor']" ><i class="fa fa-user-secret"></i> Professor</a>
+            <a mat-list-item [routerLink]="['/curso']" ><i class="fa fa-university"></i> Curso</a>
+            <a mat-list-item [routerLink]="['/disciplina']" ><i class="fa fa-book"></i> Disciplina</a>
+            <a mat-list-item [routerLink]="['/turma']" ><i class="fa fa-users"></i> Turma</a>
+            <a mat-list-item [routerLink]="['/relatorio']" ><i class="fa fa-file"></i> Relatório</a>
+            <a mat-list-item [routerLink]="['/usuario']" ><i class="fa fa-users"></i> Usuários</a>
         </mat-nav-list>
     </mat-drawer>
 
     <mat-drawer-content>
         <mat-toolbar color="primary">
             <!-- <mat-icon svgIcon="hamIcon" (click)="drawer.toggle()"></mat-icon> -->
+
             <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()"
                 *ngIf="isHandset | async">
                 <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
             </button>
-            <!-- Welcome to {{title}} -->
+        
+          
+            <button style="margin-left: 80%;" mat-button [matMenuTriggerFor]="menu"><i class="fa fa-user"></i></button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item [routerLink]="['/']" (click)="deslogar(true)">
+                    <i class="fa fa-arrow-left"></i> Logout</button>
+            </mat-menu>
         </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-drawer-content>
 </mat-drawer-container>
+
+<footer [ngStyle]="{display: logout ? 'none':'block' }"></footer>
+<login *ngIf="logout"></login>

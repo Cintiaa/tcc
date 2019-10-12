@@ -4,6 +4,15 @@ const db = require('../config/db');
 
 const router = express.Router();
 
+const loggedin = function (req, res, next) {
+    if (req.isAuthenticated()) {
+      next()
+    } else {
+      res.redirect('/login')
+    }
+  }
+  
+
 //Retorna todos os cursos no cadastro de alunos
 router.get('/', (req, res, next) => {
     models.Curso.findAll({ where: { IsDeleted: 0 } }).

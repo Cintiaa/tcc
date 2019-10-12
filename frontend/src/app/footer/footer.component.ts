@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'footer',
@@ -8,4 +8,11 @@ import { Component, OnInit } from '@angular/core';
 export class FooterComponent implements OnInit {
   constructor() {}
   ngOnInit() {}
+
+  
+  @Output() logout = new EventEmitter();
+
+  deslogar(e) {
+    this.logout.emit(e);
+  }
 }

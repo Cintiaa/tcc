@@ -1,0 +1,49 @@
+
+.header{
+    margin-top: 50px;
+}
+
+.form-control {
+    width: 50%;
+}
+
+.form-control .form-label {
+    text-align: left;
+}
+
+.form-control-file, .form-control-range {
+    display: none;
+    width: 100%;
+    padding-top: 12px;
+}
+
+.custom-file {
+    margin-left: 148px;
+}
+
+.mb-2{
+    margin-top: 25px;
+    margin-right: 12px;
+}
+
+.btn-primary{
+    background-color: #3d21d2eb;
+    border-color: #2700ff;
+}
+
+.btn-outline-primary {
+    color: #3d21d2eb;
+    border-color: #2700ff;
+}
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #3d21d2eb;
+    border-color: #2700ff;
+}
+
+
+
+.bt-cadastro{
+    margin-top: 2px;
+    padding-left: 30px;
+}

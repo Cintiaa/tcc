@@ -15,6 +15,8 @@ import { ToastrModule } from 'ngx-toastr';
 import { FileSelectDirective } from 'ng2-file-upload';
 import { ToasterModule, ToasterService, ToasterContainerComponent } from 'angular2-toaster';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MatMenuModule } from '@angular/material/menu';
+import { JwtModule } from '@auth0/angular-jwt';
 
 
 import { HomeComponent } from './home/home.component';
@@ -34,9 +36,19 @@ import { TurmaComponent } from './turma/turma.component';
 import { TurmaModule } from './turma/turma.module';
 import { RelatorioComponent } from './relatorio/relatorio.component';
 import { RelatorioModule } from './relatorio/relatorio.module';
+import { LoginModule } from './login/login.module';
+import { LoginComponent } from './login/login.component';
+import { UsuarioComponent } from './usuarios/usuario.component';
+import { UsuarioModule } from './usuarios/usuario.module';
+import { HomeModule } from './home/home.module';
+import { CadastroComponent } from './login/cadastro.component';
+
 
 //import { AppRoutes } from './app.routing.module';
 
+export function tokenGetter() {
+  return localStorage.getItem('access_token');
+}
 
 @NgModule({
   declarations: [
@@ -49,6 +61,9 @@ import { RelatorioModule } from './relatorio/relatorio.module';
     FooterComponent,
     DepartamentoComponent,
     TurmaComponent,
+    UsuarioComponent,
+    CadastroComponent,
+    LoginComponent,
     RelatorioComponent,
     FileSelectDirective
   ],
@@ -61,20 +76,31 @@ import { RelatorioModule } from './relatorio/relatorio.module';
     MatListModule,
     AngularFontAwesomeModule,
     LayoutModule,
+    MatMenuModule,
     MatButtonModule,
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     NgxPaginationModule,
+    HomeModule,
     AlunoModule,
+    LoginModule,
     ProfessorModule,
     CursoModule,
     DisciplinaModule,
     DepartamentoModule,
     TurmaModule,
+    UsuarioModule,
     RelatorioModule,
     AppRoutingModule,
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        whitelistedDomains: ['localhost:4200'],
+        blacklistedRoutes: ['localhost:4200/api/auth']
+      }
+    })
   ],
 
   providers: [ToasterService],

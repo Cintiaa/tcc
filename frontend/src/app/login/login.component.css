@@ -1,0 +1,117 @@
+.header {
+    margin-top: 50px;
+}
+
+.animated {
+    margin-bottom: 0;
+}
+
+.btn-control {
+    width: 20%;
+}
+
+.form-control {
+    width: 120%;
+}
+
+label, input {
+    color: #000;
+}
+
+.form-control .form-label {
+    text-align: center;
+}
+
+.form-control-file, .form-control-range {
+    display: block;
+    width: 100%;
+    padding-top: 12px;
+}
+
+.custom-file {
+    margin-left: 148px;
+}
+
+.bt-pesquisa, .form-group {
+    display: flex;
+    justify-content: center;
+}
+
+.label-form {
+    display: block;
+    justify-content: center
+}
+
+.btn-primary {
+    background-color: #3d21d2eb;
+    border-color: #2700ff;
+}
+
+.btn-outline-primary {
+    color: #3d21d2eb;
+    border-color: #2700ff;
+}
+
+.btn-outline-primary:hover {
+    color: #fff;
+    background-color: #3d21d2eb;
+    border-color: #2700ff;
+}
+
+.login-lista {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.login-lista p {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.login-lista.show-component {
+    height: auto;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity .3s ease-in-out;
+}
+
+.login-cadastro {
+    height: 0;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.login-cadastro.show-component {
+    height: auto;
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity .3s ease-in-out;
+}
+
+.alert {
+    padding: .35rem 0.75rem;
+}
+
+button.action-lista {
+    border-radius: 4px;
+    display: block;
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+    margin-right: 3px;
+}
+
+a{
+    text-decoration: none;
+}
+/* .ng-valid, .ng-valid.required {
+    color: #000;
+}
+
+.ng-valid{
+    color: #000;
+}
+.ng-invalid:not(form) {
+    color: #c70f0f;
+} */

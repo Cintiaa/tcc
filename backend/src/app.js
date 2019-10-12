@@ -18,6 +18,7 @@ const imagemRouter = require('./routes/upload');
 const turmaRouter = require('./routes/turma');
 const departamentoRouter = require('./routes/departamento');
 const relatorioRouter = require('./routes/relatorio');
+const authRouter = require('./routes/auth');
 
 
 const app = express();
@@ -50,7 +51,7 @@ app.use(express.static(path.join(__dirname, '/../../../resources')));
 
 
 
-app.use('/', indexRouter);
+app.use('/api/home', indexRouter);
 app.use('/users', usersRouter);
 app.use('/api/curso', cursoRouter);
 app.use('/api/aluno', alunoRouter);
@@ -60,6 +61,7 @@ app.use('/api/upload', imagemRouter);
 app.use('/api/turma', turmaRouter);
 app.use('/api/departamento', departamentoRouter);
 app.use('/api/relatorio', relatorioRouter);
+app.use('/api/auth', authRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

@@ -1,0 +1,35 @@
+<div class="animated fadeIn container-fluid"
+    style=" margin-top: 215px;" *ngIf="!cadastrado">
+    <div class="d-flex justify-content-center">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div [formGroup]="form">
+                        <div class="form-group">
+                            <div class="label-form">
+                                <label class="col-form-label" for="useremail">E-mail: </label>
+                                <input type="email" class="form-control" name="useremail" formControlName="email"
+                                    required autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-form">
+                                <label class="col-form-label" for="userpassword">Senha: </label>
+                                <input type="password" class="form-control" name="userpassword"
+                                    formControlName="password" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bt-pesquisa">
+                        <button type="submit" (click)="cadastrar(true)" class="btn btn-primary btn-control">Cadastro</button>
+                        <!-- <button type="submit" (click)="cadastro()" class="btn btn-primary action-lista btn-control">Cadastro</button> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<login *ngIf="cadastrado"></login>

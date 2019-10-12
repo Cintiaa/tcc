@@ -40,7 +40,6 @@ export class AlunoListaComponent implements OnInit {
   }
 
   editarAluno(e) {
-    console.log(e);
     this.editar.emit(e);
   }
 

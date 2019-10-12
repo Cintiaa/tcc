@@ -1,0 +1,70 @@
+<div class="animated fadeIn container-fluid" *ngIf="!cad" [ngStyle]="{display: logado ? 'none':'block' }"
+    style=" margin-top: 215px;">
+    <div class="d-flex justify-content-center">
+        <div class="col-4">
+            <div class="card">
+                <div class="card-body">
+                    <div [formGroup]="form">
+                        <div class="form-group">
+                            <div class="label-form">
+                                <label class="col-form-label" for="useremail">E-mail: </label>
+                                <input type="email" class="form-control" name="useremail" formControlName="email"
+                                    required autocomplete="off">
+                                <div style="margin-top:10px"></div>
+                                <span class="alert alert-danger"
+                                    *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.required">
+                                    E-mail não pode ser vazio.
+                                </span>
+                                <span class="alert alert-danger"
+                                    *ngIf="(email.dirty || email.touched) && email.invalid && email.errors.invalidEmail">
+                                    E-mail inválido.
+                                </span>
+                                <span class="alert alert-danger" *ngIf="isEmail">
+                                    Email inválido.
+                                </span>
+                                <br />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="label-form">
+                                <label class="col-form-label" for="userpassword">Senha: </label>
+                                <input type="password" class="form-control" name="userpassword"
+                                    formControlName="password" required>
+                                <div style="margin-top:10px">
+
+                                    <span class="alert alert-danger"
+                                        *ngIf="(password.dirty || password.touched) && password.invalid && password.errors.required">
+                                        Senha não pode ser vazia.
+                                    </span>
+                                    <span class="alert alert-danger"
+                                        *ngIf="(password.dirty || password.touched) && password.invalid && password.errors.invalidPassword">
+                                        Senha inválida.
+                                    </span>
+                                    <span class="alert alert-danger" *ngIf="isSenha">
+                                        Senha inválida.
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bt-pesquisa">
+                        <button type="submit" (click)="fazerLogin()" class="btn btn-primary action-lista btn-control">Login</button>
+                        <button type="submit" (click)="cadastro(true)" class="btn btn-primary action-lista btn-control">Cadastro</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div [ngStyle]="{display: logado ? 'block':'none' }">
+    <app-menu>
+        <router-outlet></router-outlet>
+    </app-menu>
+</div>
+
+<cadastro *ngIf="cad"></cadastro>
+
+
