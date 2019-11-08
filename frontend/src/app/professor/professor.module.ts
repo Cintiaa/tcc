@@ -1,5 +1,4 @@
 import { HttpClientModule } from '@angular/common/http';
-import { ToasterService, ToasterModule } from 'angular2-toaster';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -22,11 +21,11 @@ import { ProfessorDisciplinaComponent } from './professor-disciplina/professor-d
         FormsModule,
         NgxPaginationModule,
         ReactiveFormsModule ,
-        ToasterModule.forRoot()
+        ToastrModule.forRoot()
     ],
     exports: [ProfessorCadastroComponent, ProfessorListaComponent, ProfessorDisciplinaComponent],
     declarations: [ProfessorCadastroComponent, ProfessorListaComponent, ProfessorDisciplinaComponent],
-    providers: [HttpClientModule, ProfessorService, ToasterService]
+    providers: [HttpClientModule, ProfessorService]
 })
 
 export class ProfessorModule{}
